@@ -1,0 +1,50 @@
+.text-input{
+  display: flex;
+  flex-direction: column;
+  label {
+    margin: 12px 0;
+    font-weight: 600;
+  }
+  input{
+    padding: 15px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 17px;
+    outline: none;
+    transition: 0.1s ease;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0 , 0, 0.1);
+  }
+  input.active{
+    border-color: #2563EB;
+    box-shadow: 0 0 0 5px rgba(37,99,235,0.2);
+  }
+}
+
+.pass-progress-container{
+  margin-top: 15px;
+  display: flex;
+  height: 9px;
+  div{
+    height: 100%;
+    width: 100%;
+    margin: 0 2px;
+    background-color: #E5E7EB;
+    border-radius: 6px;
+  }
+}
+
+.submit-button{
+  width: fit-content;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #2563EB;
+  border: none;
+  border-radius: 7px;
+  padding: 10px 17px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+.submit-button:hover{
+  box-shadow: 0 0 0 5px rgba(37,99,235,0.2);
+}

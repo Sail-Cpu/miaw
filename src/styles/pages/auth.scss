@@ -1,0 +1,25 @@
+.sign-page {
+  color: #1F2937;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h1 {
+    text-align: center;
+    font-size: 40px;
+    margin: 0 0 10px 0;
+  }
+  .sign-page-form{
+    margin-bottom: 30px;
+  }
+  form{
+    margin: 0 auto;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .button-container{
+    width: 100%;
+    text-align: center;
+  }
+}

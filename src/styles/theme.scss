@@ -1,0 +1,35 @@
+// theme.scss
+
+// Définition des variables de thème
+$light-background: #ffffff;
+$light-text-primary: #000;
+$light-text-secondary: #8e05c2;
+$light-accent: #8e05c2;
+$light-border: #333;
+$light-form-bg: #fff;
+
+$dark-background: #000;
+$dark-text-primary: #fff;
+$dark-text-secondary: #8e05c2;
+$dark-accent: #8e05c2;
+$dark-border: #808080;
+$dark-form-bg: #191919;
+
+// Mixin pour les variables de thème
+@mixin theme($theme) {
+  @if $theme == light {
+    --background: $light-background;
+    --text-primary: $light-text-primary;
+    --text-secondary: $light-text-secondary;
+    --accent: $light-accent;
+    --border: $light-border;
+    --form-bg: $light-form-bg;
+  } @else if $theme == dark {
+    --background: $dark-background;
+    --text-primary: $dark-text-primary;
+    --text-secondary: $dark-text-secondary;
+    --accent: $dark-accent;
+    --border: $dark-border;
+    --form-bg: $dark-form-bg;
+  }
+}
