@@ -3,18 +3,17 @@ import { useState } from "react";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/inputs/Button.jsx";
 import PassProgress from "../components/inputs/PassProgress.jsx";
-import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 import Select from "../components/inputs/Select.jsx";
 import Upload from "../components/inputs/Upload.jsx";
 import OS from "../components/inputs/OS.jsx";
+//Forms
+import RegisterForm from "../../forms/auth/RegisterForm.jsx";
+import ProfileForm from "../../forms/auth/ProfileForm.jsx";
+import ConfigForm from "../../forms/auth/ConfigForm.jsx";
 
 const Register = () => {
 
     const [step, setStep] = useState(1);
-
-    const [password, setPassword] = useState("");
-
-    const passwordStrength = usePasswordStrength(password);
 
     const changeStep = (e, step) => {
         e.preventDefault();
@@ -23,48 +22,9 @@ const Register = () => {
 
     return(
         <div className="sign-page register-page">
-            {step === 1 &&
-                <form>
-                    <h1>Register</h1>
-                    <div className="sign-page-form">
-                        <Input name="email" type="email" holder="you@email.com"/>
-                        <Input
-                            name="password"
-                            type="password"
-                            setState={setPassword}
-                        />
-                        <PassProgress strength={passwordStrength}/>
-                        <Input name="confirm password" type="password" />
-                    </div>
-                    <div className="button-container">
-                        <Button name="Submit" onClick={(e) => changeStep(e, 2)}/>
-                    </div>
-                </form>
-            }
-            {step === 2 &&
-                <form>
-                    <h1>Profile</h1>
-                    <div className="sign-page-form">
-                        <Input name="username" type="text" holder="walter_white"/>
-                        <Select name="jobs" />
-                        <Upload name="Picture profile" />
-                    </div>
-                    <div className="button-container">
-                        <Button name="Submit" onClick={(e) => changeStep(e, 3)}/>
-                    </div>
-                </form>
-            }
-            {step === 3 &&
-                <form>
-                    <h1>Profile</h1>
-                    <div className="sign-page-form">
-                        <OS name="OS" />
-                    </div>
-                    <div className="button-container">
-                        <Button name="Submit" onClick={(e) => changeStep(e, 3)}/>
-                    </div>
-            </form>
-            }
+            {step === 1 && <RegisterForm setStep={() => setStep(2)} />}
+            {step === 2 && <ProfileForm setStep={() => setStep(3)} />}
+            {step === 3 &&<ConfigForm />}
         </div>
     )
 }
