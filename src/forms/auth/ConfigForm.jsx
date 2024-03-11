@@ -7,6 +7,7 @@ const ConfigForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        props.setStep(4)
     }
 
     return(

@@ -1,30 +1,40 @@
 import { useState } from "react";
-//Components
-import Input from "../components/inputs/Input.jsx";
-import Button from "../components/inputs/Button.jsx";
-import PassProgress from "../components/inputs/PassProgress.jsx";
-import Select from "../components/inputs/Select.jsx";
-import Upload from "../components/inputs/Upload.jsx";
-import OS from "../components/inputs/OS.jsx";
 //Forms
 import RegisterForm from "../../forms/auth/RegisterForm.jsx";
 import ProfileForm from "../../forms/auth/ProfileForm.jsx";
 import ConfigForm from "../../forms/auth/ConfigForm.jsx";
+//ui
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+
+const steps = [
+    {title: "Register", info: "Set you email and password"},
+    {title: "Profile", info: "Set a profile with username and picture"},
+    {title: "Configuration", info: "Configure your space with os and color"},
+  ];
 
 const Register = () => {
 
-    const [step, setStep] = useState(1);
-
-    const changeStep = (e, step) => {
-        e.preventDefault();
-        setStep(step);
-    }
+    const [step, setStep] = useState(0);
 
     return(
         <div className="sign-page register-page">
-            {step === 1 && <RegisterForm setStep={() => setStep(2)} />}
-            {step === 2 && <ProfileForm setStep={() => setStep(3)} />}
-            {step === 3 &&<ConfigForm />}
+            {step === 0 && <RegisterForm setStep={() => setStep(1)} />}
+            {step === 1 && <ProfileForm setStep={() => setStep(2)} />}
+            {step >= 2 && <ConfigForm setStep={() => setStep(3)} />}
+            <div className="sign-step-container">
+                <Stepper activeStep={step} alternativeLabel>
+                    {
+                        steps.map((step, idx) => (
+                            <Step style={{textAlign: "center"}} key={idx}>
+                                <StepLabel style={{color: "#1F2937"}}>{step.title}</StepLabel>
+                                <p>{step.info}</p>
+                            </Step>
+                        )
+                    )}
+                </Stepper> 
+            </div>
         </div>
     )
 }
