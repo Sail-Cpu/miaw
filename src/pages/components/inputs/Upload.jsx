@@ -8,7 +8,7 @@ const Upload = (props) => {
     const [image, setImage] = useState("");
 
     return(
-        <div className="file-upload-input">
+        <div className="form-input file-upload-input">
             <label htmlFor={name}>{name[0].toUpperCase() + name.substring(1)}</label>
             <div className="file-upload-container">
                 <input name={name} type="file" onChange={(e) => setImage(e.target.value)}/>

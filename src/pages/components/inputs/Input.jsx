@@ -4,7 +4,7 @@ const Input = (props) => {
     const {name, type, holder, setState} = props;
 
     return(
-        <div className="text-input">
+        <div className="form-input text-input">
             <label htmlFor={name}>{name[0].toUpperCase() + name.substring(1)}</label>
             {!setState ?
                 <input

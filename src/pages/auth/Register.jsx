@@ -6,6 +6,7 @@ import PassProgress from "../components/inputs/PassProgress.jsx";
 import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 import Select from "../components/inputs/Select.jsx";
 import Upload from "../components/inputs/Upload.jsx";
+import OS from "../components/inputs/OS.jsx";
 
 const Register = () => {
 
@@ -52,6 +53,17 @@ const Register = () => {
                         <Button name="Submit" onClick={(e) => changeStep(e, 3)}/>
                     </div>
                 </form>
+            }
+            {step === 3 &&
+                <form>
+                    <h1>Profile</h1>
+                    <div className="sign-page-form">
+                        <OS name="OS" />
+                    </div>
+                    <div className="button-container">
+                        <Button name="Submit" onClick={(e) => changeStep(e, 3)}/>
+                    </div>
+            </form>
             }
         </div>
     )

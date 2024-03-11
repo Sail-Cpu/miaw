@@ -12,7 +12,7 @@ const Select = (props) => {
     const {name} = props;
 
     return (
-        <div className="select-input">
+        <div className="form-input select-input">
             <label htmlFor={name}>{name[0].toUpperCase() + name.substring(1)}</label>
             <select name={name}
                     onFocus={(e) => e.currentTarget.classList.add("active")}
