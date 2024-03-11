@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 //Components
 import OS from '../../pages/components/inputs/OS';
 import Button from '../../pages/components/inputs/Button';
 
 const ConfigForm = (props) => {
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.setStep(4)
+        navigate("/sign")
     }
 
     return(

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 //Forms
 import RegisterForm from "../../forms/auth/RegisterForm.jsx";
 import ProfileForm from "../../forms/auth/ProfileForm.jsx";
@@ -16,15 +17,27 @@ const steps = [
 
 const Register = () => {
 
-    const [step, setStep] = useState(0);
+    const location = useLocation();
+
+    const step = () => {
+        const path = location.pathname;
+        switch(path){
+            case "/sign":
+                return 0;
+            case "/sign/step2":
+                return 1;
+            case "/sign/step3":
+                return 2;
+            default:
+                return 4;
+        }
+    }
 
     return(
         <div className="sign-page register-page">
-            {step === 0 && <RegisterForm setStep={() => setStep(1)} />}
-            {step === 1 && <ProfileForm setStep={() => setStep(2)} />}
-            {step >= 2 && <ConfigForm setStep={() => setStep(3)} />}
+            {<Outlet />}
             <div className="sign-step-container">
-                <Stepper activeStep={step} alternativeLabel>
+                <Stepper activeStep={step()} alternativeLabel>
                     {
                         steps.map((step, idx) => (
                             <Step style={{textAlign: "center"}} key={idx}>

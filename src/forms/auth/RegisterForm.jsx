@@ -6,15 +6,18 @@ import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 import Input from '../../pages/components/inputs/Input.jsx';
 import PassProgress from '../../pages/components/inputs/PassProgress.jsx';
 import Button from '../../pages/components/inputs/Button.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = (props) => {
+
+    const navigate = useNavigate()
 
     const [password, setPassword] = useState("");
     const passwordStrength = usePasswordStrength(password);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.setStep();
+        navigate("/sign/step2")
     }
 
     return(

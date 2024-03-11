@@ -1,11 +1,23 @@
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 //Pages
 import Register from "./pages/auth/Register.jsx";
+import RegisterForm from "./forms/auth/RegisterForm.jsx";
+import ProfileForm from "./forms/auth/ProfileForm.jsx";
+import ConfigForm from "./forms/auth/ConfigForm.jsx";
 
 function App() {
 
   return (
     <>
-      <Register />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/sign" element={<Register />}>
+            <Route path="/sign" element={<RegisterForm />} />
+            <Route path="/sign/step2" element={<ProfileForm />} />
+            <Route path="/sign/step3" element={<ConfigForm />} /> 
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
