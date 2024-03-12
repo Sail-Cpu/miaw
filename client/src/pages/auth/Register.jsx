@@ -1,9 +1,4 @@
-import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-//Forms
-import RegisterForm from "../../forms/auth/RegisterForm.jsx";
-import ProfileForm from "../../forms/auth/ProfileForm.jsx";
-import ConfigForm from "../../forms/auth/ConfigForm.jsx";
 //ui
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
