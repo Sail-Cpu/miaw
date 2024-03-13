@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 //ui
+import { Toaster } from 'sonner'
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -43,6 +44,7 @@ const Register = () => {
                     )}
                 </Stepper> 
             </div>
+            <Toaster position="top-right" richColors/>
         </div>
     )
 }

@@ -1,6 +1,8 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+//ui
+import { toast } from 'sonner';
 //Context
 import {AuthContext} from "../../context/AuthContext.jsx";
 //Components
@@ -14,13 +16,12 @@ const ProfileForm = () => {
 
     const navigate = useNavigate();
     const {user, setUser} = useContext(AuthContext);
-    const [error, setError] = useState();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
         if(await userExist({username: formData.get("username")}) === true){
-            setError("user exist");
+            toast.error("username already is in use");
             return;
         }
         setUser({

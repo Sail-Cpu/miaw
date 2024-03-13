@@ -27,7 +27,6 @@ export const register = async (userData) => {
             return request.data;
         }
     }catch (error){
-        //console.log(error);
         return error?.response?.data
     }
 }

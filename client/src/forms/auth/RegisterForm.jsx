@@ -1,6 +1,8 @@
 import {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+//ui
+import { toast } from 'sonner';
 //Hooks
 import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 //Components
@@ -17,20 +19,22 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     const {setUser, user} = useContext(AuthContext)
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
     const passwordStrength = usePasswordStrength(password);
 
-    console.log(error);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         if(await userExist({email: formData.get("email")}) === true){
-            setError("user exist");
+            toast.error('email is already in use')
             return;
         }
-        if(passwordStrength === 5 && password === formData.get("confirm password")){
+        if(passwordStrength === 5){
+            if(password !== formData.get("confirm password")){
+                toast.error('passwords do not match')
+                return;
+            }
             setUser({
                 ...user,
                 email: formData.get("email"),
@@ -38,7 +42,7 @@ const RegisterForm = () => {
             })
             navigate("/sign/step2")
         }else{
-            setError("password error");
+            toast.error('the password is not strong enough')
         }
 
     }

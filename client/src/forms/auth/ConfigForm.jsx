@@ -6,6 +6,7 @@ import OS from '../../pages/components/inputs/OS';
 import Button from '../../pages/components/inputs/Button';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {signUp} from "../../redux/auth/action.js";
+import {toast} from "sonner";
 
 const ConfigForm = () => {
 
@@ -30,8 +31,10 @@ const ConfigForm = () => {
     useEffect(() => {
         if(user.os){
             fetchData().then(response => {
-                if(response?.message){
-                    console.log("ok")
+                if(response.data){
+                    toast.success("the user has been created successfully")
+                }else{
+                    toast.error("an error has occurred");
                 }
             })
         }
