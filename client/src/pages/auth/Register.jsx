@@ -21,7 +21,6 @@ const Register = () => {
         return user.os.length > 0 ? 3 :
                 user.username.length > 0 ? 2 :
                     user.email.length > 0 ? 1 : 0
-
     };
 
     return(

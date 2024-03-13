@@ -4,6 +4,7 @@ import Register from "./pages/auth/Register.jsx";
 import RegisterForm from "./forms/auth/RegisterForm.jsx";
 import ProfileForm from "./forms/auth/ProfileForm.jsx";
 import ConfigForm from "./forms/auth/ConfigForm.jsx";
+import Login from "./pages/auth/Login.jsx";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
             <Route path="/sign/step2" element={<ProfileForm />} />
             <Route path="/sign/step3" element={<ConfigForm />} /> 
           </Route>
+          <Route path="login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>
