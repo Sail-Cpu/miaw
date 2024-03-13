@@ -26,18 +26,24 @@ const RegisterForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        if(await userExist({email: formData.get("email")}) === true){
+        const email = formData.get("email");
+        const confirmPassword = formData.get("confirm password");
+        if(!email.length > 0 || !password.length > 0 || !confirmPassword.length > 0){
+            toast.error('all fields must be completed')
+            return
+        }
+        if(await userExist({email: email}) === true){
             toast.error('email is already in use')
             return;
         }
         if(passwordStrength === 5){
-            if(password !== formData.get("confirm password")){
+            if(password !== confirmPassword){
                 toast.error('passwords do not match')
                 return;
             }
             setUser({
                 ...user,
-                email: formData.get("email"),
+                email: email,
                 password: password
             })
             navigate("/sign/step2")

@@ -37,7 +37,7 @@ const ConfigForm = () => {
                 if(response.data){
                     toast.success("the user has been created successfully")
                 }else{
-                    toast.error("an error has occurred");
+                    toast.error(response.message);
                 }
             })
         }

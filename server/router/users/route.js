@@ -96,7 +96,7 @@ router.post(`/signin`, async (req, res) => {
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
                 if(isTheSame) return res.status(200).send({data: userExist});
-                return res.status(400).send({ message: "Incorrect password" })
+                return res.status(400).send({ message: "the password is incorrect" })
             })
         }catch (error){
             return res.status(500).send({message: "An internal error has occurred on the server"})

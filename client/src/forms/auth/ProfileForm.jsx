@@ -24,13 +24,18 @@ const ProfileForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
-        if(await userExist({username: formData.get("username")}) === true){
+        const username = formData.get("username");
+        if(!username.length > 0){
+            toast.error("all fields must be completed");
+            return;
+        }
+        if(await userExist({username: username}) === true){
             toast.error("username already is in use");
             return;
         }
         setUser({
             ...user,
-            username: formData.get("username"),
+            username: username,
             job: formData.get("jobs")
         })
         navigate("/sign/step3");

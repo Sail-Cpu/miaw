@@ -30,3 +30,22 @@ export const register = async (userData) => {
         return error?.response?.data
     }
 }
+
+export const login = async (userData) => {
+    const {username, password} = userData;
+    if(username.length > 0 && password.length > 0){
+        try{
+            const request = await axios.post(`${BASE_LINK}/signin`, {
+                nameEmail: username,
+                password: password
+            })
+            if(request.data){
+                return request.data
+            }
+        }catch (error){
+            return error?.response?.data
+        }
+    }else{
+        return {message: "all fields must be completed"}
+    }
+}
