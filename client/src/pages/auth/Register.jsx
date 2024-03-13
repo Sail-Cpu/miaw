@@ -4,6 +4,8 @@ import { Toaster } from 'sonner'
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import {useContext, useEffect, useMemo, useState} from "react";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 const steps = [
     {title: "Register", info: "Set you email and password"},
@@ -13,21 +15,14 @@ const steps = [
 
 const Register = () => {
 
-    const location = useLocation();
+    const {user} = useContext(AuthContext);
 
     const step = () => {
-        const path = location.pathname;
-        switch(path){
-            case "/sign":
-                return 0;
-            case "/sign/step2":
-                return 1;
-            case "/sign/step3":
-                return 2;
-            default:
-                return 4;
-        }
-    }
+        return user.os.length > 0 ? 3 :
+                user.username.length > 0 ? 2 :
+                    user.email.length > 0 ? 1 : 0
+
+    };
 
     return(
         <div className="sign-page register-page">
@@ -44,7 +39,7 @@ const Register = () => {
                     )}
                 </Stepper> 
             </div>
-            <Toaster position="top-right" richColors/>
+            <Toaster position="top-right" richColors closeButton />
         </div>
     )
 }

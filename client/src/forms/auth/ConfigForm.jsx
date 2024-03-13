@@ -7,9 +7,11 @@ import Button from '../../pages/components/inputs/Button';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {signUp} from "../../redux/auth/action.js";
 import {toast} from "sonner";
+import {useNavigate} from "react-router-dom";
 
 const ConfigForm = () => {
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {user, setUser} = useContext(AuthContext)
     const [choice, setChoice] = useState("");
@@ -29,6 +31,7 @@ const ConfigForm = () => {
     }
 
     useEffect(() => {
+        if(user.username.length === 0) navigate("/sign/step2");
         if(user.os){
             fetchData().then(response => {
                 if(response.data){

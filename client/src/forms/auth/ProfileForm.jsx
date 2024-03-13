@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //ui
@@ -16,6 +16,10 @@ const ProfileForm = () => {
 
     const navigate = useNavigate();
     const {user, setUser} = useContext(AuthContext);
+
+    useEffect(() => {
+        if(user.email.length === 0) navigate("/sign")
+    }, [user])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -10,7 +10,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         case actionType.REGISTER_SUCCESS:
             return {
                 ...state,
-                user: action.payload
+                user: action.payload,
+                isLoggedIn: true
             };
         case actionType.REGISTER_FAILED:
             return state;
