@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import OS from '../../pages/components/inputs/OS';
 import Button from '../../pages/components/inputs/Button';
 
-const ConfigForm = (props) => {
+const ConfigForm = () => {
 
     const navigate = useNavigate();
 

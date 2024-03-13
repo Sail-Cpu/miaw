@@ -17,7 +17,7 @@ const usePasswordStrength = (password) => {
         if(password.length > 0){
             strength += 1;
         }
-        if(password.length > 7){
+        if(password.length >= 8){
             strength += 2;
         }
         if(passwordHasNumber(password)){

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //Hooks
 import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
@@ -6,18 +7,40 @@ import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 import Input from '../../pages/components/inputs/Input.jsx';
 import PassProgress from '../../pages/components/inputs/PassProgress.jsx';
 import Button from '../../pages/components/inputs/Button.jsx';
-import { useNavigate } from 'react-router-dom';
+//Context
+import {AuthContext} from "../../context/AuthContext.jsx";
+//request
+import {userExist} from "../../requests/auth.js";
 
-const RegisterForm = (props) => {
+const RegisterForm = () => {
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    const {setUser, user} = useContext(AuthContext)
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
     const passwordStrength = usePasswordStrength(password);
 
-    const handleSubmit = (e) => {
+    console.log(error);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate("/sign/step2")
+        const formData = new FormData(e.currentTarget);
+        if(await userExist({email: formData.get("email")}) === true){
+            setError("user exist");
+            return;
+        }
+        if(passwordStrength === 5 && password === formData.get("confirm password")){
+            setUser({
+                ...user,
+                email: formData.get("email"),
+                password: password
+            })
+            navigate("/sign/step2")
+        }else{
+            setError("password error");
+        }
+
     }
 
     return(

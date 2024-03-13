@@ -30,7 +30,7 @@ router.get('/user', async (req, res) => {
         if(username && await checkIfExists("username", username)){
             return res.status(200).send({data: true})
         }
-        return res.status(400).send({message: "user not found"});
+        return res.status(200).send({data: false});
     }catch (error){
         return res.status(500).send({message: error})
     }finally {
