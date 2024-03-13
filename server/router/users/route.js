@@ -1,6 +1,4 @@
-// @ts-ignore
 import express from "express";
-// @ts-ignore
 import bcrypt from "bcrypt";
 import {PrismaClient} from "@prisma/client";
 
@@ -9,7 +7,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 
 
-const checkIfExists = async () => {
+const checkIfExists = async (field, value) => {
     const result = await prisma.users.findMany({
         where: {
             [field]: value
@@ -21,6 +19,24 @@ const checkIfExists = async () => {
 const checkPassword = (password) => {
     return password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password);
 }
+
+router.get('/user', async (req, res) => {
+    const {username, email} = req.query;
+    try{
+        prisma.$connect()
+        if(email && await checkIfExists("email", email)){
+            return res.status(200).send({data: true})
+        }
+        if(username && await checkIfExists("username", username)){
+            return res.status(200).send({data: true})
+        }
+        return res.status(400).send({message: "user not found"});
+    }catch (error){
+        return res.status(500).send({message: error})
+    }finally {
+        await prisma.$disconnect();
+    }
+})
 
 router.post(`/signup`, async (req, res) => {
     const { username, email, password } = req.body;
