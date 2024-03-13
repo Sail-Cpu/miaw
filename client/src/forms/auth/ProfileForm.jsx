@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //Context
@@ -8,14 +8,26 @@ import Input from "../../pages/components/inputs/Input";
 import Select from "../../pages/components/inputs/Select";
 import Upload from "../../pages/components/inputs/Upload";
 import Button from "../../pages/components/inputs/Button";
+import {userExist} from "../../requests/auth.js";
 
 const ProfileForm = () => {
 
     const navigate = useNavigate();
+    const {user, setUser} = useContext(AuthContext);
+    const [error, setError] = useState();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const formData = new FormData(e.currentTarget)
+        if(await userExist({username: formData.get("username")}) === true){
+            setError("user exist");
+            return;
+        }
+        setUser({
+            ...user,
+            username: formData.get("username"),
+            job: formData.get("jobs")
+        })
         navigate("/sign/step3");
     }
 
