@@ -39,9 +39,9 @@ router.get('/user', async (req, res) => {
 })
 
 router.post(`/signup`, async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, job, os } = req.body;
 
-    if(username && email && password){
+    if(username && email && password && job && os){
         try{
             if(await checkIfExists("username", username)) {
                 return res.status(409).send({message: "Username already exists"})
@@ -58,7 +58,9 @@ router.post(`/signup`, async (req, res) => {
                     data: {
                         username: username,
                         email: email,
-                        password: hash
+                        password: hash,
+                        job: job,
+                        os: os
                     },
                 })
                 res.status(201).send({

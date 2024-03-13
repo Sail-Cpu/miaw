@@ -7,11 +7,13 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
     switch (action.type){
-        case actionType.REGISTER_FIRST_STEP_SUCCESS:
+        case actionType.REGISTER_SUCCESS:
             return {
                 ...state,
                 user: action.payload
             };
+        case actionType.REGISTER_FAILED:
+            return state;
         default:
             return state;
     }

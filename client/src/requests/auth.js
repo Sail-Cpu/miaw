@@ -14,19 +14,20 @@ export const userExist = async (userData) => {
 }
 
 export const register = async (userData) => {
-    const {username, email, password} = userData;
-
+    const {username, email, password, os, job} = userData;
     try{
         const request = await axios.post(`${BASE_LINK}/signup`, {
             username,
             email,
-            password
+            password,
+            os,
+            job
         })
         if(request.data.data){
             return request.data;
         }
     }catch (error){
-        console.log(error);
-        return error?.response?.data?.message;
+        //console.log(error);
+        return error?.response?.data
     }
 }
