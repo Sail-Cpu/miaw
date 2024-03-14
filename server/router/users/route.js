@@ -95,7 +95,7 @@ router.post(`/signin`, async (req, res) => {
             if(userExist.length === 0) return res.status(400).send({message: "The users does not exist"});
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
-                if(isTheSame) return res.status(200).send({data: userExist});
+                if(isTheSame) return res.status(200).send({data: userExist[0]});
                 return res.status(400).send({ message: "the password is incorrect" })
             })
         }catch (error){
