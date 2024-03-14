@@ -15,19 +15,23 @@ export const userExist = async (userData) => {
 
 export const register = async (userData) => {
     const {username, email, password, os, job} = userData;
-    try{
-        const request = await axios.post(`${BASE_LINK}/signup`, {
-            username,
-            email,
-            password,
-            os,
-            job
-        })
-        if(request.data.data){
-            return request.data;
+    if(username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job.length > 0){
+        try{
+            const request = await axios.post(`${BASE_LINK}/signup`, {
+                username,
+                email,
+                password,
+                os,
+                job
+            })
+            if(request.data.data){
+                return request.data;
+            }
+        }catch (error){
+            return error?.response?.data
         }
-    }catch (error){
-        return error?.response?.data
+    }else{
+        return {message: "all fields must be completed"}
     }
 }
 
