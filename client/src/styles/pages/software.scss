@@ -1,0 +1,48 @@
+.software-page-container{
+  width: 100%;
+  .software-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    img{
+      width: 50px;
+    }
+  }
+  .software-hero-banner{
+    display: flex;
+    h1{
+      font-size: 5em;
+      margin: 0;
+      font-weight: 600;
+    }
+    p{
+      font-size: 19px;
+      font-weight: 100;
+      color: #6B7280;
+    }
+    .software-hero-banner-bottom{
+      display: flex;
+      width: 100%;
+      button{
+        margin-right: 20px;
+      }
+    }
+  }
+  .software-hero-banner-right{
+    padding-left: 30px;
+  }
+  .software-hero-banner-left{
+    padding-right: 50px;
+  }
+  .software-hero-banner-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    img{
+      width: 100%;
+      box-shadow: 0 4px 15px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+}

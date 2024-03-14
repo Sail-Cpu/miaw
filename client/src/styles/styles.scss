@@ -1,6 +1,8 @@
 @import "settings";
 //Pages
 @import "./pages/auth";
+@import "./pages/software";
 //Components
 @import "./components/inputs";
 @import "./components/side-bar";
+@import "src/styles/components/nav-button";

@@ -7,6 +7,7 @@ import ProfileForm from "./forms/auth/ProfileForm.jsx";
 import ConfigForm from "./forms/auth/ConfigForm.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Miaw from "./app/Miaw.jsx";
+import Software from "./pages/Software.jsx";
 
 function App() {
 
@@ -22,7 +23,9 @@ function App() {
             <Route path="/sign/step3" element={<ConfigForm />} /> 
           </Route>
           <Route path="login" element={<Login />} />
-          <Route path="/" element={isLoggedIn && <Miaw />} />
+          <Route path="/" element={isLoggedIn && <Miaw />}>
+            <Route path="/software" element={<Software />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
