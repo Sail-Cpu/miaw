@@ -35,7 +35,10 @@ const ConfigForm = () => {
         if(user.os){
             fetchData().then(response => {
                 if(response.data){
-                    toast.success("the user has been created successfully")
+                    toast.success("the user has been created successfully");
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 1000)
                 }else{
                     toast.error(response.message);
                 }

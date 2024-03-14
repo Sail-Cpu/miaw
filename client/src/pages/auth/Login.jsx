@@ -4,10 +4,12 @@ import Input from "../components/inputs/Input.jsx";
 import Button from "../components/inputs/Button.jsx";
 import {SignIn} from "../../redux/auth/action.js";
 import {toast, Toaster} from "sonner";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,6 +20,9 @@ const Login = () => {
         })).then(response => {
             if(response.data){
                 toast.success("Login success");
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000)
             }else{
                 toast.error(response.message);
             }
