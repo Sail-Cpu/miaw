@@ -1,0 +1,31 @@
+.side-bar-container{
+  position: fixed;
+  height: 100vh;
+  .side-bar-logo{
+    width: 40px;
+    margin-bottom: 15px;
+  }
+  .small-side-bar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: -44px 0px 15px 36px #6B7280;
+    padding: 25px;
+    height: 100%;
+  }
+  .tab-container{
+    margin: 2px 0;
+    padding: 9px 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  .tab-container:hover{
+    background-color: #F3F4F6;
+  }
+  span{
+    font-size: 20px;
+    color: #6B7280;
+    margin-bottom: 15px;
+  }
+}

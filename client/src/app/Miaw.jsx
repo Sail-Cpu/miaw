@@ -1,8 +1,9 @@
-
+//Components
+import SideBar from "../pages/components/navigations/SideBar.jsx";
 const Miaw = () => {
     return(
-        <div className="">
-            MIAW
+        <div className="miaw">
+            <SideBar />
         </div>
     )
 }
