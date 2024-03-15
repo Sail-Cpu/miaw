@@ -1,5 +1,5 @@
 import VsCode from "../assets/vscodelogo.png";
-import NavButton from "./components/NavButton.jsx";
+import NavButton from "../components/NavButton.jsx";
 import vsCodeInterface from "../assets/vscodeinteface.png"
 
 const Software = () => {

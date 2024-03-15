@@ -1,10 +1,10 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 //ui
 import { Toaster } from 'sonner'
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import {useContext, useEffect, useMemo, useState} from "react";
+import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 
 const steps = [

@@ -1,5 +1,5 @@
-import Logo from "../../../assets/logo.png";
-import Icons from "../../../utils/allIcons.js";
+import Logo from "../../assets/logo.png";
+import Icons from "../../utils/allIcons.js";
 import Tab from "./Tab.jsx";
 import Icon from "../Icon.jsx";
 

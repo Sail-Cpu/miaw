@@ -6,9 +6,9 @@ import { toast } from 'sonner';
 //Hooks
 import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 //Components
-import Input from '../../pages/components/inputs/Input.jsx';
-import PassProgress from '../../pages/components/inputs/PassProgress.jsx';
-import Button from '../../pages/components/inputs/Button.jsx';
+import Input from '../../components/inputs/Input.jsx';
+import PassProgress from '../../components/inputs/PassProgress.jsx';
+import Button from '../../components/inputs/Button.jsx';
 //Context
 import {AuthContext} from "../../context/AuthContext.jsx";
 //request

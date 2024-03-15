@@ -6,10 +6,10 @@ import { toast } from 'sonner';
 //Context
 import {AuthContext} from "../../context/AuthContext.jsx";
 //Components
-import Input from "../../pages/components/inputs/Input";
-import Select from "../../pages/components/inputs/Select";
-import Upload from "../../pages/components/inputs/Upload";
-import Button from "../../pages/components/inputs/Button";
+import Input from "../../components/inputs/Input";
+import Select from "../../components/inputs/Select";
+import Upload from "../../components/inputs/Upload";
+import Button from "../../components/inputs/Button";
 import {userExist} from "../../requests/auth.js";
 
 const ProfileForm = () => {

@@ -2,8 +2,8 @@ import {useContext, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import PropTypes from 'prop-types';
 //Components
-import OS from '../../pages/components/inputs/OS';
-import Button from '../../pages/components/inputs/Button';
+import OS from '../../components/inputs/OS';
+import Button from '../../components/inputs/Button';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {signUp} from "../../redux/auth/action.js";
 import {toast} from "sonner";

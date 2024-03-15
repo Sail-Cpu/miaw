@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 
-import Input from "../components/inputs/Input.jsx";
-import Button from "../components/inputs/Button.jsx";
+import Input from "../../components/inputs/Input.jsx";
+import Button from "../../components/inputs/Button.jsx";
 import {SignIn} from "../../redux/auth/action.js";
 import {toast, Toaster} from "sonner";
 import {useNavigate} from "react-router-dom";

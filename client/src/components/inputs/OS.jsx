@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 //Icon
-import linuxWindows from "../../../assets/linux_windows.svg";
-import mac from "../../../assets/mac.svg";
+import linuxWindows from "../../assets/linux_windows.svg";
+import mac from "../../assets/mac.svg";
 
 const OS = (props) => {
 
