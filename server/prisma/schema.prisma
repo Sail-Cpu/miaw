@@ -17,9 +17,17 @@ model users {
 }
 
 model applications {
-  app_id      Int      @id @default(autoincrement())
-  name        String   @unique
-  description String
-  logo        Int?
-  image       String[]
+  app_id          Int            @id @default(autoincrement())
+  app_name        String         @unique
+  app_description String
+  app_logo        Int?
+  app_images      String[]
+  categorie_id    Int
+  app_categories  app_categories @relation(fields: [categorie_id], references: [categorie_id])
+}
+
+model app_categories {
+  categorie_id   Int            @id @default(autoincrement())
+  categorie_name String         @unique
+  applications   applications[]
 }
