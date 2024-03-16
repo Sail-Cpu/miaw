@@ -5,7 +5,7 @@ const router = express.Router();
 
 const prisma = new PrismaClient();
 
-router.get('/applications', async (req, res) => {
+router.get('/apps', async (req, res) => {
     try{
         const categoriesWithApps = await prisma.app_categories.findMany({
             include: {

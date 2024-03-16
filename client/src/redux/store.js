@@ -10,10 +10,13 @@ import {
     REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import {AuthReducer} from "./auth/index.js";
+import {AuthReducer} from "./auth";
+import {AppReducer} from "./app";
+import {list} from "./app/action.js";
 
 const rootReducer = combineReducers({
-    auth: AuthReducer
+    auth: AuthReducer,
+    app: AppReducer
 })
 
 const persistConfig = {
@@ -33,5 +36,7 @@ export const store = configureStore({
             },
         }),
 })
+
+store.dispatch(list());
 
 export const persistedStore = persistStore(store)
