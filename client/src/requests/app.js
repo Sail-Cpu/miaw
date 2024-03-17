@@ -11,3 +11,14 @@ export const allApps = async () => {
         return error?.response?.data?.message
     }
 }
+
+export const appById = async (appId) => {
+    try{
+        const request = await axios.get(`${BASE_LINK}/app/${appId}`)
+        if(request.data.data){
+            return request;
+        }
+    }catch (error) {
+        return error?.response?.data?.message
+    }
+}

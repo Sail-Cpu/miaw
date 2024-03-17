@@ -11,6 +11,11 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 allApps: action.payload
+            };
+        case actionType.GET_APP:
+            return {
+                ...state,
+                actualApp: action.payload
             }
         default:
             return state;

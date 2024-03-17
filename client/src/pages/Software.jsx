@@ -1,27 +1,47 @@
 import VsCode from "../assets/vscodelogo.png";
 import NavButton from "../components/NavButton.jsx";
 import vsCodeInterface from "../assets/vscodeinteface.png"
+import {useParams} from "react-router-dom";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {selectApp} from "../redux/app/action.js";
 
 const Software = () => {
+
+    const { appId } = useParams();
+    const dispatch = useDispatch();
+    const {app_id, app_name, app_description} = useSelector(state => state.app.actualApp);
+
+    const fetchApp = async () => {
+        return await dispatch(selectApp(appId))
+    }
+
+    useEffect(() => {
+        fetchApp()
+    }, [])
+
+    const logoPath = "/images/app/logo";
+    const interfacePath = "/images/app/interface";
+
     return(
         <div className="software-page-container">
             <div className="software-head">
-                <img src={VsCode} alt="software logo"/>
+                <img src={`${logoPath}/${app_id}.png`} alt="logo"/>
                 <NavButton name="All Shortcuts" link="/software" color="#2563EB" />
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
-                    <h1>Visual Studio Code</h1>
-                    <p>Visual Studio Code (VS Code) est un éditeur de code source léger
-                        mais puissant, développé par Microsoft. Il offre une interface
-                        utilisateur intuitive.</p>
+                    <div>
+                        <h1>{app_name}</h1>
+                        <p>{app_description}</p>
+                    </div>
                     <div className="software-hero-banner-bottom">
                         <NavButton name="Course" link="/software" color="#33D3C1" />
                         <NavButton name="Knowledge Test" link="/software" color="#33D3C1" />
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
-                    <img src={vsCodeInterface} alt="vs code"/>
+                    <img src={`${interfacePath}/${app_id}.png`} alt="vs code"/>
                 </div>
             </div>
         </div>

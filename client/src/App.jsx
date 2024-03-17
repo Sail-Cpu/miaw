@@ -24,7 +24,7 @@ function App() {
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="/" element={isLoggedIn && <Miaw />}>
-            <Route path="/software" element={<Software />} />
+            <Route path="/software/:appId" element={<Software />} />
           </Route>
         </Routes>
       </BrowserRouter>

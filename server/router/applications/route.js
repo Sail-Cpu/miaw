@@ -36,4 +36,24 @@ router.get('/apps', async (req, res) => {
     }
 })
 
+router.get(`/app/:appId`, async (req, res) => {
+    const { appId } = req.params;
+    try{
+        const appById = await prisma.applications.findMany({
+            where: {
+                app_id: parseInt(appId)
+            }
+        });
+        if(appById.length > 0){
+            return res.send({data: appById[0]});
+        }else{
+            return res.status(400).send({message: "the software could not be found"})
+        }
+    }catch (error){
+        return res.status(500).send({message: error})
+    }finally {
+        await prisma.$disconnect();
+    }
+})
+
 export default router;
