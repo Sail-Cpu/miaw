@@ -2,6 +2,7 @@
   display: flex;
   position: fixed;
   height: 100vh;
+  z-index: 110;
   .side-bar-logo{
     width: 40px;
     margin-bottom: 15px;
@@ -14,6 +15,8 @@
     width: 105px;
     padding: 20px 30px 20px 30px;
     height: 100%;
+    z-index: 100;
+    background-color: #fff;
   }
   .tab-container{
     margin: 2px 0;
@@ -39,6 +42,8 @@
     height: 100%;
     background-color: #fff;
     box-shadow: 1px 0 10px -3px #6B7280;
+    transition: 0.2s;
+    z-index: 99;
     h2{
       font-size: 30px;
       margin: 0;

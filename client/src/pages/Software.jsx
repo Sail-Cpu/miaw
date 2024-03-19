@@ -1,6 +1,4 @@
-import VsCode from "../assets/vscodelogo.png";
 import NavButton from "../components/NavButton.jsx";
-import vsCodeInterface from "../assets/vscodeinteface.png"
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,7 +16,7 @@ const Software = () => {
 
     useEffect(() => {
         fetchApp()
-    }, [])
+    }, [appId])
 
     const logoPath = "/images/app/logo";
     const interfacePath = "/images/app/interface";
