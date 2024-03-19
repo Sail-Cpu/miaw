@@ -2,6 +2,7 @@ import Icon from "../Icon";
 import allIcons from "../../utils/allIcons.js";
 import {useState} from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const ExpandTab = ({name, list}) => {
 
@@ -24,9 +25,11 @@ const ExpandTab = ({name, list}) => {
                         {
                             list.map((app, idx) => {
                                 return(
-                                    <div key={idx} className="tab">
-                                        <span>{app.app_name}</span>
-                                    </div>
+                                    <Link key={idx}  to={`/software/${app.app_id}`}>
+                                        <div className="tab">
+                                            <span>{app.app_name}</span>
+                                        </div>
+                                    </Link>
                                 )
                             })
                         }
