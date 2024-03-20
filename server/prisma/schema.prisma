@@ -31,3 +31,12 @@ model app_categories {
   categorie_name String         @unique
   applications   applications[]
 }
+
+model shortcuts {
+  shortcut_id       Int      @id @default(autoincrement())
+  app_id            Int
+  shortcut_name     String
+  shortcut_keys     String[]
+  shortcut_mac_keys String[]
+  shortcut_desc     String
+}

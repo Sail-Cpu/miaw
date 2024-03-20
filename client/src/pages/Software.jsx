@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectApp} from "../redux/app/action.js";
+import Shortcut from "../components/Shortcut.jsx";
 
 const Software = () => {
 
@@ -42,6 +43,7 @@ const Software = () => {
                     <img src={`${interfacePath}/${app_id}.png`} alt="vs code"/>
                 </div>
             </div>
+            <Shortcut />
         </div>
     )
 }

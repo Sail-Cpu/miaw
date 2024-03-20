@@ -1,0 +1,49 @@
+.shortcut-container{
+  margin-top: 60px;
+  width: 75%;
+  border: 2px solid #E5E7EB;
+  border-radius: 20px;
+  .shortcut-nav{
+    display: flex;
+    width: 100%;
+    height: 60px;
+    border-bottom: 2px solid #E5E7EB;
+    .tab{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  .shortcut-content{
+    padding: 20px;
+    h3{
+      font-size: 28px;
+      margin: 0;
+    }
+    p{
+      margin: 10px 0 0 0;
+      font-size: 20px;
+      color: #6B7280
+    }
+    .all-keys-container{
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      .more{
+        margin-right: 6px;
+      }
+    }
+    .key-container{
+      font-size: 20px;
+      background-color: #E5E7EB;
+      padding: 3px 10px;
+      border-radius: 5px;
+      margin-right: 8px;
+    }
+  }
+}
