@@ -44,8 +44,18 @@ router.get(`/app/:appId`, async (req, res) => {
                 app_id: parseInt(appId)
             }
         });
+
         if(appById.length > 0){
-            return res.send({data: appById[0]});
+            const chapters = await prisma.chapters.findMany({
+                include: {
+                    shortcuts: {
+                        where: {
+                            app_id: parseInt(appId)
+                        },
+                    }
+                }
+            });
+            return res.send({ data: appById[0], chapters: chapters});
         }else{
             return res.status(400).send({message: "the software could not be found"})
         }

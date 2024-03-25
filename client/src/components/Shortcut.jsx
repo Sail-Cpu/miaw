@@ -1,14 +1,21 @@
 import Key from "./Key.jsx";
+import {useState} from "react";
 
 const Shortcut = () => {
+
+    const [os , setOs] = useState("windows");
+
     return(
         <div className="shortcut-container">
             <div className="shortcut-nav">
-                <div className="tab" style={{borderRight: "1px solid #E5E7EB"}}>
+                <div className="tab" onClick={() => setOs("windows")} style={{borderRight: "1px solid #E5E7EB"}}>
                     Windows / Linux
                 </div>
-                <div className="tab" style={{borderLeft: "1px solid #E5E7EB"}}>
+                <div className="tab" onClick={() => setOs("mac")} style={{borderLeft: "1px solid #E5E7EB"}}>
                     Mac OS
+                </div>
+                <div className="tab-bottom-bar"
+                     style={{left: os==="windows" ? "0" : "50%"}}>
                 </div>
             </div>
             <div className="shortcut-content">

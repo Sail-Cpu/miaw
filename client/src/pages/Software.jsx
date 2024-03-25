@@ -43,7 +43,11 @@ const Software = () => {
                     <img src={`${interfacePath}/${app_id}.png`} alt="vs code"/>
                 </div>
             </div>
-            <Shortcut />
+            <div className="shortcuts-list">
+                <h1>Keyboard Shortcuts</h1>
+                <Shortcut />
+            </div>
+
         </div>
     )
 }
