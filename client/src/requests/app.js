@@ -15,7 +15,7 @@ export const allApps = async () => {
 export const appById = async (appId) => {
     try{
         const request = await axios.get(`${BASE_LINK}/app/${appId}`)
-        if(request.data.data){
+        if(request.data.data && request.data.chapters){
             return request;
         }
     }catch (error) {

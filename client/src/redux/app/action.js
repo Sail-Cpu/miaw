@@ -16,7 +16,7 @@ export const selectApp = (appId) => async (dispatch) => {
     if(response.data.data){
         dispatch({
             type: actionType.GET_APP,
-            payload: response.data.data
+            payload: response.data
         })
     }
 }

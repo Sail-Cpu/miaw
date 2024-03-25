@@ -9,7 +9,8 @@ const Software = () => {
 
     const { appId } = useParams();
     const dispatch = useDispatch();
-    const {app_id, app_name, app_description} = useSelector(state => state.app.actualApp);
+    const {app_id, app_name, app_description} = useSelector(state => state.app.actualApp.data);
+    const {shortcuts} = useSelector(state => state.app.actualApp.chapters[0]);
 
     const fetchApp = async () => {
         return await dispatch(selectApp(appId))
@@ -45,7 +46,14 @@ const Software = () => {
             </div>
             <div className="shortcuts-list">
                 <h1>Keyboard Shortcuts</h1>
-                <Shortcut />
+                {
+                    shortcuts.map((shortcut, idx) => {
+                        return(
+                            <Shortcut key={idx} data={shortcut}/>
+                        )
+                    })
+                }
+
             </div>
 
         </div>

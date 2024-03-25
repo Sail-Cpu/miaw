@@ -1,9 +1,26 @@
+import React, {useMemo, useState} from "react";
 import Key from "./Key.jsx";
-import {useState} from "react";
+import PropTypes from "prop-types";
 
-const Shortcut = () => {
+const Shortcut = (props) => {
+
+    const {
+        shortcut_name,
+        shortcut_desc,
+        shortcut_keys,
+        shortcut_mac_keys} = props.data;
 
     const [os , setOs] = useState("windows");
+
+    const setShortcut = () => {
+        const keys = os === "windows" ? shortcut_keys : shortcut_mac_keys;
+        return keys.map((key, index) => (
+            <React.Fragment key={index}>
+                <Key name={key} />
+                {index < keys.length - 1 && <span className="more">+</span>}
+            </React.Fragment>
+        ));
+    };
 
     return(
         <div className="shortcut-container">
@@ -19,16 +36,18 @@ const Shortcut = () => {
                 </div>
             </div>
             <div className="shortcut-content">
-                <h3>Copier</h3>
-                <p>Permet de copier les element d’une selection</p>
+                <h3>{shortcut_name}</h3>
+                <p>{shortcut_desc}</p>
                 <div className="all-keys-container">
-                    <Key name="ctrl"/>
-                    <span className="more">+</span>
-                    <Key name="c"/>
+                    {setShortcut()}
                 </div>
             </div>
         </div>
     )
 }
+
+Shortcut.propTypes = {
+    data: PropTypes.object.isRequired
+};
 
 export default Shortcut;
