@@ -3,9 +3,10 @@ import Icon from "../Icon.jsx";
 import allIcons from "../../utils/allIcons.js";
 import ExpandTab from "./ExpandTab.jsx";
 import {useSelector} from "react-redux";
+import {allAppsSelector} from "../../redux/app/selector.js";
 const SideBarExpand = (props) => {
 
-    const { allApps } = useSelector(state => state.app)
+    const allApps = useSelector(allAppsSelector);
 
     return(
         <div className="side-bar-expand-container" style={{left: props.toggle ? "115px" : ""}}>

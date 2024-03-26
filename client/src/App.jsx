@@ -8,10 +8,11 @@ import ConfigForm from "./forms/auth/ConfigForm.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Miaw from "./app/Miaw.jsx";
 import Software from "./pages/Software.jsx";
+import {isLoggedInSelector} from "./redux/auth/selector.js";
 
 function App() {
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const isLoggedIn = useSelector(isLoggedInSelector);
 
   return (
     <>
@@ -24,7 +25,7 @@ function App() {
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="/" element={isLoggedIn && <Miaw />}>
-            <Route path="/software/:appId" element={<Software />} />
+            <Route path="/software/:appId" element={isLoggedIn && <Software />} />
           </Route>
         </Routes>
       </BrowserRouter>

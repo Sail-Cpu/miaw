@@ -1,32 +1,33 @@
 import NavButton from "../components/NavButton.jsx";
-import {useParams} from "react-router-dom";
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {selectApp} from "../redux/app/action.js";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { appSelector, AppShortcutsSelector } from "../redux/app/selector";
+import { selectApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 
 const Software = () => {
-
     const { appId } = useParams();
     const dispatch = useDispatch();
-    const {app_id, app_name, app_description} = useSelector(state => state.app.actualApp.data);
-    const {shortcuts} = useSelector(state => state.app.actualApp.chapters[0]);
-
-    const fetchApp = async () => {
-        return await dispatch(selectApp(appId))
-    }
+    const { app_id, app_name, app_description } = useSelector(appSelector);
+    const { shortcuts } = useSelector(AppShortcutsSelector);
 
     useEffect(() => {
-        fetchApp()
-    }, [appId])
+        dispatch(selectApp(appId));
+    }, [dispatch, appId]);
 
     const logoPath = "/images/app/logo";
     const interfacePath = "/images/app/interface";
 
-    return(
+    // Afficher une indication de chargement si les données ne sont pas encore chargées
+    if (!app_id || !app_name || !app_description || !shortcuts) {
+        return <div>Loading...</div>;
+    }
+
+    return (
         <div className="software-page-container">
             <div className="software-head">
-                <img src={`${logoPath}/${app_id}.png`} alt="logo"/>
+                <img src={`${logoPath}/${app_id}.png`} alt="logo" />
                 <NavButton name="All Shortcuts" link="/software" color="#2563EB" />
             </div>
             <div className="software-hero-banner">
@@ -41,23 +42,17 @@ const Software = () => {
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
-                    <img src={`${interfacePath}/${app_id}.png`} alt="vs code"/>
+                    <img src={`${interfacePath}/${app_id}.png`} alt="vs code" />
                 </div>
             </div>
             <div className="shortcuts-list">
                 <h1>Keyboard Shortcuts</h1>
-                {
-                    shortcuts.map((shortcut, idx) => {
-                        return(
-                            <Shortcut key={idx} data={shortcut}/>
-                        )
-                    })
-                }
-
+                {shortcuts.map((shortcut, idx) => (
+                    <Shortcut key={idx} data={shortcut} />
+                ))}
             </div>
-
         </div>
-    )
-}
+    );
+};
 
 export default Software;
