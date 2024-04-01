@@ -19,6 +19,6 @@ export const appById = async (appId) => {
             return request;
         }
     }catch (error) {
-        return error?.response?.data?.message
+        return error?.response
     }
 }

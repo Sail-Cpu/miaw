@@ -32,7 +32,12 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 actualApp: action.payload
-            }
+            };
+        case actionType.GET_APP_FAILED:
+            return{
+                ...state,
+                actualApp: INITIAL_STATE.actualApp
+            };
         default:
             return state;
     }

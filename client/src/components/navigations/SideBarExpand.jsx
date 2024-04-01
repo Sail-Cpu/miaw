@@ -20,7 +20,10 @@ const SideBarExpand = (props) => {
                 {
                     allApps.map((category, idx) => {
                         return(
-                            <ExpandTab key={idx} name={category.category.name} list={category.apps}/>
+                            <ExpandTab
+                                key={idx}
+                                name={category.category.name}
+                                list={category.apps}/>
                             )
                     })
                 }

@@ -11,12 +11,17 @@ export const list = () => async (dispatch) => {
     }
 }
 
-export const selectApp = (appId) => async (dispatch) => {
+export const getApp = (appId) => async (dispatch) => {
     const response = await appById(appId);
     if(response.data.data){
         dispatch({
             type: actionType.GET_APP,
             payload: response.data
         })
+    }else{
+        dispatch({
+            type: actionType.GET_APP_FAILED,
+        })
     }
+
 }

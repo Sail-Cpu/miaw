@@ -1,9 +1,9 @@
 import NavButton from "../components/NavButton.jsx";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, AppShortcutsSelector } from "../redux/app/selector";
-import { selectApp } from "../redux/app/action.js";
+import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 
 const Software = () => {
@@ -12,15 +12,18 @@ const Software = () => {
     const { app_id, app_name, app_description } = useSelector(appSelector);
     const { shortcuts } = useSelector(AppShortcutsSelector);
 
+    const fetchData = async () => {
+        await dispatch(getApp(appId));
+    }
+
     useEffect(() => {
-        dispatch(selectApp(appId));
+        fetchData();
     }, [dispatch, appId]);
 
     const logoPath = "/images/app/logo";
     const interfacePath = "/images/app/interface";
 
-    // Afficher une indication de chargement si les données ne sont pas encore chargées
-    if (!app_id || !app_name || !app_description || !shortcuts) {
+    if (app_id === 0) {
         return <div>Loading...</div>;
     }
 
