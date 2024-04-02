@@ -4,5 +4,11 @@
     font-size: 18px;
     border: 2px solid #E5E7EB;
     background: none;
+    cursor: pointer;
   }
+  button:hover{
+    background-color: #F8FAFC;
+  }
+  width: fit-content;
+  box-shadow: 0 0 8px -6px rgba(0, 0, 0, 0.7);
 }

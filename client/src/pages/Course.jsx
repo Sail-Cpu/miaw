@@ -4,6 +4,8 @@ const Course = () => {
     const labels = [
         "Essential",
         "Intermediate",
+        "Advanced",
+        "Professional",
         "Expert"
     ]
 

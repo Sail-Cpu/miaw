@@ -8,14 +8,15 @@ const ButtonGroup = (props) => {
         if(idx === 0){
             return {borderTopLeftRadius: "6px",
                     borderBottomLeftRadius:"6px",
-                    borderRight: "0"
+                    borderRight: 0
             };
         }else if(labels.length-1 === idx){
             return {borderTopRightRadius: "6px",
                     borderBottomRightRadius:"6px",
-                    borderLeft: "0"
+                    borderLeft: "2px solid #E5E7EB"
             };
         }
+        return {borderRight: 0};
     }
 
     return(
