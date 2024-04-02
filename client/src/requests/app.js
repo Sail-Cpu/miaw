@@ -8,7 +8,7 @@ export const allApps = async () => {
             return request;
         }
     }catch (error) {
-        return error?.response?.data?.message
+        return error?.response
     }
 }
 

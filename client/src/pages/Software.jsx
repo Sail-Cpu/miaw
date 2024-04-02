@@ -40,7 +40,7 @@ const Software = () => {
                         <p>{app_description}</p>
                     </div>
                     <div className="software-hero-banner-bottom">
-                        <NavButton name="Course" link="/software" color="#33D3C1" />
+                        <NavButton name="Course" link={`/software/${app_id}/course`} color="#33D3C1" />
                         <NavButton name="Knowledge Test" link="/software" color="#33D3C1" />
                     </div>
                 </div>

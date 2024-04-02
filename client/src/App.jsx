@@ -9,10 +9,21 @@ import Login from "./pages/auth/Login.jsx";
 import Miaw from "./app/Miaw.jsx";
 import Software from "./pages/Software.jsx";
 import {isLoggedInSelector} from "./redux/auth/selector.js";
+import Course from "./pages/Course.jsx";
 
 function App() {
 
   const isLoggedIn = useSelector(isLoggedInSelector);
+
+  const protectedRoute = () => {
+    return(
+        isLoggedIn &&
+          <Route path="/" element={<Miaw />}>
+            <Route path="/software/:appId" element={<Software />} />
+            <Route path="/software/:appId/course" element={<Course />}></Route>
+          </Route>
+    )
+  }
 
   return (
     <>
@@ -24,9 +35,7 @@ function App() {
             <Route path="/sign/step3" element={<ConfigForm />} /> 
           </Route>
           <Route path="login" element={<Login />} />
-          <Route path="/" element={isLoggedIn && <Miaw />}>
-            <Route path="/software/:appId" element={isLoggedIn && <Software />} />
-          </Route>
+          {protectedRoute()}
         </Routes>
       </BrowserRouter>
     </>
