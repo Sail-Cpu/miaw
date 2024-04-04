@@ -1,4 +1,5 @@
 import ButtonGroup from "../components/navigations/ButtonGroup";
+import Table from "../components/Table";
 const Course = () => {
 
     const labels = [
@@ -12,6 +13,7 @@ const Course = () => {
     return(
         <div className="course-page-container">
             <ButtonGroup labels={labels}/>
+            <Table />
         </div>
     )
 }
