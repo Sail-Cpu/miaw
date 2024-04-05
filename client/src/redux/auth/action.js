@@ -3,10 +3,10 @@ import * as actionType from "./type"
 import {login, register} from "../../requests/auth.js";
 export const signUp = (userData) => async (dispatch) => {
     const response = await register(userData);
-    if(response.data){
+    if(response.success){
         dispatch({
             type: actionType.REGISTER_SUCCESS,
-            payload: response.data
+            payload: response.result
         })
     }else{
         dispatch({
@@ -18,10 +18,10 @@ export const signUp = (userData) => async (dispatch) => {
 
 export const SignIn = (userData) => async (dispatch) => {
     const response = await login(userData);
-    if(response.data){
+    if(response.success){
         dispatch({
             type: actionType.REGISTER_SUCCESS,
-            payload: response.data
+            payload: response.result
         })
     }else{
         dispatch({

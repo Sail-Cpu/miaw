@@ -34,7 +34,7 @@ const ConfigForm = () => {
         if(user.username.length === 0) navigate("/sign/step2");
         if(user.os){
             fetchData().then(response => {
-                if(response.data){
+                if(response.success){
                     toast.success("the user has been created successfully");
                     setTimeout(() => {
                         navigate("/");

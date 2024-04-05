@@ -6,9 +6,8 @@ export const userExist = async (userData) => {
     const {username, email} = userData;
     try{
         const request = await axios.get(`${BASE_LINK}/user?username=${username}&email=${email}`)
-        return request.data.data;
+        return request.data.result;
     }catch (error){
-        console.log(error);
         return false;
     }
 }
@@ -24,9 +23,7 @@ export const register = async (userData) => {
                 os,
                 job
             })
-            if(request.data.data){
-                return request.data;
-            }
+            return request.data;
         }catch (error){
             return error?.response?.data
         }
@@ -43,11 +40,9 @@ export const login = async (userData) => {
                 nameEmail: username,
                 password: password
             })
-            if(request.data){
-                return request.data
-            }
+            return request.data
         }catch (error){
-            return error?.response?.data
+            return error.response.data
         }
     }else{
         return {message: "all fields must be completed"}

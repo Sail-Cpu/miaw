@@ -29,26 +29,26 @@ const RegisterForm = () => {
         const email = formData.get("email");
         const confirmPassword = formData.get("confirm password");
         if(!email.length > 0 || !password.length > 0 || !confirmPassword.length > 0){
-            toast.error('all fields must be completed')
-            return
+            toast.error('all fields must be completed');
+            return;
         }
         if(await userExist({email: email}) === true){
-            toast.error('email is already in use')
+            toast.error('email is already in use');
             return;
         }
         if(passwordStrength === 5){
             if(password !== confirmPassword){
-                toast.error('passwords do not match')
+                toast.error('passwords do not match');
                 return;
             }
             setUser({
                 ...user,
                 email: email,
                 password: password
-            })
-            navigate("/sign/step2")
+            });
+            navigate("/sign/step2");
         }else{
-            toast.error('the password is not strong enough')
+            toast.error('the password is not strong enough');
         }
 
     }

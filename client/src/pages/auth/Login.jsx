@@ -18,7 +18,7 @@ const Login = () => {
             username: formData.get("username"),
             password: formData.get("password")
         })).then(response => {
-            if(response.data){
+            if(response.success === true){
                 toast.success("Login success");
                 setTimeout(() => {
                     navigate("/");

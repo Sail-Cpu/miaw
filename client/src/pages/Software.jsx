@@ -1,5 +1,5 @@
 import NavButton from "../components/NavButton.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, AppShortcutsSelector } from "../redux/app/selector";
