@@ -2,7 +2,7 @@ import NavButton from "../components/NavButton.jsx";
 import {useParams} from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { appSelector, AppShortcutsSelector } from "../redux/app/selector";
+import { appSelector, appShortcutsSelector } from "../redux/app/selector";
 import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 
@@ -10,13 +10,12 @@ const Software = () => {
     const { appId } = useParams();
     const dispatch = useDispatch();
     const { app_id, app_name, app_description } = useSelector(appSelector);
-    const { shortcuts } = useSelector(AppShortcutsSelector);
-
-    const fetchData = async () => {
-        await dispatch(getApp(appId));
-    }
+    const { shortcuts } = useSelector(appShortcutsSelector(1));
 
     useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getApp(appId));
+        }
         fetchData();
     }, [dispatch, appId]);
 

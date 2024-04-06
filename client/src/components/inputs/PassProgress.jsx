@@ -6,9 +6,16 @@ const PassProgress = (props) => {
         let res = [];
         for(let i = 1; i <= 5; i++){
             if(i <= props.strength){
-                res.push(<div key={i} style={{backgroundColor: props.strength === 5 ? "#00BBA6" : "#2563EB"}}></div>);
+                res.push(
+                    <div
+                        key={i}
+                        style={{backgroundColor: props.strength === 5 ? "#00BBA6" : "#2563EB"}}>
+                    </div>
+                );
             }else{
-                res.push(<div key={i} style={{backgroundColor: "#E5E7EB"}}></div>);
+                res.push(
+                    <div key={i} style={{backgroundColor: "#E5E7EB"}}></div>
+                );
             }
         }
         return res

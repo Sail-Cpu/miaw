@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const ButtonGroup = (props) => {
 
-    const {labels} = props;
+    const {labels, setSelected, selected} = props;
 
     const radius = (idx) => {
         if(idx === 0){
@@ -24,7 +24,16 @@ const ButtonGroup = (props) => {
             {
                 labels.map((label, idx) => {
                     return(
-                        <button key={idx} style={radius(idx)}>{label}</button>
+                        <button
+                            key={idx}
+                            style={{
+                                ...radius(idx),
+                                backgroundColor: label.id === selected ? "#F8FAFC" : ""
+                            }}
+                            onClick={() => setSelected(label.id)}
+                        >
+                            {label.name}
+                        </button>
                     )
                 })
             }
@@ -34,6 +43,8 @@ const ButtonGroup = (props) => {
 
 ButtonGroup.propTypes = {
     labels: PropTypes.array.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    selected: PropTypes.number.isRequired
 }
 
 export default ButtonGroup;

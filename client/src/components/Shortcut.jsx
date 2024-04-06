@@ -2,6 +2,16 @@ import React, {useState} from "react";
 import Key from "./Key.jsx";
 import PropTypes from "prop-types";
 
+
+export const Keys = (keys) => {
+    return keys.map((key, index) => (
+        <React.Fragment key={index}>
+            <Key name={key} />
+            {index < keys.length - 1 && <span className="more">+</span>}
+        </React.Fragment>
+    ));
+};
+
 const Shortcut = (props) => {
 
     const {
@@ -11,16 +21,6 @@ const Shortcut = (props) => {
         shortcut_mac_keys} = props.data;
 
     const [os , setOs] = useState("windows");
-
-    const setShortcut = () => {
-        const keys = os === "windows" ? shortcut_keys : shortcut_mac_keys;
-        return keys.map((key, index) => (
-            <React.Fragment key={index}>
-                <Key name={key} />
-                {index < keys.length - 1 && <span className="more">+</span>}
-            </React.Fragment>
-        ));
-    };
 
     return(
         <div className="shortcut-container">
@@ -39,7 +39,12 @@ const Shortcut = (props) => {
                 <h3>{shortcut_name}</h3>
                 <p>{shortcut_desc}</p>
                 <div className="all-keys-container">
-                    {setShortcut()}
+                    {
+                        os === "windows" ?
+                            Keys(shortcut_keys)
+                            :
+                            Keys(shortcut_mac_keys)
+                    }
                 </div>
             </div>
         </div>
