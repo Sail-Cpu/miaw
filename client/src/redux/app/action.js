@@ -3,20 +3,20 @@ import {allApps, appById} from "../../requests/app.js";
 
 export const list = () => async (dispatch) => {
     const response = await allApps();
-    if(response.data.data){
+    if(response.success){
         dispatch({
             type: actionType.FETCH_DATAS,
-            payload: response.data.data
+            payload: response.result
         })
     }
 }
 
 export const getApp = (appId) => async (dispatch) => {
     const response = await appById(appId);
-    if(response.data.data){
+    if(response.success){
         dispatch({
             type: actionType.GET_APP,
-            payload: response.data
+            payload: response.result
         })
     }else{
         dispatch({

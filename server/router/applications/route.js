@@ -28,9 +28,9 @@ router.get('/apps', async (req, res) => {
             };
         });
 
-        return res.send({data: formattedData});
+        return res.status(200).send({success: true, result: formattedData});
     }catch (error){
-        return res.status(500).send({message: error})
+        return res.status(500).send({success: false, message: error})
     }finally {
         await prisma.$disconnect();
     }
@@ -55,12 +55,12 @@ router.get(`/app/:appId`, async (req, res) => {
                     }
                 }
             });
-            return res.send({ data: appById[0], chapters: chapters});
+            return res.status(200).send({ success: true, result: { data: appById[0], chapters: chapters }});
         }else{
-            return res.status(400).send({message: "the software could not be found"})
+            return res.status(400).send({success: false, message: "the software could not be found"})
         }
     }catch (error){
-        return res.status(500).send({message: error})
+        return res.status(500).send({success: false, message: error})
     }finally {
         await prisma.$disconnect();
     }
