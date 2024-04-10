@@ -115,4 +115,30 @@ router.post(`/signin`, async (req, res) => {
     }
 })
 
+router.post(`addtofav`, async (req, res) => {
+    const{user_id, shortcut_id} = req.body;
+    if(user_id && shortcut_id){
+        try {
+            const addToFav = prisma.users_shortcuts.create({
+                data: {
+                    user_id: user_id,
+                    shortcut_id: shortcut_id
+                }
+            })
+            res.status(201).send({
+                success: true,
+                result: addToFav
+            })
+        }catch (error){
+            return res.status(500).send({success: false, message: "An internal error has occurred on the server"});
+        }finally {
+            await prisma.$disconnect();
+        }
+    }else{
+        return res.status(400).send(
+            {message: "The server was unable to satisfy the request, information is missing"
+            });
+    }
+})
+
 export default router;

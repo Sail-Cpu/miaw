@@ -11,7 +11,7 @@ const SideBarExpand = (props) => {
     return(
         <div className="side-bar-expand-container" style={{left: props.toggle ? "115px" : ""}}>
             <div className="side-bar-expand-top">
-                <h2>preline</h2>
+                <h2>Miaw</h2>
                 <div onClick={props.closeToggle}>
                     <Icon path={allIcons.close} />
                 </div>

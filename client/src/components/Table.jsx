@@ -176,6 +176,6 @@ export default function EnhancedTable(props) {
     );
 }
 
-EnhancedTable.propsTypes = {
+EnhancedTable.propTypes = {
     step: PropTypes.number
 }

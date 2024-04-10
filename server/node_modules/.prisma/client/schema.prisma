@@ -8,12 +8,13 @@ datasource db {
 }
 
 model users {
-  user_id  Int    @id @default(autoincrement())
-  username String @unique
-  email    String @unique
-  password String
-  job      String
-  os       String
+  user_id         Int               @id @default(autoincrement())
+  username        String            @unique
+  email           String            @unique
+  password        String
+  job             String
+  os              String
+  users_shortcuts users_shortcuts[]
 }
 
 model applications {
@@ -33,6 +34,13 @@ model app_categories {
   applications   applications[]
 }
 
+model users_shortcuts {
+  user_id     Int       @id
+  shortcut_id Int
+  users       users     @relation(fields: [user_id], references: [user_id])
+  shortcuts   shortcuts @relation(fields: [shortcut_id], references: [shortcut_id])
+}
+
 model chapters {
   chapter_id   Int         @id @default(autoincrement())
   chapter_name String
@@ -40,13 +48,14 @@ model chapters {
 }
 
 model shortcuts {
-  shortcut_id       Int          @id @default(autoincrement())
+  shortcut_id       Int               @id @default(autoincrement())
   chapter_id        Int
   app_id            Int
   shortcut_name     String
   shortcut_keys     String[]
   shortcut_mac_keys String[]
   shortcut_desc     String
-  chapters          chapters     @relation(fields: [chapter_id], references: [chapter_id])
-  applications      applications @relation(fields: [app_id], references: [app_id])
+  chapters          chapters          @relation(fields: [chapter_id], references: [chapter_id])
+  applications      applications      @relation(fields: [app_id], references: [app_id])
+  users_shortcuts   users_shortcuts[]
 }
