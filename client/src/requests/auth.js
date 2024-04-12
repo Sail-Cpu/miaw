@@ -49,9 +49,9 @@ export const login = async (userData) => {
     }
 }
 
-export const addToMyFav = async (userId, shortcutId) => {
+export const favRequest = async (userId, shortcutId, add) => {
     try{
-        const request = await axios.post(`${BASE_LINK}/addtofav`, {
+        const request = await axios.post(`${BASE_LINK}/favorite/${add}`, {
             user_id: userId,
             shortcut_id: shortcutId
         })

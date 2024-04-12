@@ -16,7 +16,7 @@ import {useParams} from "react-router-dom";
 import {getApp} from "../redux/app/action.js";
 import {Keys} from "./Shortcut.jsx";
 import {currentUserSelector} from "../redux/auth/selector.js";
-import {addToFav} from "../redux/auth/action.js";
+import {favAction} from "../redux/auth/action.js";
 
 function stableSort(array) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -115,8 +115,18 @@ export default function EnhancedTable(props) {
         [page, rowsPerPage, shortcuts],
     );
 
-    const favorite = async (shortcutId) => {
-        await dispatch(addToFav({userId: user_id, shortcutId}));
+    const favorite = async (shortcutId, add) => {
+        await dispatch(favAction({userId: user_id, shortcutId, add}));
+    }
+
+    const alreadyAdded = (shortcut) => {
+        let res = false;
+        userShortcuts.map(row => {
+            if(row.shortcut_id === shortcut.shortcut_id){
+                res = true;
+            }
+        })
+        return res;
     }
 
     return (
@@ -158,11 +168,19 @@ export default function EnhancedTable(props) {
                                             </div>
                                         </TableCell>
                                         <TableCell align="right">
-                                            <span
-                                                style={{color: "#2563EB", cursor: "pointer"}}
-                                                onClick={() => favorite(row.shortcut_id)}>
-                                                Favorite
-                                            </span>
+                                            {alreadyAdded(row) ?
+                                                <span
+                                                    style={{color: "red", cursor: "pointer"}}
+                                                    onClick={() => favorite(row.shortcut_id, "false")}>
+                                                    Delete
+                                                </span>
+                                            :
+                                                <span
+                                                    style={{color: "#2563EB", cursor: "pointer"}}
+                                                    onClick={() => favorite(row.shortcut_id, "true")}>
+                                                    Favorite
+                                                </span>
+                                            }
                                         </TableCell>
                                     </TableRow>
                                 );

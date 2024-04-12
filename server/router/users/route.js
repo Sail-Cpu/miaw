@@ -67,12 +67,13 @@ router.post(`/signup`, async (req, res) => {
                         os: os
                     },
                 });
-                const userShortcuts = await prisma.users_shortcuts.findMany({
+                const userShortcuts = await prisma.shortcuts.findMany({
                     where: {
-                        user_id: newUser.user_id
-                    },
-                    select: {
-                        shortcuts: true
+                        users_shortcuts: {
+                            some: {
+                                user_id: userExist[0].user_id
+                            }
+                        }
                     }
                 });
                 res.status(201).send({
@@ -106,18 +107,20 @@ router.post(`/signin`, async (req, res) => {
                     ]
                 }
             });
-            const userShortcuts = await prisma.users_shortcuts.findMany({
-                where: {
-                    user_id: userExist[0].user_id
-                },
-                select: {
-                    shortcuts: true
-                }
-            });
 
             if(userExist.length === 0) return res.status(400).send({
                 success: false,
                 message: "The users does not exist"
+            });
+
+            const userShortcuts = await prisma.shortcuts.findMany({
+                where: {
+                    users_shortcuts: {
+                        some: {
+                            user_id: userExist[0].user_id
+                        }
+                    }
+                }
             });
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
@@ -144,26 +147,39 @@ router.post(`/signin`, async (req, res) => {
     }
 })
 
-router.post(`/addtofav`, async (req, res) => {
+router.post(`/favorite/:add`, async (req, res) => {
     const{user_id, shortcut_id} = req.body;
+    const {add} = req.params;
     if(user_id && shortcut_id){
         try {
-            const addToFav = await prisma.users_shortcuts.create({
-                data: {
-                    user_id: user_id,
-                    shortcut_id: shortcut_id
-                }
-            })
+            console.log(add);
+            if(add === "true"){
+                await prisma.users_shortcuts.create({
+                    data: {
+                        user_id: user_id,
+                        shortcut_id: shortcut_id
+                    }
+                })
+            }else{
+                console.log(user_id, shortcut_id);
+                const drop = await prisma.users_shortcuts.delete({
+                    where: {
+                        user_id: user_id,
+                        shortcut_id: shortcut_id
+                    }
+                });
+                console.log(drop, 'ok');
+            }
 
-            const userShortcuts = await prisma.users_shortcuts.findMany({
+            const userShortcuts = await prisma.shortcuts.findMany({
                 where: {
-                    user_id: user_id
-                },
-                select: {
-                    shortcuts: true
+                    users_shortcuts: {
+                        some: {
+                            user_id: user_id
+                        }
+                    }
                 }
             });
-
             res.status(201).send({
                 success: true,
                 result: userShortcuts

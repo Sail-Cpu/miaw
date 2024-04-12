@@ -1,7 +1,6 @@
 import * as actionType from "./type"
 //request
-import {login, register, addToMyFav} from "../../requests/auth.js";
-import shortcut from "../../components/Shortcut.jsx";
+import {login, register, favRequest} from "../../requests/auth.js";
 export const signUp = (userData) => async (dispatch) => {
     const response = await register(userData);
     if(response.success){
@@ -33,9 +32,9 @@ export const SignIn = (userData) => async (dispatch) => {
     return response;
 }
 
-export const addToFav = (data) => async (dispatch) => {
-    const  {userId, shortcutId} = data;
-    const response = await addToMyFav(userId, shortcutId);
+export const favAction = (data) => async (dispatch) => {
+    const  {userId, shortcutId, add} = data;
+    const response = await favRequest(userId, shortcutId, add);
     if(response.success){
         dispatch({
             type: actionType.UPDATE_USER,
