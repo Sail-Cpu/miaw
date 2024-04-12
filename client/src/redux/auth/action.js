@@ -1,6 +1,7 @@
 import * as actionType from "./type"
 //request
-import {login, register} from "../../requests/auth.js";
+import {login, register, addToMyFav} from "../../requests/auth.js";
+import shortcut from "../../components/Shortcut.jsx";
 export const signUp = (userData) => async (dispatch) => {
     const response = await register(userData);
     if(response.success){
@@ -18,6 +19,7 @@ export const signUp = (userData) => async (dispatch) => {
 
 export const SignIn = (userData) => async (dispatch) => {
     const response = await login(userData);
+    console.log(response)
     if(response.success){
         dispatch({
             type: actionType.REGISTER_SUCCESS,
@@ -29,4 +31,19 @@ export const SignIn = (userData) => async (dispatch) => {
         })
     }
     return response;
+}
+
+export const addToFav = (data) => async (dispatch) => {
+    const  {userId, allFav, shortcutId} = data;
+    const response = await addToMyFav(userId, shortcutId);
+    console.log(response);
+    /*if(response.success){
+        allFav.push()
+        dispatch({
+            type: actionType.UPDATE_USER,
+            payload: response.result,
+            modif: "shortcuts"
+        })
+    }
+    return response;*/
 }

@@ -48,3 +48,15 @@ export const login = async (userData) => {
         return {message: "all fields must be completed"}
     }
 }
+
+export const addToMyFav = async (userId, shortcutId) => {
+    try{
+        const request = await axios.post(`${BASE_LINK}/addtofav`, {
+            user_id: userId,
+            shortcut_id: shortcutId
+        })
+        return request.data
+    }catch (error){
+        return error.response.data
+    }
+}

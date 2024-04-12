@@ -15,6 +15,8 @@ import {useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getApp} from "../redux/app/action.js";
 import {Keys} from "./Shortcut.jsx";
+import {currentUserSelector} from "../redux/auth/selector.js";
+import {addToFav} from "../redux/auth/action.js";
 
 function stableSort(array) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -78,6 +80,7 @@ export default function EnhancedTable(props) {
 
     const { app_id } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsSelector(props.step));
+    const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
 
     const {appId} = useParams();
     const dispatch = useDispatch();
@@ -111,6 +114,10 @@ export default function EnhancedTable(props) {
             ),
         [page, rowsPerPage, shortcuts],
     );
+
+    const favorite = async (shortcutId) => {
+        await dispatch(addToFav({userId: user_id, allFav: userShortcuts, shortcutId}));
+    }
 
     return (
         <Box sx={{ width: '100%', marginTop: "20px" }}>
@@ -150,7 +157,13 @@ export default function EnhancedTable(props) {
                                                 {Keys(row.shortcut_mac_keys)}
                                             </div>
                                         </TableCell>
-                                        <TableCell align="right">Favorite</TableCell>
+                                        <TableCell align="right">
+                                            <span
+                                                style={{color: "#2563EB", cursor: "pointer"}}
+                                                onClick={() => favorite(row.shortcut_id)}>
+                                                Favorite
+                                            </span>
+                                        </TableCell>
                                     </TableRow>
                                 );
                             })}

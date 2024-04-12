@@ -58,7 +58,7 @@ router.post(`/signup`, async (req, res) => {
             });
             bcrypt.hash(password, 10, async (err, hash) => {
                 if(err) throw err;
-                const newUsers = await prisma.users.create({
+                const newUser = await prisma.users.create({
                     data: {
                         username: username,
                         email: email,
@@ -67,9 +67,18 @@ router.post(`/signup`, async (req, res) => {
                         os: os
                     },
                 });
+                const userShortcuts = await prisma.users_shortcuts.findMany({
+                    where: {
+                        user_id: newUser.user_id
+                    },
+                    select: {
+                        shortcuts: true
+                    }
+                });
                 res.status(201).send({
                     success: true,
-                    result: newUsers
+                    result: {...newUser, shortcuts: userShortcuts},
+                    message: "the user is successfully logged in"
                 })
             });
         } catch (error){
@@ -97,14 +106,34 @@ router.post(`/signin`, async (req, res) => {
                     ]
                 }
             });
-            if(userExist.length === 0) return res.status(400).send({success: false, message: "The users does not exist"});
+            const userShortcuts = await prisma.users_shortcuts.findMany({
+                where: {
+                    user_id: userExist[0].user_id
+                },
+                select: {
+                    shortcuts: true
+                }
+            });
+
+            if(userExist.length === 0) return res.status(400).send({
+                success: false,
+                message: "The users does not exist"
+            });
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
-                if(isTheSame) return res.status(200).send({success: true, result: userExist[0], message: "the user is successfully logged in"});
+                if(isTheSame) return res.status(200).send({
+                    success: true,
+                    result: {...userExist[0], shortcuts: userShortcuts},
+                    message: "the user is successfully logged in"}
+                );
                 return res.status(400).send({success: false, message: "the password is incorrect" });
             })
         }catch (error){
-            return res.status(500).send({success: false, message: "An internal error has occurred on the server"});
+            console.log(error)
+            return res.status(500).send({
+                success: false,
+                message: "An internal error has occurred on the server"}
+            );
         }finally {
             await prisma.$disconnect();
         }
@@ -115,16 +144,17 @@ router.post(`/signin`, async (req, res) => {
     }
 })
 
-router.post(`addtofav`, async (req, res) => {
+router.post(`/addtofav`, async (req, res) => {
     const{user_id, shortcut_id} = req.body;
     if(user_id && shortcut_id){
         try {
-            const addToFav = prisma.users_shortcuts.create({
+            const addToFav = await prisma.users_shortcuts.create({
                 data: {
                     user_id: user_id,
                     shortcut_id: shortcut_id
                 }
             })
+
             res.status(201).send({
                 success: true,
                 result: addToFav
@@ -136,7 +166,7 @@ router.post(`addtofav`, async (req, res) => {
         }
     }else{
         return res.status(400).send(
-            {message: "The server was unable to satisfy the request, information is missing"
+            {success: false, message: "The server was unable to satisfy the request, information is missing"
             });
     }
 })

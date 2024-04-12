@@ -2,7 +2,15 @@ import * as actionType from "./type";
 
 const INITIAL_STATE = {
     isLoggedIn: false,
-    user:{}
+    user: {
+        user_id: 0,
+        email: "",
+        job: "",
+        password: "",
+        os: "",
+        shortcuts: [],
+        username: "",
+    }
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +20,14 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 user: action.payload,
                 isLoggedIn: true
+            };
+        case actionType.UPDATE_USER:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    [action.modif]: action.payload
+                }
             };
         case actionType.REGISTER_FAILED:
             return state;
