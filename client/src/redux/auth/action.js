@@ -34,16 +34,14 @@ export const SignIn = (userData) => async (dispatch) => {
 }
 
 export const addToFav = (data) => async (dispatch) => {
-    const  {userId, allFav, shortcutId} = data;
+    const  {userId, shortcutId} = data;
     const response = await addToMyFav(userId, shortcutId);
-    console.log(response);
-    /*if(response.success){
-        allFav.push()
+    if(response.success){
         dispatch({
             type: actionType.UPDATE_USER,
             payload: response.result,
             modif: "shortcuts"
         })
     }
-    return response;*/
+    return response;
 }

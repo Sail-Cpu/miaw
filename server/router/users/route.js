@@ -155,11 +155,21 @@ router.post(`/addtofav`, async (req, res) => {
                 }
             })
 
+            const userShortcuts = await prisma.users_shortcuts.findMany({
+                where: {
+                    user_id: user_id
+                },
+                select: {
+                    shortcuts: true
+                }
+            });
+
             res.status(201).send({
                 success: true,
-                result: addToFav
+                result: userShortcuts
             })
         }catch (error){
+            console.log(error)
             return res.status(500).send({success: false, message: "An internal error has occurred on the server"});
         }finally {
             await prisma.$disconnect();

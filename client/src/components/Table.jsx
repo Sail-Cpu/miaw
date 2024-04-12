@@ -116,7 +116,7 @@ export default function EnhancedTable(props) {
     );
 
     const favorite = async (shortcutId) => {
-        await dispatch(addToFav({userId: user_id, allFav: userShortcuts, shortcutId}));
+        await dispatch(addToFav({userId: user_id, shortcutId}));
     }
 
     return (
