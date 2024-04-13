@@ -152,7 +152,6 @@ router.post(`/favorite/:add`, async (req, res) => {
     const {add} = req.params;
     if(user_id && shortcut_id){
         try {
-            console.log(add);
             if(add === "true"){
                 await prisma.users_shortcuts.create({
                     data: {
@@ -161,16 +160,13 @@ router.post(`/favorite/:add`, async (req, res) => {
                     }
                 })
             }else{
-                console.log(user_id, shortcut_id);
                 const drop = await prisma.users_shortcuts.delete({
                     where: {
                         user_id: user_id,
                         shortcut_id: shortcut_id
                     }
                 });
-                console.log(drop, 'ok');
             }
-
             const userShortcuts = await prisma.shortcuts.findMany({
                 where: {
                     users_shortcuts: {
