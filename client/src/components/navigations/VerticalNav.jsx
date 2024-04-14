@@ -4,6 +4,7 @@ import allIcons from "../../utils/allIcons.js";
 import {useSelector} from "react-redux";
 import {currentUserSelector} from "../../redux/auth/selector.js";
 import {allAppsNoCatSelector} from "../../redux/app/selector.js";
+import {Link} from "react-router-dom";
 
 
 const tabs = [
@@ -48,9 +49,11 @@ export const NavExtends = () => {
     return getAllApps().map((app, idx) => {
         return(
             <div key={idx}>
-                <span>
-                    {app.app_name}
-                </span>
+                <Link to={`/user/software/${app.app_id}`}>
+                    <span>
+                        {app.app_name}
+                    </span>
+                </Link>
             </div>
         )
     })
@@ -62,6 +65,7 @@ export const NavExtends = () => {
 const VerticalNavTabs = () => {
 
     const [extend, setExtend] = useState(false);
+    const {shortcuts} = useSelector(currentUserSelector);
 
     const borderStyle = (idx) => {
         const borderType = "2px solid #E5E7EB";
@@ -109,7 +113,7 @@ const VerticalNavTabs = () => {
                         <Icon path={tab.icon} />
                         <span>{tab.name}</span>
                     </div>
-                    {extend &&
+                    {extend && shortcuts.length > 0 &&
                         <div className="vertical-nav-tab-extends-container">
                             <NavExtends />
                         </div>
