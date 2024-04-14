@@ -30,7 +30,7 @@ const tabs = [
     }
 ]
 
-export const NavExtends = () => {
+const NavExtends = () => {
     const {shortcuts} = useSelector(currentUserSelector);
     const allApps = useSelector(allAppsNoCatSelector);
 
@@ -58,9 +58,6 @@ export const NavExtends = () => {
         )
     })
 }
-
-
-
 
 const VerticalNavTabs = () => {
 
@@ -123,7 +120,6 @@ const VerticalNavTabs = () => {
         </React.Fragment>
     ));
 }
-
 
 const VerticalNav = () => {
     return(
