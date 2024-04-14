@@ -11,6 +11,7 @@ import Software from "./pages/Software.jsx";
 import {isLoggedInSelector} from "./redux/auth/selector.js";
 import Course from "./pages/Course.jsx";
 import User from "./pages/User.jsx";
+import UserSoftware from "./pages/user/UserSoftware.jsx";
 
 function App() {
 
@@ -22,7 +23,9 @@ function App() {
           <Route path="/" element={<Miaw />}>
             <Route path="/software/:appId" element={<Software />} />
             <Route path="/software/:appId/course" element={<Course />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={<User />}>
+              <Route path="/user/software/:appId" element={<UserSoftware />} />
+            </Route>
           </Route>
     )
   }

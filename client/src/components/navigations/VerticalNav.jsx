@@ -47,7 +47,11 @@ export const NavExtends = () => {
 
     return getAllApps().map((app, idx) => {
         return(
-            <div key={idx}>{app.app_name}</div>
+            <div key={idx}>
+                <span>
+                    {app.app_name}
+                </span>
+            </div>
         )
     })
 }
@@ -110,7 +114,6 @@ const VerticalNavTabs = () => {
                             <NavExtends />
                         </div>
                     }
-
                 </div>
             }
         </React.Fragment>

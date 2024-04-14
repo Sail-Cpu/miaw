@@ -10,10 +10,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useDispatch, useSelector} from "react-redux";
-import {appSelector, appShortcutsSelector} from "../redux/app/selector.js";
-import {useEffect, useMemo, useState} from "react";
-import {useParams} from "react-router-dom";
-import {getApp} from "../redux/app/action.js";
+import {useMemo, useState} from "react";
 import {Keys} from "./Shortcut.jsx";
 import {currentUserSelector} from "../redux/auth/selector.js";
 import {favAction} from "../redux/auth/action.js";
@@ -78,21 +75,9 @@ export default function EnhancedTable(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
-    const { app_id } = useSelector(appSelector);
-    const { shortcuts } = useSelector(appShortcutsSelector(props.step));
     const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
 
-    const {appId} = useParams();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if(app_id !== appId){
-            const fetchData = async () => {
-                await dispatch(getApp(appId));
-            }
-            fetchData();
-        }
-    }, [dispatch, appId])
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -104,15 +89,15 @@ export default function EnhancedTable(props) {
     };
 
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - shortcuts.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.data.length) : 0;
 
     const visibleRows = useMemo(
         () =>
-            stableSort(shortcuts).slice(
+            stableSort(props.data).slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage,
             ),
-        [page, rowsPerPage, shortcuts],
+        [page, rowsPerPage, props.data],
     );
 
     const favorite = async (shortcutId, add) => {
@@ -196,7 +181,7 @@ export default function EnhancedTable(props) {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={shortcuts.length}
+                    count={props.data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
@@ -208,5 +193,5 @@ export default function EnhancedTable(props) {
 }
 
 EnhancedTable.propTypes = {
-    step: PropTypes.number
+    data: PropTypes.array.isRequired
 }
