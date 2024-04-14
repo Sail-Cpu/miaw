@@ -2,10 +2,19 @@
   min-width: 260px;
   width: fit-content;
   .vertical-nav-tab{
+    position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 15px;
     cursor: pointer;
+    .vertical-nav-tab-content{
+      display: flex;
+      align-items: center;
+    }
+    .vertical-nav-tab-extends-container{
+      padding: 10px 10px 0 10px;
+      max-height: 200px;
+    }
     span{
       margin-left: 6px;
     }

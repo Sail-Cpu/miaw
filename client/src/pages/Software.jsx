@@ -23,7 +23,7 @@ const Software = () => {
     const interfacePath = "/images/app/interface";
 
     if (app_id === 0) {
-        return <div>Loading...</div>;
+        return <div>error</div>;
     }
 
     return (
