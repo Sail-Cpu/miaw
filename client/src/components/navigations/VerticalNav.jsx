@@ -7,32 +7,10 @@ import {allAppsNoCatSelector} from "../../redux/app/selector.js";
 import {Link} from "react-router-dom";
 
 
-const tabs = [
-    {
-        name: "Profile",
-        icon: allIcons.app,
-        extends: false
-    },
-    {
-        name: "Settings",
-        icon: allIcons.home,
-        extends: false
-    },
-    {
-        name: "Software",
-        icon: allIcons.keyboard,
-        extends: true
-    },
-    {
-        name: "Classement",
-        icon: allIcons.points,
-        extends: false
-    }
-]
+const ShortcutsExtend = () => {
 
-const NavExtends = () => {
-    const {shortcuts} = useSelector(currentUserSelector);
     const allApps = useSelector(allAppsNoCatSelector);
+    const {shortcuts} = useSelector(currentUserSelector);
 
     const getAllApps = () => {
         let res = [];
@@ -46,23 +24,48 @@ const NavExtends = () => {
         return res;
     }
 
-    return getAllApps().map((app, idx) => {
-        return(
-            <div key={idx}>
-                <Link to={`/user/software/${app.app_id}`}>
-                    <span>
-                        {app.app_name}
-                    </span>
-                </Link>
-            </div>
-        )
-    })
+    return shortcuts.length > 0 &&
+        <div className="vertical-nav-tab-extends-container">
+            {
+                getAllApps().map((app, idx) => {
+                    return(
+                        <div key={idx}>
+                            <Link to={`/user/software/${app.app_id}`}>
+                                <span>
+                                    {app.app_name}
+                                </span>
+                            </Link>
+                        </div>
+                    )
+                })
+            }
+        </div>
 }
+
+
+const tabs = [
+    {
+        name: "Profile",
+        icon: allIcons.app,
+    },
+    {
+        name: "Settings",
+        icon: allIcons.home,
+    },
+    {
+        name: "Software",
+        icon: allIcons.keyboard,
+        extends: <ShortcutsExtend />
+    },
+    {
+        name: "Classement",
+        icon: allIcons.points,
+    }
+]
 
 const VerticalNavTabs = () => {
 
     const [extend, setExtend] = useState(false);
-    const {shortcuts} = useSelector(currentUserSelector);
 
     const borderStyle = (idx) => {
         const borderType = "2px solid #E5E7EB";
@@ -97,7 +100,7 @@ const VerticalNavTabs = () => {
 
     return tabs.map((tab, idx) => (
         <React.Fragment key={idx}>
-            {!tab.extends ?
+            {!tab?.extends ?
                 <div className="vertical-nav-tab" style={borderStyle(idx)}>
                     <div className="vertical-nav-tab-content">
                         <Icon path={tab.icon} />
@@ -110,10 +113,10 @@ const VerticalNavTabs = () => {
                         <Icon path={tab.icon} />
                         <span>{tab.name}</span>
                     </div>
-                    {extend && shortcuts.length > 0 &&
-                        <div className="vertical-nav-tab-extends-container">
-                            <NavExtends />
-                        </div>
+                    {extend &&
+                        <>
+                            {tab.extends}
+                        </>
                     }
                 </div>
             }
