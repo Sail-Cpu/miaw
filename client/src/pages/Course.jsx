@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getApp} from "../redux/app/action.js";
-import {appSelector, appShortcutsSelector} from "../redux/app/selector.js";
+import {appSelector, appShortcutsByChapterSelector} from "../redux/app/selector.js";
 
 export const labels = [
     {
@@ -37,7 +37,7 @@ const Course = () => {
     const dispatch = useDispatch();
 
     const { app_id } = useSelector(appSelector);
-    const { shortcuts } = useSelector(appShortcutsSelector(chapter));
+    const { shortcuts } = useSelector(appShortcutsByChapterSelector(chapter));
 
     useEffect(() => {
         if(app_id !== appId){

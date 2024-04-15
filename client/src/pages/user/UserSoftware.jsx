@@ -1,23 +1,20 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {appSelector, appShortcutsSelector} from "../../redux/app/selector.js";
-import ButtonGroup from "../../components/navigations/ButtonGroup.jsx";
 import Table from "../../components/Table";
-import {labels} from "../Course.jsx";
 import {getApp} from "../../redux/app/action.js";
 import {currentUserSelector} from "../../redux/auth/selector.js";
 
 
 const UserSoftware = () => {
 
-    const [chapter, setChapter] = useState(1);
-
     const {appId} = useParams();
     const dispatch = useDispatch();
 
     const { app_id } = useSelector(appSelector);
-    const { shortcuts } = useSelector(appShortcutsSelector(chapter));
+    const {app_name} = useSelector(appSelector);
+    const shortcuts = useSelector(appShortcutsSelector());
     const { shortcuts: userShortcuts } = useSelector(currentUserSelector);
 
     useEffect(() => {
@@ -41,9 +38,14 @@ const UserSoftware = () => {
         return res;
     }
 
+    const logoPath = "/images/app/logo";
+
     return(
         <div className="course-page-container">
-            <ButtonGroup labels={labels} setSelected={setChapter} selected={chapter}/>
+            <div className="user-course-page-header">
+                <img src={`${logoPath}/${app_id}.png`} />
+                <h1>{app_name}</h1>
+            </div>
             <Table data={visibleShortcuts()} />
         </div>
     )

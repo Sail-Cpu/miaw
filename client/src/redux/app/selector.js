@@ -2,6 +2,7 @@ import {createSelector} from "@reduxjs/toolkit";
 
 const appSelect = (state) => state.app;
 export const appSelector = createSelector([appSelect], (app) => app.actualApp.data);
+export const appChaptersSelector = createSelector([appSelect], (app) => app.actualApp.chapters)
 export const allAppsSelector = createSelector([appSelect], (app) => app.allApps);
 export const allAppsNoCatSelector = createSelector([appSelect], (app) => {
     let res = [];
@@ -12,11 +13,21 @@ export const allAppsNoCatSelector = createSelector([appSelect], (app) => {
     }
     return res;
 });
-export const appShortcutsSelector = (chapter_id) => createSelector([appSelect], (app) => {
-    const chapter = app.actualApp.chapters.find(chapter => chapter.chapter_id === chapter_id);
+export const appShortcutsByChapterSelector = (chapter_id) => createSelector([appChaptersSelector], (app) => {
+    const chapter = app.find(chapter => chapter.chapter_id === chapter_id);
     if (chapter) {
         return chapter;
     } else {
         return {shortcuts: []}
     }
+});
+
+export const appShortcutsSelector = () => createSelector([appChaptersSelector], (app) => {
+    const apps = []
+    for(let i = 0; i < app.length; i++){
+        for(let j = 0; j < app[i].shortcuts.length; j++){
+            apps.push(app[i].shortcuts[j]);
+        }
+    }
+    return apps;
 });
