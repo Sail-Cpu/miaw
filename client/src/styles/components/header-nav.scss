@@ -1,0 +1,31 @@
+.header-nav-container{
+  position: fixed;
+  right: 0;
+  padding: 20px;
+  .header-nav{
+    display: flex;
+    align-items: center;
+    .nav-tab{
+      color: #1F2937;
+      margin: 0 20px;
+      cursor: pointer;
+    }
+    .search-icon{
+      margin: 0 20px;
+      cursor: pointer;
+    }
+    .buttons-container{
+      button {
+        padding: 7px 10px;
+        font-size: 16px;
+        outline: none;
+        border-radius: 7px;
+        border: 2px solid #E5E7EB;
+        font-weight: 500;
+        margin-left: 10px;
+        cursor: pointer;
+        box-shadow: 1px 1px 5px 0 rgba(0, 0 , 0, 0.1);
+      }
+    }
+  }
+}
