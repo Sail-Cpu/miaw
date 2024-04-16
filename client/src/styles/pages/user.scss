@@ -13,7 +13,18 @@
     cursor: pointer;
     .vertical-nav-tab-content{
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      .tag{
+        background-color: #DBEAFE;
+        color: #1E40AF;
+        padding: 4px;
+        border-radius: 20px;
+        font-size: 13px;
+      }
       span{
         margin-left: 6px;
       }
