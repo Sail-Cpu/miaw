@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import Icon from "../Icon.jsx";
 import allIcons from "../../utils/allIcons.js";
+import {Link} from "react-router-dom";
 
 const Button = (props) => {
     const {data} = props;
@@ -36,9 +37,9 @@ const HeaderNav = (props) => {
             <div className="header-nav">
                 {
                     params.tabs.map((tab, idx) => {
-                        return <div key={idx} className="nav-tab">
+                        return <Link key={idx} to={tab.link}><div className="nav-tab">
                             {tab.name}
-                        </div>
+                        </div></Link>
                     })
                 }
                 <div className="search-icon">
