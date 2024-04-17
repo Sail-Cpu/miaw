@@ -17,11 +17,15 @@ const Miaw = () => {
                 name: "User",
                 link: "/user",
             },
+            {
+                name: "Notification",
+                link: "#",
+            },
         ],
         buttons: [
             {
                 name: "Disconnect",
-                background: true,
+                background: false,
                 action: () => disconnect()
             }
         ],

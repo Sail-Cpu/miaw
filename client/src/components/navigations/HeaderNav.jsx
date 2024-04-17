@@ -11,16 +11,13 @@ const Button = (props) => {
             return {
                 border: "none",
                 background: "#2563EB",
-                color: "#fff"
+                color: "#fff",
             }
         }
-        return {
-            background: "none",
-            color: "#1F2937"
-        }
+        return {};
     }
 
-    return <button style={style()} onClick={data.action} className="header-nav-button">
+    return <button style={style()} onClick={data.action} className={`header-nav-button ${!data?.background && 'btn-no-back'}`}>
             {data.name}
         </button>
 }
@@ -42,11 +39,11 @@ const HeaderNav = (props) => {
                         </div></Link>
                     })
                 }
-                <div className="search-icon">
-                    {
-                        params?.search && <Icon path={allIcons.search} />
-                    }
-                </div>
+                {params?.search &&
+                    <div className="search-icon">
+                        <Icon path={allIcons.search} />
+                    </div>
+                }
                 <div className="buttons-container">
                     {
                         params.buttons.map((button, idx) => {
