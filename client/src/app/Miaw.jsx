@@ -25,7 +25,7 @@ const Miaw = () => {
         buttons: [
             {
                 name: "Disconnect",
-                background: false,
+                background: true,
                 action: () => disconnect()
             }
         ],

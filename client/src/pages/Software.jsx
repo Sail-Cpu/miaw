@@ -30,7 +30,7 @@ const Software = () => {
         <div className="software-page-container">
             <div className="software-head">
                 <img src={`${logoPath}/${app_id}.png`} alt="logo" />
-                <NavButton name="Button" link="/software" color="#2563EB" />
+                {/*<NavButton name="Button" link="/software" color="#2563EB" />*/}
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -49,7 +49,7 @@ const Software = () => {
             </div>
             <div className="shortcuts-list">
                 <h1>Keyboard Shortcuts</h1>
-                {shortcuts.map((shortcut, idx) => (
+                {shortcuts.slice(0, 10).map((shortcut, idx) => (
                     <Shortcut key={idx} data={shortcut} />
                 ))}
             </div>
