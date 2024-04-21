@@ -30,7 +30,6 @@ const Software = () => {
         <div className="software-page-container">
             <div className="software-head">
                 <img src={`${logoPath}/${app_id}.png`} alt="logo" />
-                {/*<NavButton name="Button" link="/software" color="#2563EB" />*/}
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -40,7 +39,7 @@ const Software = () => {
                     </div>
                     <div className="software-hero-banner-bottom">
                         <NavButton name="Course" link={`/software/${app_id}/course`} color="#33D3C1" />
-                        <NavButton name="Knowledge Test" link="/software" color="#33D3C1" />
+                        <NavButton name="Knowledge Test" link={`/software/${app_id}/test`} color="#33D3C1" />
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
