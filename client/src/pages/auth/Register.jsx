@@ -25,6 +25,7 @@ const Register = () => {
 
     return(
         <div className="sign-page register-page">
+            <Toaster position="top-right" richColors closeButton />
             {<Outlet />}
             <div className="sign-step-container">
                 <Stepper activeStep={step()} alternativeLabel>
@@ -38,7 +39,6 @@ const Register = () => {
                     )}
                 </Stepper> 
             </div>
-            <Toaster position="top-right" richColors closeButton />
         </div>
     )
 }

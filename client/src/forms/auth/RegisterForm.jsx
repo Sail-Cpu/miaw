@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import PropTypes from 'prop-types';
 //ui
 import { toast } from 'sonner';
@@ -68,6 +68,9 @@ const RegisterForm = () => {
                 </div>
                 <div className="button-container">
                     <Button name="Submit" />
+                </div>
+                <div>
+                    <span>You already have an account <Link to='/login'>Login</Link></span>
                 </div>
             </form>
     )

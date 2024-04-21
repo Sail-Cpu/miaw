@@ -4,21 +4,26 @@ import Input from "../../components/inputs/Input.jsx";
 import Button from "../../components/inputs/Button.jsx";
 import {SignIn} from "../../redux/auth/action.js";
 import {toast, Toaster} from "sonner";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let done = false;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(done){
+            return;
+        }
         const formData = new FormData(e.currentTarget);
         await dispatch(SignIn({
             username: formData.get("username"),
             password: formData.get("password")
         })).then(response => {
             if(response.success === true){
+                done = true;
                 toast.success("Login success");
                 setTimeout(() => {
                     navigate("/");
@@ -29,9 +34,9 @@ const Login = () => {
         });
     }
 
-
     return(
         <div className="sign-page login-page">
+            <Toaster position="top-right" richColors closeButton />
             <form onSubmit={(e) => handleSubmit(e)}>
                 <h1>Login</h1>
                 <div className="sign-page-form">
@@ -41,8 +46,10 @@ const Login = () => {
                 <div className="button-container">
                     <Button name="Submit" />
                 </div>
+                <div>
+                    <span>You don't have an account <Link to='/sign'>Sign up</Link></span>
+                </div>
             </form>
-            <Toaster position="top-right" richColors closeButton />
         </div>
     )
 }
