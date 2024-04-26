@@ -48,7 +48,7 @@ const Software = () => {
             </div>
             <div className="shortcuts-list">
                 <h1>Keyboard Shortcuts</h1>
-                {shortcuts.slice(0, 10).map((shortcut, idx) => (
+                {shortcuts.slice(0, 5).map((shortcut, idx) => (
                     <Shortcut key={idx} data={shortcut} />
                 ))}
             </div>

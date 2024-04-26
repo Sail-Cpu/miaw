@@ -47,7 +47,7 @@ const Tab = (props) => {
                 <Icon path={tab.icon} />
                 <span>{tab.name}</span>
             </div>
-            { tag && <div className="tag">{tag}</div> }
+            { tag > 0 && <div className="tag">{tag}</div> }
         </div>
         {extend}
     </div>
@@ -75,7 +75,7 @@ const ShortcutsExtend = (props) => {
         return allApps.filter(app => uniqueUserAppIds.includes(app.app_id));
     }
 
-    const allUserApp = useMemo(() => getAllUserApps(), [allApps]);
+    const allUserApp = useMemo(() => getAllUserApps(), [allApps, shortcuts]);
 
     return extend && shortcuts.length > 0 ?
         <Tab tab={tab} idx={idx}  action={() => setExtend(false)} tag={allUserApp.length} extend={
