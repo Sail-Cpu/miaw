@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {appSelector, appShortcutsSelector} from "../../redux/app/selector.js";
 import Table from "../../components/Table";
@@ -26,7 +26,7 @@ const UserSoftware = () => {
         }
     }, [dispatch, appId])
 
-    const visibleShortcuts = () => {
+    const visibleShortcuts = useMemo(() => {
         let res = [];
         for(let i = 0; i < shortcuts.length; i++){
             for(let j = 0; j < userShortcuts.length; j++){
@@ -36,17 +36,22 @@ const UserSoftware = () => {
             }
         }
         return res;
-    }
+    }, [app_id])
 
     const logoPath = "/images/app/logo";
 
     return(
         <div className="course-page-container">
-            <div className="user-course-page-header">
-                <img src={`${logoPath}/${app_id}.png`} />
-                <h1>{app_name}</h1>
-            </div>
-            <Table data={visibleShortcuts()} />
+            {visibleShortcuts.length > 0 ?
+                <>
+                    <div className="user-course-page-header">
+                        <img src={`${logoPath}/${app_id}.png`} />
+                        <h1>{app_name}</h1>
+                    </div>
+                    <Table data={visibleShortcuts} />
+                </>
+                : <> Application introuvable </>
+            }
         </div>
     )
 }
