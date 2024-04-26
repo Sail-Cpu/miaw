@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import Key from "./Key.jsx";
 import PropTypes from "prop-types";
+import {favAction} from "../redux/auth/action.js";
+import {useDispatch, useSelector} from "react-redux";
+import {currentUserSelector} from "../redux/auth/selector.js";
 
 
 export const Keys = (keys) => {
@@ -14,11 +17,29 @@ export const Keys = (keys) => {
 
 const Shortcut = (props) => {
 
+    const dispatch = useDispatch();
+    const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
+
     const {
+        shortcut_id,
         shortcut_name,
         shortcut_desc,
         shortcut_keys,
         shortcut_mac_keys} = props.data;
+
+    const favorite = async (shortcutId, add) => {
+        await dispatch(favAction({userId: user_id, shortcutId, add}));
+    }
+
+    const alreadyAdded = (shortcut_id) => {
+        let res = false;
+        userShortcuts.map(row => {
+            if(row.shortcut_id === shortcut_id){
+                res = true;
+            }
+        })
+        return res;
+    }
 
     const [os , setOs] = useState("windows");
 
@@ -39,12 +60,29 @@ const Shortcut = (props) => {
                 <h3>{shortcut_name}</h3>
                 <p>{shortcut_desc}</p>
                 <div className="all-keys-container">
-                    {
-                        os === "windows" ?
-                            Keys(shortcut_keys)
+                    <div className="keys">
+                        {
+                            os === "windows" ?
+                                Keys(shortcut_keys)
+                                :
+                                Keys(shortcut_mac_keys)
+                        }
+                    </div>
+                    <div>
+                        {alreadyAdded(shortcut_id) ?
+                            <span
+                                style={{color: "red", cursor: "pointer"}}
+                                onClick={() => favorite(shortcut_id, "false")}>
+                                Delete
+                            </span>
                             :
-                            Keys(shortcut_mac_keys)
-                    }
+                            <span
+                                style={{color: "#2563EB", cursor: "pointer"}}
+                                onClick={() => favorite(shortcut_id, "true")}>
+                                Favorite
+                            </span>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

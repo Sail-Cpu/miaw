@@ -45,12 +45,16 @@
 .all-keys-container{
   margin-top: 10px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  .more{
-    margin-right: 6px;
+  .keys{
+    display: flex;
+    .more{
+      margin-right: 6px;
+    }
   }
+
 }
 .key-container{
   font-size: 15px;
