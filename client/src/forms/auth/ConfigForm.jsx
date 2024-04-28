@@ -16,9 +16,11 @@ const ConfigForm = () => {
     const {user, setUser} = useContext(AuthContext)
     const [choice, setChoice] = useState("");
 
+    const [done, setDone] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(choice === "windows" || choice === "mac"){
+        if(!done && choice === "windows" || choice === "mac"){
             setUser({
                 ...user,
                 os: choice
@@ -33,10 +35,18 @@ const ConfigForm = () => {
     useEffect(() => {
         if(user.username.length === 0) navigate("/sign/step2");
         if(user.os){
+            setDone(true);
             fetchData().then(response => {
                 if(response.success){
                     toast.success("the user has been created successfully");
                     setTimeout(() => {
+                        setUser({
+                            email: "",
+                            password: "",
+                            username: "",
+                            job: "",
+                            os: "",
+                        })
                         navigate("/");
                     }, 1000)
                 }else{

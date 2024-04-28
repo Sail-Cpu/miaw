@@ -14,9 +14,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(done){
-            return;
-        }
+        if(done) return;
         const formData = new FormData(e.currentTarget);
         await dispatch(SignIn({
             username: formData.get("username"),

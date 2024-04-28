@@ -71,7 +71,7 @@ router.post(`/signup`, async (req, res) => {
                     where: {
                         users_shortcuts: {
                             some: {
-                                user_id: userExist[0].user_id
+                                user_id: newUser.user_id
                             }
                         }
                     }
