@@ -8,7 +8,7 @@ import usePasswordStrength from "../../hooks/usePasswordStrength.jsx";
 //Components
 import Input from '../../components/inputs/Input.jsx';
 import PassProgress from '../../components/inputs/PassProgress.jsx';
-import Button from '../../components/inputs/Button.jsx';
+import SubmitButton from '../../components/inputs/SubmitButton.jsx';
 //Context
 import {AuthContext} from "../../context/AuthContext.jsx";
 //request
@@ -67,7 +67,7 @@ const RegisterForm = () => {
                     <Input name="confirm password" type="password" />
                 </div>
                 <div className="button-container">
-                    <Button name="Submit" />
+                    <SubmitButton name="Submit" />
                 </div>
                 <div>
                     <span>You already have an account <Link to='/login'>Login</Link></span>

@@ -1,5 +1,5 @@
-import NavButton from "../components/NavButton.jsx";
-import {useParams} from "react-router-dom";
+import Button from "../components/Button.jsx";
+import {useNavigate, useParams} from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, appShortcutsByChapterSelector } from "../redux/app/selector";
@@ -11,6 +11,7 @@ const Software = () => {
     const dispatch = useDispatch();
     const { app_id, app_name, app_description } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,8 +39,8 @@ const Software = () => {
                         <p>{app_description}</p>
                     </div>
                     <div className="software-hero-banner-bottom">
-                        <NavButton name="Course" link={`/software/${app_id}/course`} color="#33D3C1" />
-                        <NavButton name="Knowledge Test" link={`/software/${app_id}/test`} color="#33D3C1" />
+                        <Button name="Course" onClick={() => navigate(`/software/${app_id}/course`)} color="#33D3C1" />
+                        <Button name="Knowledge Test" onClick={() => navigate(`/software/${app_id}/test`)} color="#33D3C1" />
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">

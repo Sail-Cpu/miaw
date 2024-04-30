@@ -13,6 +13,7 @@ import Course from "./pages/Course.jsx";
 import User from "./pages/User.jsx";
 import UserSoftware from "./pages/user/UserSoftware.jsx";
 import KnowledgeTest from "./pages/KnowledgeTest.jsx";
+import SpeedTest from "./pages/SpeedTest.jsx";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/software/:appId" element={<Software />} />
             <Route path="/software/:appId/course" element={<Course />} />
             <Route path="/software/:appId/test" element={<KnowledgeTest />} />
+            <Route path="/speedtest" element={<SpeedTest />} />
             <Route path="/user" element={<User />}>
               <Route path="/user/software/:appId" element={<UserSoftware />} />
             </Route>

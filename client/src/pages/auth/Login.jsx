@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 
 import Input from "../../components/inputs/Input.jsx";
-import Button from "../../components/inputs/Button.jsx";
+import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 import {SignIn} from "../../redux/auth/action.js";
 import {toast, Toaster} from "sonner";
 import {Link, useNavigate} from "react-router-dom";
@@ -42,7 +42,7 @@ const Login = () => {
                     <Input name="password" type="password" />
                 </div>
                 <div className="button-container">
-                    <Button name="Submit" />
+                    <SubmitButton name="Submit" />
                 </div>
                 <div>
                     <span>You don't have an account <Link to='/sign'>Sign up</Link></span>

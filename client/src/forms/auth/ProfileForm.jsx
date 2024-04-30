@@ -9,7 +9,7 @@ import {AuthContext} from "../../context/AuthContext.jsx";
 import Input from "../../components/inputs/Input";
 import Select from "../../components/inputs/Select";
 import Upload from "../../components/inputs/Upload";
-import Button from "../../components/inputs/Button";
+import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 import {userExist} from "../../requests/auth.js";
 
 const ProfileForm = () => {
@@ -50,7 +50,7 @@ const ProfileForm = () => {
                 <Upload name="Picture profile" />
             </div>
             <div className="button-container">
-                <Button name="Submit" />
+                <SubmitButton name="Submit" />
             </div>
         </form>
     )

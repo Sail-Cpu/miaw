@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import PropTypes from 'prop-types';
 //Components
 import OS from '../../components/inputs/OS';
-import Button from '../../components/inputs/Button';
+import SubmitButton from '../../components/inputs/SubmitButton.jsx';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {signUp} from "../../redux/auth/action.js";
 import {toast} from "sonner";
@@ -63,7 +63,7 @@ const ConfigForm = () => {
                 <OS name="OS" choice={choice} setChoice={setChoice}/>
             </div>
             <div className="button-container">
-                <Button name="Submit"/>
+                <SubmitButton name="Submit"/>
             </div>
         </form>
     )
