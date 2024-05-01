@@ -2,6 +2,7 @@ import Button from "../components/Button.jsx";
 import {useEffect, useState} from "react";
 
 const text = [
+    "The",
     "It's a little bit funny",
     "This feelin' inside",
     "I'm not one of those who can easily hide",
@@ -25,11 +26,12 @@ const other = [
 const SpeedTest = () => {
 
     const [start, setStart] = useState(false);
-    const [lastLine, setLastLine] = useState(4)
-    const [actualText, setActualText] = useState(text.slice(0, lastLine));
+    const [actualText, setActualText] = useState(text);
+    const [actualLine, setActualLine] = useState(0);
     const [actualLetter, setActualLetter] = useState(0);
     const [wrong, setWrong] = useState(false);
     const [mistake, setMistake] = useState(0);
+    const [position, setPosition] = useState(-50);
 
 
     const startTest = () => {
@@ -37,20 +39,18 @@ const SpeedTest = () => {
     }
 
     const validate = () => {
-        setLastLine(lastLine+1);
-        setActualText(prevActualText =>
-             [...prevActualText.slice(1), text[lastLine]]
-        );
+        setPosition(position-50);
+        setActualLine(actualLine+1);
     };
 
     useEffect(() => {
         const handleKeyDown = (event) => {
             const keyPressed = event.key;
             if (other.includes(keyPressed)) return;
-            if (actualText[0][actualLetter] === keyPressed) {
+            if (actualText[actualLine][actualLetter] === keyPressed) {
                 setWrong(false)
                 setActualLetter(actualLetter + 1);
-                if (actualLetter === actualText[0].length - 1) {
+                if (actualLetter === actualText[actualLine].length - 1) {
                     setActualLetter(0);
                     validate();
                 }
@@ -68,12 +68,24 @@ const SpeedTest = () => {
     }, [actualText, actualLetter, mistake]);
 
     const setOpacity = (idx) => {
-        const opacityMap = {
-            0: 1,
-            1: 0.25,
-            2: 0.1,
-        };
-        return opacityMap[idx] || 0;
+        let res = 0;
+        switch (idx){
+            case actualLine-1:
+                res=0.15;
+                break;
+            case actualLine:
+                res=1;
+                break;
+            case actualLine+1:
+                res=0.25;
+                break;
+            case actualLine+2:
+                res=0.10;
+                break;
+            default:
+                res=0;
+        }
+        return res;
     };
 
     return(
@@ -86,12 +98,12 @@ const SpeedTest = () => {
                     <Button name={"Stop"} onClick={() => startTest()} color={"#DC2626"} />
             }
             <div className="speed-line">
-                <div className="speed-text-container">
+                <div className="speed-text-container" style={{top: position+"px"}}>
                     {
                         actualText.map((line, idx) => {
                             return(
                                 <>
-                                    {idx !== 0 ?
+                                    {idx !== actualLine ?
                                         <div key={idx} className="speed-text-line"
                                              style={{opacity: setOpacity(idx)}}>
                                             <span>{line}</span>
