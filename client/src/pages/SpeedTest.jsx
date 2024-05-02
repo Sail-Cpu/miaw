@@ -1,6 +1,7 @@
 import Button from "../components/Button.jsx";
 import {useEffect, useState} from "react";
 import { CircularProgress } from '@chakra-ui/react'
+import PropTypes from "prop-types";
 
 const text = [
     "The",
@@ -43,20 +44,29 @@ const StatBlock = (props) => {
     )
 }
 
-const EndModal = () => {
+StatBlock.propTypes = {
+    name: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired
+}
+
+const EndModal = (props) => {
+
+    const {percentage, error, permin} = props;
+
     return(
         <div className="end-modal">
             <div className="end-modal-content">
                 <div className="end-modal-left">
-                    <CircularProgress value={40} color='#14B8A6' size={200} thickness='6px' />
+                    <CircularProgress value={percentage} color='#14B8A6' size={200} thickness='6px' />
                     <div className="circular-progress-content">
-                        <h1>40%</h1>
+                        <h1>{percentage}%</h1>
                         <span>Completed</span>
                     </div>
                 </div>
                 <div className="end-modal-right">
-                    <StatBlock number={2} color="#EF4444" name="Error"/>
-                    <StatBlock number={15} color="#2563EB" name="per/min"/>
+                    <StatBlock number={error} color="#EF4444" name="Error"/>
+                    <StatBlock number={permin} color="#2563EB" name="per/min"/>
                 </div>
             </div>
             <div className="end-modal-bottom">
@@ -64,6 +74,12 @@ const EndModal = () => {
             </div>
         </div>
     )
+}
+
+EndModal.propTypes = {
+    percentage: PropTypes.number.isRequired,
+    error: PropTypes.number.isRequired,
+    permin: PropTypes.number.isRequired
 }
 
 const SpeedTest = () => {
@@ -88,7 +104,8 @@ const SpeedTest = () => {
                 setActualLetter(actualLetter + 1);
                 if (actualLetter === text[actualLine].length - 1) {
                     setActualLetter(0);
-                    validate();
+                    setPosition(position-50);
+                    setActualLine(actualLine+1);
                 }
             }else{
                 if(wrong)return;
@@ -103,11 +120,6 @@ const SpeedTest = () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
     }, [text, actualLetter, mistake, start]);
-
-    const validate = () => {
-        setPosition(position-50);
-        setActualLine(actualLine+1);
-    };
 
     useEffect(() => {
         if (start) {
@@ -133,6 +145,21 @@ const SpeedTest = () => {
                 idx === actualLine + 1 ? 0.25 :
                     idx === actualLine + 2 ? 0.10 : 0;
     };
+
+    const getPercentage = () => {
+        let textLetters = 0;
+        text.forEach(line => textLetters += line.length);
+        let userNumber = 0;
+        for (let i = 0; i < actualLine; i++){
+            userNumber += text[i].length;
+        }
+        userNumber += actualLetter;
+        userNumber += 1;
+        return{
+            percentage: Math.floor((userNumber * 100) / textLetters),
+            permin: Math.floor((userNumber / 30) * 60)
+        }
+    }
 
     return(
         <div className="speed-test-page-container">
@@ -177,7 +204,7 @@ const SpeedTest = () => {
                 <span>{mistake}</span>
             </div>
             <div className="end-modal-container">
-                <EndModal />
+                <EndModal percentage={getPercentage().percentage} error={mistake} permin={getPercentage().permin}/>
             </div>
         </div>
     )
