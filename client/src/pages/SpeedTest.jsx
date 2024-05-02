@@ -1,5 +1,6 @@
 import Button from "../components/Button.jsx";
 import {useEffect, useState} from "react";
+import { CircularProgress } from '@chakra-ui/react'
 
 const text = [
     "The",
@@ -28,6 +29,42 @@ const other = [
     "ArrowUp",
     'ArrowDown'
 ]
+
+const StatBlock = (props) => {
+
+    const {name, color, number} = props;
+
+    return(
+        <div className="stat-block" style={{borderColor: color}}>
+            <h1>{number}</h1>
+            <span>{name}</span>
+            <div className="stat-block-back" style={{backgroundColor: color}}></div>
+        </div>
+    )
+}
+
+const EndModal = () => {
+    return(
+        <div className="end-modal">
+            <div className="end-modal-content">
+                <div className="end-modal-left">
+                    <CircularProgress value={40} color='#14B8A6' size={200} thickness='6px' />
+                    <div className="circular-progress-content">
+                        <h1>40%</h1>
+                        <span>Completed</span>
+                    </div>
+                </div>
+                <div className="end-modal-right">
+                    <StatBlock number={2} color="#EF4444" name="Error"/>
+                    <StatBlock number={15} color="#2563EB" name="per/min"/>
+                </div>
+            </div>
+            <div className="end-modal-bottom">
+                <Button name="Retry" onClick={() => console.log("retry")} color="#2563EB" />
+            </div>
+        </div>
+    )
+}
 
 const SpeedTest = () => {
 
@@ -138,6 +175,9 @@ const SpeedTest = () => {
             </div>
             <div className="error-block">
                 <span>{mistake}</span>
+            </div>
+            <div className="end-modal-container">
+                <EndModal />
             </div>
         </div>
     )
