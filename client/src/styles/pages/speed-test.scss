@@ -21,6 +21,7 @@
     height: 3px;
     background-color: #2563EB;
     .speed-text-container{
+      z-index: -1;
       position: absolute;
       display: flex;
       flex-direction: column;

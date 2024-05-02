@@ -20,37 +20,36 @@ const other = [
     "Control",
     "AltGraph",
     "Alt",
-    "CapsLock"
+    "CapsLock",
+    "Tab",
+    "Escape",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowUp",
+    'ArrowDown'
 ]
 
 const SpeedTest = () => {
 
     const [start, setStart] = useState(false);
-    const [actualText, setActualText] = useState(text);
     const [actualLine, setActualLine] = useState(0);
     const [actualLetter, setActualLetter] = useState(0);
     const [wrong, setWrong] = useState(false);
     const [mistake, setMistake] = useState(0);
     const [position, setPosition] = useState(-50);
-
-
-    const startTest = () => {
-        setStart(!start);
-    }
-
-    const validate = () => {
-        setPosition(position-50);
-        setActualLine(actualLine+1);
-    };
+    const [timeLeft, setTimeLeft] = useState(30);
+    const [intervalId, setIntervalId] = useState(null);
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
-            const keyPressed = event.key;
+        const handleKeyDown = (e) => {
+            e.preventDefault();
+            const keyPressed = e.key;
             if (other.includes(keyPressed)) return;
-            if (actualText[actualLine][actualLetter] === keyPressed) {
+            if (!start) return;
+            if (text[actualLine][actualLetter] === keyPressed) {
                 setWrong(false)
                 setActualLetter(actualLetter + 1);
-                if (actualLetter === actualText[actualLine].length - 1) {
+                if (actualLetter === text[actualLine].length - 1) {
                     setActualLetter(0);
                     validate();
                 }
@@ -65,42 +64,51 @@ const SpeedTest = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [actualText, actualLetter, mistake]);
+    }, [text, actualLetter, mistake, start]);
+
+    const validate = () => {
+        setPosition(position-50);
+        setActualLine(actualLine+1);
+    };
+
+    useEffect(() => {
+        if (start) {
+            const id = setInterval(() => {
+                setTimeLeft(prevTime => {
+                    if (prevTime <= 0) {
+                        clearInterval(id);
+                        setStart(false);
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
+            }, 1000);
+            setIntervalId(id);
+        } else {
+            clearInterval(intervalId);
+        }
+    }, [start]);
 
     const setOpacity = (idx) => {
-        let res = 0;
-        switch (idx){
-            case actualLine-1:
-                res=0.15;
-                break;
-            case actualLine:
-                res=1;
-                break;
-            case actualLine+1:
-                res=0.25;
-                break;
-            case actualLine+2:
-                res=0.10;
-                break;
-            default:
-                res=0;
-        }
-        return res;
+        return  idx === actualLine - 1 ? 0.15 :
+                idx === actualLine ? 1 :
+                idx === actualLine + 1 ? 0.25 :
+                    idx === actualLine + 2 ? 0.10 : 0;
     };
 
     return(
         <div className="speed-test-page-container">
-            <h1>00:00</h1>
+            <h1>{timeLeft}</h1>
             {
                 !start ?
-                    <Button name={"Start"} onClick={() => startTest()} color={"#2563EB"} />
+                    <Button name={"Start"} onClick={() => setStart(true)} color={"#2563EB"} />
                     :
-                    <Button name={"Stop"} onClick={() => startTest()} color={"#DC2626"} />
+                    <Button name={"Stop"} onClick={() => setStart(false)} color={"#DC2626"} />
             }
             <div className="speed-line">
                 <div className="speed-text-container" style={{top: position+"px"}}>
                     {
-                        actualText.map((line, idx) => {
+                        text.map((line, idx) => {
                             return(
                                 <>
                                     {idx !== actualLine ?
