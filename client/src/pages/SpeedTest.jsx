@@ -54,6 +54,7 @@ const SpeedTest = () => {
                     validate();
                 }
             }else{
+                if(wrong)return;
                 setWrong(true);
                 setMistake(mistake+1);
             }
