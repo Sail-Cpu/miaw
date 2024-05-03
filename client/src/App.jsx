@@ -13,7 +13,7 @@ import Course from "./pages/Course.jsx";
 import User from "./pages/User.jsx";
 import UserSoftware from "./pages/user/UserSoftware.jsx";
 import KnowledgeTest from "./pages/KnowledgeTest.jsx";
-import SpeedTest from "./pages/SpeedTest.jsx";
+import SpeedTest from "./pages/keyboard/SpeedTest.jsx";
 
 function App() {
 
