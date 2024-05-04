@@ -1,0 +1,17 @@
+.knowledge-test-container{
+  .knowledge-test-left{
+    display: flex;
+    width: 50%;
+    ul{
+      width: auto;
+      :before{
+        -webkit-flex: 0;
+      }
+      .timeline-left{
+        display: flex;
+        align-items: center;
+        margin-right: 25px;
+      }
+    }
+  }
+}
