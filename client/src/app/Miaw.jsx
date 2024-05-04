@@ -17,10 +17,10 @@ const Miaw = () => {
 
     const navParams = {
         tabs: [
-            {
+            /*{
                 name: "Settings",
                 link: "#",
-            },
+            },*/
             {
                 name: "User",
                 link: "/user",

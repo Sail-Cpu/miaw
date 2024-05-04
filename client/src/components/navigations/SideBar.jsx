@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {allAppsSelector} from "../../redux/app/selector.js";
 import allIcons from "../../utils/allIcons.js";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Tab = (props) => {
     return(
@@ -98,15 +98,16 @@ SideBarExpand.propTypes = {
 const SideBar = () => {
 
     const [toggleExpand, setToggleExpand] = useState(false);
+    const navigate = useNavigate();
 
     return(
         <div className="side-bar-container">
             <div className="small-side-bar">
                 <img className="side-bar-logo" src={Logo} alt="logo" />
                 <Tab icon={Icons.home} />
-                <Icon path={Icons.points} />
+                <Icon path={Icons.points}/>
                 <Tab icon={Icons.app} toggle={() => setToggleExpand(!toggleExpand)}/>
-                <Tab icon={Icons.keyboard} />
+                <Tab icon={Icons.keyboard} toggle={() => navigate('/speedtest')}/>
             </div>
             <SideBarExpand toggle={toggleExpand} closeToggle={() => setToggleExpand(false)}/>
         </div>

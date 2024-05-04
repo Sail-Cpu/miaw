@@ -117,10 +117,10 @@ const tabs = [
         icon: allIcons.keyboard,
         extend: <ShortcutsExtend />
     },
-    {
+    /*{
         name: "Classement",
         icon: allIcons.points,
-    }
+    }*/
 ]
 
 const VerticalNavTabs = () => {
@@ -137,7 +137,7 @@ const VerticalNavTabs = () => {
     ));
 }
 
-const VerticalNav = () => {
+const UserNav = () => {
     return(
         <div className="vertical-nav-container">
             <VerticalNavTabs />
@@ -145,4 +145,4 @@ const VerticalNav = () => {
     )
 }
 
-export default VerticalNav;
+export default UserNav;
