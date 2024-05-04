@@ -232,7 +232,7 @@ const SpeedTest = () => {
         userNumber += 1;
         return{
             percentage: Math.floor((userNumber * 100) / textLetters),
-            persec: Math.floor((userNumber / 30))
+            persec: (userNumber / 30).toFixed(1)
         }
     }
 
