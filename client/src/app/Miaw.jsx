@@ -2,10 +2,18 @@
 import SideBar from "../components/navigations/SideBar.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
 import HeaderNav from "../components/navigations/HeaderNav.jsx";
+import {useSelector} from "react-redux";
+import {isLoggedInSelector} from "../redux/auth/selector.js";
+import {useEffect} from "react";
 
 const Miaw = () => {
 
     const navigate = useNavigate();
+    const isLoggedIn = useSelector(isLoggedInSelector);
+
+    useEffect(() => {
+        !isLoggedIn && navigate('/login')
+    }, [])
 
     const navParams = {
         tabs: [
