@@ -94,7 +94,6 @@ const KnowledgeTest = () => {
         }
 
         document.addEventListener('keydown', handleKeyDown);
-
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
@@ -108,10 +107,31 @@ const KnowledgeTest = () => {
         return res.substring(0, res.length-3);
     }, [pressed])
 
+    const checkIfExact = () => {
+        let exist = true;
+        const shorcuts = pickRandomShortcuts[actualShortcuts].shortcut_keys;
+        if(shorcuts.length !== pressed.length) return false;
+        for (let i=0; i < pressed.length; i++){
+            let j = 0
+            let end = false;
+            while(j <= shorcuts.length +1 && end===false){
+                if(pressed[i].toLowerCase() === shorcuts[j].toLowerCase()){
+                    end=true;
+                }else if (j > shorcuts.length){
+                    exist = false;
+                }
+                j++;
+            }
+        }
+        return exist;
+    }
+
     const validate = () => {
-        console.log(pressed, allShorcuts[actualShortcuts].shortcut_keys)
-        setPosition(position - 110);
-        setActualShortcuts(actualShortcuts+1)
+        console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
+        if(checkIfExact()){
+            setPosition(position - 110);
+            setActualShortcuts(actualShortcuts+1)
+        }
     }
 
     return(
@@ -124,14 +144,19 @@ const KnowledgeTest = () => {
             </div>
             <div className="knowledge-test-right">
                 <h1>1:35</h1>
-                <Input name="Keyboard Keys" type="text" value={formatPress}/>
+                <div className="keyboard-input-container">
+                    <Input name="Keyboard Keys" type="text" value={formatPress}/>
+                    <Button name="Click"
+                            onClick={() => !pressed.includes("click") && setPressed([...pressed, "click"])}
+                            color="#2563EB" />
+                </div>
                 <div className="knowledge-test-right-bottom">
                     <Button name="suppr"
                             onClick={() => setPressed([])}
                             color="#EF4444" />
                     <Button name="Validate"
                             onClick={() => validate()}
-                            color="#2563EB" />
+                            color="#14B8A6" />
                 </div>
             </div>
         </div>
