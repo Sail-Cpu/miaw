@@ -5,6 +5,12 @@
     width: 50%;
     ul{
       width: auto;
+      height: 550px;
+      overflow: hidden;
+      li{
+        min-height: 110px;
+        transition: 0.5s ease;
+      }
       :before{
         -webkit-flex: 0;
       }
@@ -31,6 +37,11 @@
     .form-input{
       width: 100%;
       margin-bottom: 40px;
+    }
+    .knowledge-test-right-bottom{
+      button{
+        margin: 0 5px;
+      }
     }
   }
 }

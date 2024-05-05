@@ -12,20 +12,25 @@ import PropTypes from "prop-types";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
 
-
-
 const CustomizedTimeline = (props) => {
 
-    const {shortcuts, actualShortcuts} = props;
+    const {shortcuts, actualShortcuts, position} = props;
+
+    const setOpacity = (idx) => {
+        return  idx === actualShortcuts ? 1 :
+            idx > actualShortcuts && idx < actualShortcuts + 5 ? 0.3 : 0
+    };
 
     return (
         <Timeline position="right">
             {
                 shortcuts.map((shortcut, idx) => {
                     return(
-                        <TimelineItem>
+                        <TimelineItem
+                            key={idx}
+                            sx={{opacity: setOpacity(idx), top: position+"px"}}>
                             <div className="timeline-left">
-                                {actualShortcuts+1+idx}
+                                {idx+1}
                             </div>
                             <TimelineSeparator>
                                 <TimelineConnector />
@@ -50,7 +55,8 @@ const CustomizedTimeline = (props) => {
 
 CustomizedTimeline.propTypes = {
     shortcuts: PropTypes.array.isRequired,
-    actualShortcuts: PropTypes.number.isRequired
+    actualShortcuts: PropTypes.number.isRequired,
+    position: PropTypes.number.isRequired
 }
 
 const KnowledgeTest = () => {
@@ -59,6 +65,7 @@ const KnowledgeTest = () => {
     const [actualShortcuts, setActualShortcuts] = useState(0);
     const [number, setNumber] = useState(20)
     const [pressed, setPressed] = useState([]);
+    const [position, setPosition] = useState(0);
 
     const pickRandomShortcuts = useMemo(() =>{
         if(number > allShorcuts.length-10) return;
@@ -86,40 +93,46 @@ const KnowledgeTest = () => {
             }
         }
 
-        const handleKeyUp = (e) => {
-            e.preventDefault();
-            const keyPressed = e.key;
-            if(pressed.includes(keyPressed)){
-                setPressed(pressed.filter(press => press !== keyPressed));
-            }
-        }
-
         document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('keyup', handleKeyUp);
 
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('keyup', handleKeyUp);
         };
     }, [pressed])
 
-    const formatPress = () => {
+    const formatPress = useMemo(() => {
         let res = "";
         pressed.forEach(press => {
             res += press + " + "
         })
         return res.substring(0, res.length-3);
+    }, [pressed])
+
+    const validate = () => {
+        console.log(pressed, allShorcuts[actualShortcuts].shortcut_keys)
+        setPosition(position - 110);
+        setActualShortcuts(actualShortcuts+1)
     }
 
     return(
         <div className="knowledge-test-container">
             <div className="knowledge-test-left">
-                <CustomizedTimeline actualShortcuts={actualShortcuts} shortcuts={pickRandomShortcuts.slice(actualShortcuts, actualShortcuts+5)}/>
+                <CustomizedTimeline
+                    actualShortcuts={actualShortcuts}
+                    shortcuts={pickRandomShortcuts}
+                    position={position} />
             </div>
             <div className="knowledge-test-right">
                 <h1>1:35</h1>
-                <Input name="Keyboard Keys" type="text" value={formatPress()}/>
-                <Button name="Validate" onClick={() => console.log('validate')} color="#2563EB" />
+                <Input name="Keyboard Keys" type="text" value={formatPress}/>
+                <div className="knowledge-test-right-bottom">
+                    <Button name="suppr"
+                            onClick={() => setPressed([])}
+                            color="#EF4444" />
+                    <Button name="Validate"
+                            onClick={() => validate()}
+                            color="#2563EB" />
+                </div>
             </div>
         </div>
     )
