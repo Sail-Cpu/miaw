@@ -59,6 +59,39 @@ CustomizedTimeline.propTypes = {
     position: PropTypes.number.isRequired
 }
 
+const convertKey = [
+    {
+        toConvert: "Control",
+        converted: "ctrl"
+    },
+    {
+        toConvert: "Home",
+        converted: "home / end"
+    },
+    {
+        toConvert: "End",
+        converted: "home / end"
+    },
+    {
+        toConvert: "ArrowLeft",
+        converted: "left / right"
+    },
+    {
+        toConvert: "ArrowRight",
+        converted: "left / right"
+    },
+    {
+        toConvert: "ArrowUp",
+        converted: "up / down"
+    },
+    {
+        toConvert: "ArrowDown",
+        converted: "up / down"
+    },
+]
+
+
+
 const KnowledgeTest = () => {
 
     const allShorcuts = useSelector(appShortcutsSelector());
@@ -87,7 +120,13 @@ const KnowledgeTest = () => {
 
         const handleKeyDown = (e) => {
             e.preventDefault();
-            const keyPressed = e.key;
+            let keyPressed = e.key;
+            console.log(keyPressed);
+            for(let i = 0; i < convertKey.length; i++){
+                if(convertKey[i].toConvert.toLowerCase() === keyPressed.toLowerCase()){
+                    keyPressed = convertKey[i].converted;
+                }
+            }
             if(!pressed.includes(keyPressed)){
                 setPressed([...pressed, keyPressed]);
             }
@@ -131,6 +170,7 @@ const KnowledgeTest = () => {
         if(checkIfExact()){
             setPosition(position - 110);
             setActualShortcuts(actualShortcuts+1)
+            setPressed([]);
         }
     }
 
