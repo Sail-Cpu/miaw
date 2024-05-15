@@ -1,34 +1,22 @@
 import Button from "../components/Button.jsx";
-import {useNavigate, useParams} from "react-router-dom";
+import {Outlet, useNavigate, useParams} from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, appShortcutsByChapterSelector } from "../redux/app/selector";
 import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 
-const Software = () => {
-    const { appId } = useParams();
-    const dispatch = useDispatch();
+
+export const AppDetails = () => {
     const { app_id, app_name, app_description } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await dispatch(getApp(appId));
-        }
-        fetchData();
-    }, [dispatch, appId]);
-
     const logoPath = "/images/app/logo";
     const interfacePath = "/images/app/interface";
 
-    if (app_id === 0) {
-        return <div>error</div>;
-    }
-
-    return (
-        <div className="software-page-container">
+    return(
+        <>
             <div className="software-head">
                 <img src={`${logoPath}/${app_id}.png`} alt="logo" />
             </div>
@@ -53,6 +41,31 @@ const Software = () => {
                     <Shortcut key={idx} data={shortcut} />
                 ))}
             </div>
+        </>
+    )
+}
+
+
+
+const Software = () => {
+    const { appId } = useParams();
+    const { app_id } = useSelector(appSelector);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await dispatch(getApp(appId));
+        }
+        fetchData();
+    }, [dispatch, appId]);
+
+   if(app_id === 0){
+       return <div>error</div>
+   }
+
+    return (
+        <div className="software-page-container">
+            {<Outlet />}
         </div>
     );
 };

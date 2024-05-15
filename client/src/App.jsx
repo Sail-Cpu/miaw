@@ -7,7 +7,7 @@ import ProfileForm from "./forms/auth/ProfileForm.jsx";
 import ConfigForm from "./forms/auth/ConfigForm.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Miaw from "./app/Miaw.jsx";
-import Software from "./pages/Software.jsx";
+import Software, {AppDetails} from "./pages/Software.jsx";
 import Course from "./pages/Course.jsx";
 import User from "./pages/User.jsx";
 import UserSoftware from "./pages/user/UserSoftware.jsx";
@@ -19,9 +19,11 @@ function App() {
   const protectedRoute = () => {
     return(
           <Route path="/" element={<Miaw />}>
-            <Route path="/software/:appId" element={<Software />} />
-            <Route path="/software/:appId/course" element={<Course />} />
-            <Route path="/software/:appId/test" element={<KnowledgeTest />} />
+            <Route path="/software/:appId" element={<Software />} >
+                <Route path="/software/:appId/" element={<AppDetails />} />
+                <Route path="/software/:appId/course" element={<Course />} />
+                <Route path="/software/:appId/test" element={<KnowledgeTest />} />
+            </Route>
             <Route path="/speedtest" element={<SpeedTest />} />
             <Route path="/user" element={<User />}>
               <Route path="/user/software/:appId" element={<UserSoftware />} />

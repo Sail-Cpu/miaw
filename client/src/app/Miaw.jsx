@@ -37,7 +37,7 @@ const Miaw = () => {
                 action: () => disconnect()
             }
         ],
-        search: true
+        search: false
     }
 
     const disconnect = () => {

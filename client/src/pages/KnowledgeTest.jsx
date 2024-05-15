@@ -166,7 +166,7 @@ const KnowledgeTest = () => {
     }
 
     const validate = () => {
-        console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
+        //console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
         if(checkIfExact()){
             setPosition(position - 110);
             setActualShortcuts(actualShortcuts+1)

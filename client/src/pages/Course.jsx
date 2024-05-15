@@ -33,20 +33,7 @@ const Course = () => {
 
     const [chapter, setChapter] = useState(1);
 
-    const {appId} = useParams();
-    const dispatch = useDispatch();
-
-    const { app_id } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(chapter));
-
-    useEffect(() => {
-        if(app_id !== appId){
-            const fetchData = async () => {
-                await dispatch(getApp(appId));
-            }
-            fetchData();
-        }
-    }, [dispatch, appId])
 
     return(
         <div className="course-page-container">
