@@ -99,6 +99,7 @@ const KnowledgeTest = () => {
     const [number, setNumber] = useState(20)
     const [pressed, setPressed] = useState([]);
     const [position, setPosition] = useState(0);
+    const [wrong, setWrong] = useState(false)
 
     const pickRandomShortcuts = useMemo(() =>{
         if(number > allShorcuts.length-10) return;
@@ -166,12 +167,16 @@ const KnowledgeTest = () => {
     }
 
     const validate = () => {
-        //console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
+        console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
         if(checkIfExact()){
             setPosition(position - 110);
             setActualShortcuts(actualShortcuts+1)
             setPressed([]);
+            setWrong(false)
+            return;
         }
+        setWrong(true)
+
     }
 
     return(
@@ -180,19 +185,23 @@ const KnowledgeTest = () => {
                 <CustomizedTimeline
                     actualShortcuts={actualShortcuts}
                     shortcuts={pickRandomShortcuts}
-                    position={position} />
+                    position={position}
+                />
             </div>
             <div className="knowledge-test-right">
                 <h1>1:35</h1>
                 <div className="keyboard-input-container">
-                    <Input name="Keyboard Keys" type="text" value={formatPress}/>
+                    <Input name="Keyboard Keys" type="text" value={formatPress} wrong={wrong}/>
                     <Button name="Click"
                             onClick={() => !pressed.includes("click") && setPressed([...pressed, "click"])}
                             color="#2563EB" />
                 </div>
                 <div className="knowledge-test-right-bottom">
                     <Button name="suppr"
-                            onClick={() => setPressed([])}
+                            onClick={() => {
+                                setPressed([])
+                                setWrong(false)
+                            }}
                             color="#EF4444" />
                     <Button name="Validate"
                             onClick={() => validate()}

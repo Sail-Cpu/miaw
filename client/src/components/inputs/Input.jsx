@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const Input = (props) => {
-    const {name, type, holder, setState, value} = props;
+    const {name, type, holder, setState, value, wrong} = props;
 
     return(
         <div className="form-input text-input">
@@ -15,6 +15,7 @@ const Input = (props) => {
                     onFocus={(e) => e.currentTarget.classList.add("active")}
                     onBlur={(e) => e.currentTarget.classList.remove("active")}
                     value={value && value}
+                    style={{color: wrong ? "red" : "black"}}
                 />
                 :
                 <input
@@ -36,7 +37,8 @@ Input.propTypes = {
     type: PropTypes.string.isRequired,
     holder: PropTypes.string,
     setState: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    wrong: PropTypes.bool
 };
 
 export default Input;
