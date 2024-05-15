@@ -2,7 +2,13 @@
   display: flex;
   .knowledge-test-left{
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50%;
+    .knowledge-test-start-container{
+      position: absolute;
+      z-index: 10;
+    }
     ul{
       width: auto;
       height: 550px;

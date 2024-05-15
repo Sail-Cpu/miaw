@@ -32,7 +32,7 @@ const other = [
     'ArrowDown'
 ]
 
-const StatBlock = (props) => {
+export const StatBlock = (props) => {
 
     const {name, color, number} = props;
 
@@ -241,9 +241,15 @@ const SpeedTest = () => {
             <h1>{timeLeft}</h1>
             {
                 !state.start ?
-                    <Button name={"Start"} onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: true})} color={"#2563EB"} />
+                    <Button
+                        name={"Start"}
+                        onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: true})}
+                        color={"#2563EB"} />
                     :
-                    <Button name={"Stop"} onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: false})} color={"#DC2626"} />
+                    <Button
+                        name={"Stop"}
+                        onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: false})}
+                        color={"#DC2626"} />
             }
             <div className="speed-line">
                 <div className="speed-text-container" style={{top: state.position+"px"}}>

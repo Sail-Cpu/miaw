@@ -11,6 +11,7 @@ import {useEffect, useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
+import {StatBlock} from "./keyboard/SpeedTest.jsx";
 
 const CustomizedTimeline = (props) => {
 
@@ -100,6 +101,9 @@ const KnowledgeTest = () => {
     const [pressed, setPressed] = useState([]);
     const [position, setPosition] = useState(0);
     const [wrong, setWrong] = useState(false)
+    const [start, setStart] = useState(false)
+    const [timeLeft, setTimeLeft] = useState(5)
+    const [intervalId, setIntervalId] = useState(null);
 
     const pickRandomShortcuts = useMemo(() =>{
         if(number > allShorcuts.length-10) return;
@@ -139,6 +143,23 @@ const KnowledgeTest = () => {
         };
     }, [pressed])
 
+    useEffect(() => {
+        if(start){
+            const id = setInterval(() => {
+                setTimeLeft(prevTime => {
+                    if (prevTime <= 0) {
+                        end()
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
+            }, 1000);
+            setIntervalId(id);
+        } else {
+            clearInterval(intervalId);
+        }
+    }, [start])
+
     const formatPress = useMemo(() => {
         let res = "";
         pressed.forEach(press => {
@@ -166,6 +187,13 @@ const KnowledgeTest = () => {
         return exist;
     }
 
+    const end = () => {
+        setPosition(position - 110);
+        setActualShortcuts(actualShortcuts+1)
+        setPressed([]);
+        setTimeLeft(5)
+    }
+
     const validate = () => {
         console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
         if(checkIfExact()){
@@ -173,6 +201,7 @@ const KnowledgeTest = () => {
             setActualShortcuts(actualShortcuts+1)
             setPressed([]);
             setWrong(false)
+            setTimeLeft(5)
             return;
         }
         setWrong(true)
@@ -182,6 +211,20 @@ const KnowledgeTest = () => {
     return(
         <div className="knowledge-test-container">
             <div className="knowledge-test-left">
+                <div className="knowledge-test-start-container">
+                    {
+                        !start ?
+                            <Button
+                                name={"Start"}
+                                onClick={() => setStart(true)}
+                                color={"#2563EB"} />
+                            :
+                            <Button
+                                name={"Stop"}
+                                onClick={() => setStart(false)}
+                                color={"#DC2626"} />
+                    }
+                </div>
                 <CustomizedTimeline
                     actualShortcuts={actualShortcuts}
                     shortcuts={pickRandomShortcuts}
@@ -189,7 +232,7 @@ const KnowledgeTest = () => {
                 />
             </div>
             <div className="knowledge-test-right">
-                <h1>1:35</h1>
+                <h1>{timeLeft}</h1>
                 <div className="keyboard-input-container">
                     <Input name="Keyboard Keys" type="text" value={formatPress} wrong={wrong}/>
                     <Button name="Click"
@@ -206,6 +249,9 @@ const KnowledgeTest = () => {
                     <Button name="Validate"
                             onClick={() => validate()}
                             color="#14B8A6" />
+                </div>
+                <div>
+
                 </div>
             </div>
         </div>
