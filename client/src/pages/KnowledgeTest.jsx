@@ -11,7 +11,7 @@ import {useEffect, useMemo, useState} from "react";
 import PropTypes from "prop-types";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
-import {StatBlock} from "./keyboard/SpeedTest.jsx";
+import {StatBlock, EndModal} from "./keyboard/SpeedTest.jsx";
 
 const CustomizedTimeline = (props) => {
 
@@ -93,9 +93,10 @@ const convertKey = [
 
 const KnowledgeTest = () => {
 
+    const number = 3;
+
     const allShorcuts = useSelector(appShortcutsSelector());
     const [actualShortcuts, setActualShortcuts] = useState(0);
-    const [number, setNumber] = useState(20)
     const [pressed, setPressed] = useState([]);
     const [position, setPosition] = useState(0);
     const [stat, setStat] = useState({error: 0, success: 0});
@@ -103,6 +104,7 @@ const KnowledgeTest = () => {
     const [start, setStart] = useState(false)
     const [timeLeft, setTimeLeft] = useState(5)
     const [intervalId, setIntervalId] = useState(null);
+    const [finished, setFinished] = useState(false);
 
 
     const pickRandomShortcuts = useMemo(() =>{
@@ -148,7 +150,7 @@ const KnowledgeTest = () => {
             const id = setInterval(() => {
                 setTimeLeft(prevTime => {
                     if (prevTime <= 0) {
-                        end();
+                        timeElapsed();
                         return 5;
                     }
                     return prevTime - 1;
@@ -187,9 +189,16 @@ const KnowledgeTest = () => {
         return exist;
     }
 
-    const end = () => {
+    const timeElapsed = () => {
         setPosition(prevPosition => prevPosition - 110);
-        setActualShortcuts(prevActualShortcuts => prevActualShortcuts + 1);
+        setActualShortcuts(prevActualShortcuts => {
+            let shortcut = prevActualShortcuts + 1;
+            if(shortcut === number){
+                setStart(false);
+                setFinished(true);
+            }
+            return shortcut;
+        });
         setPressed([]);
         setStat(prevStat => ({...prevStat, error: prevStat.error + 1}));
     }
@@ -199,10 +208,22 @@ const KnowledgeTest = () => {
         if(checkIfExact()){
             setPosition(prevPosition => prevPosition - 110);
             setStat(prevStat => ({...prevStat, success: prevStat.success+1}));
-            setActualShortcuts(prevActualShortcuts => prevActualShortcuts + 1);
+            setActualShortcuts(prevActualShortcuts => {
+                let shortcut = prevActualShortcuts + 1;
+                if(shortcut === number){
+                    setStart(false);
+                    setFinished(true);
+                }
+                return shortcut;
+            });
             setPressed([]);
             setWrong(false);
             setTimeLeft(5);
+            if(actualShortcuts === number-1){
+                setStart(false);
+                setFinished(true);
+                console.log("finished");
+            }
             return;
         }
         setWrong(true);
@@ -256,6 +277,19 @@ const KnowledgeTest = () => {
                     <StatBlock name="Success" color="#2563EB" number={stat.success} />
                 </div>
             </div>
+            {
+                finished &&
+                <div className="end-modal-container">
+                    <EndModal
+                        percentage={50}
+                        error={stat.error}
+                        label1="Errors"
+                        success={stat.success}
+                        label2="Success"
+                        reset={() => console.log("reset")}
+                    />
+                </div>
+            }
         </div>
     )
 }

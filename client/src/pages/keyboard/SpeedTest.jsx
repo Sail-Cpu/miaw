@@ -51,9 +51,9 @@ StatBlock.propTypes = {
     number: PropTypes.number.isRequired
 }
 
-const EndModal = (props) => {
+export const EndModal = (props) => {
 
-    const {percentage, error, persec, reset} = props;
+    const {percentage, error, label1, label2, success, reset} = props;
 
     return(
         <div className="end-modal">
@@ -66,8 +66,8 @@ const EndModal = (props) => {
                     </div>
                 </div>
                 <div className="end-modal-right">
-                    <StatBlock number={error} color="#EF4444" name="Error"/>
-                    <StatBlock number={persec} color="#2563EB" name="per/sec"/>
+                    <StatBlock number={error} color="#EF4444" name={label1}/>
+                    <StatBlock number={success} color="#2563EB" name={label2} />
                 </div>
             </div>
             <div className="end-modal-bottom">
@@ -80,7 +80,9 @@ const EndModal = (props) => {
 EndModal.propTypes = {
     percentage: PropTypes.number.isRequired,
     error: PropTypes.number.isRequired,
-    persec: PropTypes.number.isRequired,
+    label1: PropTypes.string.isRequired,
+    label2: PropTypes.string.isRequired,
+    success: PropTypes.number.isRequired,
     reset: PropTypes.func.isRequired
 }
 
@@ -290,7 +292,9 @@ const SpeedTest = () => {
                         <EndModal
                             percentage={getStats().percentage}
                             error={state.error.mistake}
-                            persec={getStats().persec}
+                            label1="Errors"
+                            success={getStats().persec}
+                            label2="per/sec"
                             reset={() => reset()}
                             />
                     </div>
