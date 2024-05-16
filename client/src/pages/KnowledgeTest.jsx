@@ -93,7 +93,7 @@ const convertKey = [
 
 const KnowledgeTest = () => {
 
-    const number = 3;
+    const number = 20;
 
     const allShorcuts = useSelector(appShortcutsSelector());
     const [actualShortcuts, setActualShortcuts] = useState(0);
@@ -281,7 +281,7 @@ const KnowledgeTest = () => {
                 finished &&
                 <div className="end-modal-container">
                     <EndModal
-                        percentage={50}
+                        percentage={100 * stat.success / number}
                         error={stat.error}
                         label1="Errors"
                         success={stat.success}
