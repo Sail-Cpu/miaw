@@ -38,7 +38,7 @@ export const StatBlock = (props) => {
 
     return(
         <div className="stat-block" style={{borderColor: color}}>
-            <h1>{number}</h1>
+            <h3>{number}</h3>
             <span>{name}</span>
             <div className="stat-block-back" style={{backgroundColor: color}}></div>
         </div>
@@ -256,7 +256,7 @@ const SpeedTest = () => {
                     {
                         text.map((line, idx) => {
                             return(
-                                <>
+                                <div key={idx}>
                                     {idx !== state.textStep.actualLine ?
                                         <div key={idx} className="speed-text-line"
                                              style={{opacity: setOpacity(idx)}}>
@@ -275,7 +275,7 @@ const SpeedTest = () => {
                                                 {line.slice(state.textStep.actualLetter+1, line.length)}</span>
                                         </div>
                                     }
-                                </>
+                                </div>
                             )
                         })
                     }

@@ -15,6 +15,7 @@ const Input = (props) => {
                     onFocus={(e) => e.currentTarget.classList.add("active")}
                     onBlur={(e) => e.currentTarget.classList.remove("active")}
                     value={value && value}
+                    onChange={(e) => e.target.value}
                     style={{color: wrong ? "red" : "black"}}
                 />
                 :

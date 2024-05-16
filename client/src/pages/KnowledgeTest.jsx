@@ -91,8 +91,6 @@ const convertKey = [
     },
 ]
 
-
-
 const KnowledgeTest = () => {
 
     const allShorcuts = useSelector(appShortcutsSelector());
@@ -100,10 +98,12 @@ const KnowledgeTest = () => {
     const [number, setNumber] = useState(20)
     const [pressed, setPressed] = useState([]);
     const [position, setPosition] = useState(0);
+    const [stat, setStat] = useState({error: 0, success: 0});
     const [wrong, setWrong] = useState(false)
     const [start, setStart] = useState(false)
     const [timeLeft, setTimeLeft] = useState(5)
     const [intervalId, setIntervalId] = useState(null);
+
 
     const pickRandomShortcuts = useMemo(() =>{
         if(number > allShorcuts.length-10) return;
@@ -132,7 +132,7 @@ const KnowledgeTest = () => {
                     keyPressed = convertKey[i].converted;
                 }
             }
-            if(!pressed.includes(keyPressed)){
+            if(start && !pressed.includes(keyPressed)){
                 setPressed([...pressed, keyPressed]);
             }
         }
@@ -141,15 +141,15 @@ const KnowledgeTest = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [pressed])
+    }, [pressed, start])
 
     useEffect(() => {
         if(start){
             const id = setInterval(() => {
                 setTimeLeft(prevTime => {
                     if (prevTime <= 0) {
-                        end()
-                        return 0;
+                        end();
+                        return 5;
                     }
                     return prevTime - 1;
                 });
@@ -188,23 +188,24 @@ const KnowledgeTest = () => {
     }
 
     const end = () => {
-        setPosition(position - 110);
-        setActualShortcuts(actualShortcuts+1)
+        setPosition(prevPosition => prevPosition - 110);
+        setActualShortcuts(prevActualShortcuts => prevActualShortcuts + 1);
         setPressed([]);
-        setTimeLeft(5)
+        setStat(prevStat => ({...prevStat, error: prevStat.error + 1}));
     }
 
     const validate = () => {
         console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
         if(checkIfExact()){
-            setPosition(position - 110);
-            setActualShortcuts(actualShortcuts+1)
+            setPosition(prevPosition => prevPosition - 110);
+            setStat(prevStat => ({...prevStat, success: prevStat.success+1}));
+            setActualShortcuts(prevActualShortcuts => prevActualShortcuts + 1);
             setPressed([]);
-            setWrong(false)
-            setTimeLeft(5)
+            setWrong(false);
+            setTimeLeft(5);
             return;
         }
-        setWrong(true)
+        setWrong(true);
 
     }
 
@@ -250,8 +251,9 @@ const KnowledgeTest = () => {
                             onClick={() => validate()}
                             color="#14B8A6" />
                 </div>
-                <div>
-
+                <div className="knowledge-test-right-stat">
+                    <StatBlock name="error" color="#EF4444" number={stat.error} />
+                    <StatBlock name="Success" color="#2563EB" number={stat.success} />
                 </div>
             </div>
         </div>

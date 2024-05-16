@@ -109,18 +109,10 @@ const tabs = [
         icon: allIcons.app,
     },
     {
-        name: "Settings",
-        icon: allIcons.home,
-    },
-    {
         name: "Software",
         icon: allIcons.keyboard,
         extend: <ShortcutsExtend />
     },
-    /*{
-        name: "Classement",
-        icon: allIcons.points,
-    }*/
 ]
 
 const VerticalNavTabs = () => {
