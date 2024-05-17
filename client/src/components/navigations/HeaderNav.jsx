@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import Icon from "../Icon.jsx";
 import allIcons from "../../utils/allIcons.js";
 import {Link} from "react-router-dom";
+import SwitchMode from "../SwitchMode.jsx";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
+import {useContext} from "react";
 
 const Button = (props) => {
     const {data} = props;
@@ -29,9 +32,17 @@ Button.propTypes = {
 const HeaderNav = (props) => {
     const {params} = props;
 
+    const {theme, toggleDarkTheme, toggleLightTheme} = useContext(ThemeContext);
+
+    console.log(theme)
+
     return(
         <div className="header-nav-container">
             <div className="header-nav">
+                {
+                    params?.theme &&
+                        <SwitchMode checked={theme === 'dark'} onChange={theme === "light" ? toggleDarkTheme : toggleLightTheme} />
+                }
                 {
                     params.tabs.map((tab, idx) => {
                         return <Link key={idx} to={tab.link}><div className="nav-tab">

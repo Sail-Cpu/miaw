@@ -36,6 +36,7 @@ const Miaw = () => {
                 action: () => toggleDarkTheme()
             }
         ],
+        theme: true,
         search: false
     }
 

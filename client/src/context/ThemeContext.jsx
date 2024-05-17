@@ -25,8 +25,13 @@ const ThemeContextProvider = ({children}) => {
         setTheme("dark");
     };
 
+    const toggleLightTheme = () => {
+        document.querySelector("body").setAttribute("data-theme", "light");
+        setTheme("light");
+    };
+
     return (
-        <ThemeContext.Provider value={{ theme, colors, toggleDarkTheme }}>
+        <ThemeContext.Provider value={{ theme, colors, toggleDarkTheme, toggleLightTheme }}>
             {children}
         </ThemeContext.Provider>
     );
