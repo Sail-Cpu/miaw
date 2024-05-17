@@ -113,7 +113,7 @@ const actionTypes = {
     FINISHED: "Finished"
 }
 
-const number = 20;
+const number = 2;
 
 const reducer = (state, action) => {
     switch (action.type){
@@ -184,9 +184,6 @@ const reducer = (state, action) => {
     }
 }
 
-
-
-
 const KnowledgeTest = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -195,6 +192,12 @@ const KnowledgeTest = () => {
 
     const [timeLeft, setTimeLeft] = useState(5)
     const [intervalId, setIntervalId] = useState(null);
+
+    const reset = () => {
+        setTimeLeft(5);
+        setIntervalId(null)
+        dispatch({type: actionTypes.RESET});
+    }
 
 
     const pickRandomShortcuts = useMemo(() =>{
@@ -348,7 +351,7 @@ const KnowledgeTest = () => {
                         label1="Errors"
                         success={state.stat.success}
                         label2="Success"
-                        reset={() => dispatch({type: actionTypes.RESET})}
+                        reset={() => reset()}
                     />
                 </div>
             }
