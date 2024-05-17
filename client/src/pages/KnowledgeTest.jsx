@@ -113,7 +113,7 @@ const actionTypes = {
     FINISHED: "Finished"
 }
 
-const number = 3;
+const number = 20;
 
 const reducer = (state, action) => {
     switch (action.type){
@@ -177,6 +177,8 @@ const reducer = (state, action) => {
                 start: false,
                 finished: true
             }
+        case actionTypes.RESET:
+            return initialState;
         default:
             return state;
     }
@@ -346,7 +348,7 @@ const KnowledgeTest = () => {
                         label1="Errors"
                         success={state.stat.success}
                         label2="Success"
-                        reset={() => console.log("reset")}
+                        reset={() => dispatch({type: actionTypes.RESET})}
                     />
                 </div>
             }
