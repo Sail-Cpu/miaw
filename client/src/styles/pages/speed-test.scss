@@ -89,13 +89,13 @@
     align-items: center;
     h1{
       margin: 0 0 7px 0;
-      color: #1F2937;
+      color: var(--color-text);
       font-size: 37px;
       font-weight: 700;
     }
     span{
       font-size: 20px;
-      color: #6B7280;
+      color: var(--color-text-light);
       font-weight: 500;
     }
   }
@@ -132,7 +132,7 @@
     z-index: 1;
     font-size: 45px;
     font-weight: 500;
-    color: #1F2937;
+    color: var(--color-text);
     margin: 0;
   }
   span{

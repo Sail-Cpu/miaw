@@ -11,12 +11,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: -44px 0px 15px 36px #6B7280;
+    box-shadow: -44px 0px 15px 36px var(--color-text-light);
     width: 105px;
     padding: 20px 30px 20px 30px;
     height: 100%;
     z-index: 100;
-    background-color: #fff;
+    background-color: var(--color-secondary);
   }
   .tab-container{
     margin: 2px 0;
@@ -26,11 +26,11 @@
     transition: 0.2s ease;
   }
   .tab-container:hover{
-    background-color: #F3F4F6;
+    background-color: var(--color-tab-hover);
   }
   span{
     font-size: 20px;
-    color: #6B7280;
+    color: var(--color-text-light);
     margin-bottom: 15px;
   }
 
@@ -40,14 +40,14 @@
     padding:20px;
     width: 310px;
     height: 100%;
-    background-color: #fff;
-    box-shadow: 1px 0 10px -3px #6B7280;
+    background-color: var(--color-secondary);
+    box-shadow: 1px 0 10px -3px var(--color-text-light);
     transition: 0.2s;
     z-index: 99;
     h2{
       font-size: 30px;
       margin: 0;
-      color: #2563EB;
+      color: var(--color-primary);
     }
     .side-bar-expand-top{
       display: flex;
@@ -101,7 +101,7 @@
     width: 100%;
     .expand-tab-content{
       width: 100%;
-      border-left: 3px solid #E5E7EB;
+      border-left: 3px solid var(--color-tab-hover);
     }
     .expand-tab{
       .tab{
@@ -113,10 +113,10 @@
         transition: 0.2s ease;
       }
       .tab:hover{
-        background-color: #E5E7EB;
+        background-color: var(--color-tab-hover);
       }
       span{
-        color: #1F2937;
+        color: var(--color-text);
       }
     }
   }

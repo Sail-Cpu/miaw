@@ -1,5 +1,5 @@
 .sign-page {
-  color: #1F2937;
+  color: var(--color-text);
   height: 100vh;
   h1 {
     padding-top: 50px;
@@ -23,7 +23,7 @@
       margin-top: 10px;
       text-align: center;
       a{
-        color: #2563EB;
+        color: var(--color-primary);
         text-decoration: none;
       }
       a:hover{
@@ -53,7 +53,7 @@
   
   /* Thumb (poignée) de la barre de défilement */
   ::-webkit-scrollbar-thumb {
-    background: #1F2937;
+    background: var(--color-text);
     border-radius: 20px;
   }
 
@@ -71,7 +71,7 @@
     transition: 1s ease;
     p{
         margin: 10px 0 0 0;
-        color: #6B7280;
+        color: var(--color-text-light);
     }
   }
 }

@@ -33,11 +33,11 @@
       padding: 10px 10px 0 10px;
       max-height: 200px;
       span{
-        color: #1F2937;
+        color: var(--color-text);
         transition: 0.1s ease;
       }
       span:hover{
-        color: #2563EB;
+        color: var(--color-primary);
       }
     }
   }
