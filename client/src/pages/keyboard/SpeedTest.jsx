@@ -61,7 +61,7 @@ export const EndModal = (props) => {
                 <div className="end-modal-left">
                     <CircularProgress value={percentage} color='#14B8A6' size={200} thickness='6px' />
                     <div className="circular-progress-content">
-                        <h1>{percentage}%</h1>
+                        <h1>{percentage.toFixed(0)}%</h1>
                         <span>Completed</span>
                     </div>
                 </div>
@@ -234,7 +234,7 @@ const SpeedTest = () => {
         userNumber += 1;
         return{
             percentage: Math.floor((userNumber * 100) / textLetters),
-            persec: (userNumber / 30).toFixed(1)
+            persec: (userNumber / 30)
         }
     }
 

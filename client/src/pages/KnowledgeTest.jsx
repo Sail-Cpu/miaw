@@ -7,7 +7,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useReducer, useState} from "react";
 import PropTypes from "prop-types";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
@@ -91,20 +91,108 @@ const convertKey = [
     },
 ]
 
+const initialState = {
+    actualShortcuts: 0,
+    pressed: [],
+    position: 0,
+    stat: {error: 0, success: 0},
+    wrong: false,
+    start: false,
+    finished: false
+}
+
+const actionTypes = {
+    START: "Start",
+    STOP: "Stop",
+    RESET: "Reset",
+    PRESS: "Press",
+    WRONG: "Wrong",
+    SUPPR: "Suppr",
+    TIME_ELAPSED: "Time_Elapsed",
+    VALIDATE: "Validate",
+    FINISHED: "Finished"
+}
+
+const number = 3;
+
+const reducer = (state, action) => {
+    switch (action.type){
+        case actionTypes.START:
+            return {...state, start: true}
+        case actionTypes.STOP:
+            return {...state, start: false}
+        case actionTypes.PRESS:
+            return {...state, pressed: [...state.pressed, action.payload]}
+        case actionTypes.WRONG:
+            return {...state, wrong: true}
+        case actionTypes.SUPPR:
+            return {...state, pressed: []}
+        case actionTypes.VALIDATE:
+            if(state.actualShortcuts === number-1){
+                return {
+                    ...state,
+                    position: state.position - 110,
+                    stat: {...state.stat, success: state.stat.success + 1},
+                    actualShortcuts: state.actualShortcuts + 1,
+                    pressed: [],
+                    wrong: false,
+                    start: false,
+                    finished: true
+                }
+
+            }else{
+                return {
+                    ...state,
+                    position: state.position - 110,
+                    stat: {...state.stat, success: state.stat.success + 1},
+                    actualShortcuts: state.actualShortcuts + 1,
+                    pressed: [],
+                    wrong: false
+                }
+            }
+        case actionTypes.TIME_ELAPSED:
+            console.log(state.actualShortcuts, number)
+            if(state.actualShortcuts === number-1){
+                return {
+                    ...state,
+                    position: state.position - 110,
+                    actualShortcuts: state.actualShortcuts + 1,
+                    pressed: [],
+                    stat: {...state.stat, error: state.stat.error + 1},
+                    start: false,
+                    finished: true
+                }
+            }else{
+                return {
+                    ...state,
+                    position: state.position - 110,
+                    actualShortcuts: state.actualShortcuts + 1,
+                    pressed: [],
+                    stat: {...state.stat, error: state.stat.error + 1}
+                }
+            }
+        case actionTypes.FINISHED:
+            return {
+                ...state,
+                start: false,
+                finished: true
+            }
+        default:
+            return state;
+    }
+}
+
+
+
+
 const KnowledgeTest = () => {
 
-    const number = 20;
+    const [state, dispatch] = useReducer(reducer, initialState);
 
-    const allShorcuts = useSelector(appShortcutsSelector());
-    const [actualShortcuts, setActualShortcuts] = useState(0);
-    const [pressed, setPressed] = useState([]);
-    const [position, setPosition] = useState(0);
-    const [stat, setStat] = useState({error: 0, success: 0});
-    const [wrong, setWrong] = useState(false)
-    const [start, setStart] = useState(false)
+    const allShorcuts = useSelector(appShortcutsSelector())
+
     const [timeLeft, setTimeLeft] = useState(5)
     const [intervalId, setIntervalId] = useState(null);
-    const [finished, setFinished] = useState(false);
 
 
     const pickRandomShortcuts = useMemo(() =>{
@@ -134,8 +222,8 @@ const KnowledgeTest = () => {
                     keyPressed = convertKey[i].converted;
                 }
             }
-            if(start && !pressed.includes(keyPressed)){
-                setPressed([...pressed, keyPressed]);
+            if(state.start && !state.pressed.includes(keyPressed)){
+                dispatch({type: actionTypes.PRESS, payload: keyPressed})
             }
         }
 
@@ -143,14 +231,14 @@ const KnowledgeTest = () => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [pressed, start])
+    }, [state.pressed, state.start])
 
     useEffect(() => {
-        if(start){
+        if(state.start){
             const id = setInterval(() => {
                 setTimeLeft(prevTime => {
                     if (prevTime <= 0) {
-                        timeElapsed();
+                        dispatch({type: actionTypes.TIME_ELAPSED})
                         return 5;
                     }
                     return prevTime - 1;
@@ -160,25 +248,25 @@ const KnowledgeTest = () => {
         } else {
             clearInterval(intervalId);
         }
-    }, [start])
+    }, [state.start])
 
     const formatPress = useMemo(() => {
         let res = "";
-        pressed.forEach(press => {
+        state.pressed.forEach(press => {
             res += press + " + "
         })
         return res.substring(0, res.length-3);
-    }, [pressed])
+    }, [state.pressed])
 
     const checkIfExact = () => {
         let exist = true;
-        const shorcuts = pickRandomShortcuts[actualShortcuts].shortcut_keys;
-        if(shorcuts.length !== pressed.length) return false;
-        for (let i=0; i < pressed.length; i++){
+        const shorcuts = pickRandomShortcuts[state.actualShortcuts].shortcut_keys;
+        if(shorcuts.length !== state.pressed.length) return false;
+        for (let i=0; i < state.pressed.length; i++){
             let j = 0
             let end = false;
             while(j <= shorcuts.length +1 && end===false){
-                if(pressed[i].toLowerCase() === shorcuts[j].toLowerCase()){
+                if(state.pressed[i].toLowerCase() === shorcuts[j].toLowerCase()){
                     end=true;
                 }else if (j > shorcuts.length){
                     exist = false;
@@ -189,44 +277,17 @@ const KnowledgeTest = () => {
         return exist;
     }
 
-    const timeElapsed = () => {
-        setPosition(prevPosition => prevPosition - 110);
-        setActualShortcuts(prevActualShortcuts => {
-            let shortcut = prevActualShortcuts + 1;
-            if(shortcut === number){
-                setStart(false);
-                setFinished(true);
-            }
-            return shortcut;
-        });
-        setPressed([]);
-        setStat(prevStat => ({...prevStat, error: prevStat.error + 1}));
-    }
-
     const validate = () => {
-        console.log(pressed, pickRandomShortcuts[actualShortcuts].shortcut_keys)
+        console.log(pickRandomShortcuts[state.actualShortcuts].shortcut_keys)
         if(checkIfExact()){
-            setPosition(prevPosition => prevPosition - 110);
-            setStat(prevStat => ({...prevStat, success: prevStat.success+1}));
-            setActualShortcuts(prevActualShortcuts => {
-                let shortcut = prevActualShortcuts + 1;
-                if(shortcut === number){
-                    setStart(false);
-                    setFinished(true);
-                }
-                return shortcut;
-            });
-            setPressed([]);
-            setWrong(false);
+            dispatch({type: actionTypes.VALIDATE})
             setTimeLeft(5);
-            if(actualShortcuts === number-1){
-                setStart(false);
-                setFinished(true);
-                console.log("finished");
+            if(state.actualShortcuts === number){
+                dispatch({type: actionTypes.FINISHED})
             }
             return;
         }
-        setWrong(true);
+        dispatch({type: actionTypes.WRONG})
 
     }
 
@@ -235,37 +296,36 @@ const KnowledgeTest = () => {
             <div className="knowledge-test-left">
                 <div className="knowledge-test-start-container">
                     {
-                        !start ?
+                        !state.start ?
                             <Button
                                 name={"Start"}
-                                onClick={() => setStart(true)}
+                                onClick={() => dispatch({type: actionTypes.START})}
                                 color={"#2563EB"} />
                             :
                             <Button
                                 name={"Stop"}
-                                onClick={() => setStart(false)}
+                                onClick={() => dispatch({type: actionTypes.STOP})}
                                 color={"#DC2626"} />
                     }
                 </div>
                 <CustomizedTimeline
-                    actualShortcuts={actualShortcuts}
+                    actualShortcuts={state.actualShortcuts}
                     shortcuts={pickRandomShortcuts}
-                    position={position}
+                    position={state.position}
                 />
             </div>
             <div className="knowledge-test-right">
                 <h1>{timeLeft}</h1>
                 <div className="keyboard-input-container">
-                    <Input name="Keyboard Keys" type="text" value={formatPress} wrong={wrong}/>
+                    <Input name="Keyboard Keys" type="text" value={formatPress} wrong={state.wrong}/>
                     <Button name="Click"
-                            onClick={() => !pressed.includes("click") && setPressed([...pressed, "click"])}
+                            onClick={() => !state.pressed.includes("click") && dispatch({type: actionTypes.PRESS, payload: "click"})}
                             color="#2563EB" />
                 </div>
                 <div className="knowledge-test-right-bottom">
                     <Button name="suppr"
                             onClick={() => {
-                                setPressed([])
-                                setWrong(false)
+                                dispatch({type: actionTypes.SUPPR})
                             }}
                             color="#EF4444" />
                     <Button name="Validate"
@@ -273,18 +333,18 @@ const KnowledgeTest = () => {
                             color="#14B8A6" />
                 </div>
                 <div className="knowledge-test-right-stat">
-                    <StatBlock name="error" color="#EF4444" number={stat.error} />
-                    <StatBlock name="Success" color="#2563EB" number={stat.success} />
+                    <StatBlock name="error" color="#EF4444" number={state.stat.error} />
+                    <StatBlock name="Success" color="#2563EB" number={state.stat.success} />
                 </div>
             </div>
             {
-                finished &&
+                state.finished &&
                 <div className="end-modal-container">
                     <EndModal
-                        percentage={100 * stat.success / number}
-                        error={stat.error}
+                        percentage={100 * state.stat.success / number}
+                        error={state.stat.error}
                         label1="Errors"
-                        success={stat.success}
+                        success={state.stat.success}
                         label2="Success"
                         reset={() => console.log("reset")}
                     />
