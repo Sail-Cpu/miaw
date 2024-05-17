@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import Icon from "../Icon.jsx";
 import allIcons from "../../utils/allIcons.js";
 import {useSelector} from "react-redux";
@@ -6,12 +6,15 @@ import {currentUserSelector} from "../../redux/auth/selector.js";
 import {allAppsNoCatSelector} from "../../redux/app/selector.js";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const Tab = (props) => {
     const { tab, idx, extend, action, tag } = props;
 
+    const {theme, colors} = useContext(ThemeContext);
+
     const borderStyle = (idx) => {
-        const borderType = "2px solid #E5E7EB";
+        const borderType = `2px solid ${colors[theme].tabHover}`;
         const borderSize = "15px"
         const res = {
             borderLeft: borderType,
@@ -27,14 +30,14 @@ const Tab = (props) => {
                 [cornerRadius[0]]: borderType,
                 [cornerRadius[1]]: borderSize,
                 [cornerRadius[2]]: borderSize,
-                ...(idx % 2 !== 0 && { backgroundColor: "#F3F4F6" })
+                ...(idx % 2 !== 0 && { backgroundColor: colors[theme].tabHover })
             };
         }
 
         if (idx % 2 !== 0) {
             return {
                 ...res,
-                backgroundColor: "#F3F4F6"
+                backgroundColor: colors[theme].tabHover
             };
         }
 
