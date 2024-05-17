@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
+import {useContext} from "react";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const ButtonGroup = (props) => {
 
     const {labels, setSelected, selected} = props;
+
+    const {theme, colors} = useContext(ThemeContext)
 
     const radius = (idx) => {
         if(idx === 0){
@@ -13,7 +17,7 @@ const ButtonGroup = (props) => {
         }else if(labels.length-1 === idx){
             return {borderTopRightRadius: "6px",
                     borderBottomRightRadius:"6px",
-                    borderLeft: "2px solid #E5E7EB"
+                    borderLeft: `2px solid ${colors[theme].tabHover}`
             };
         }
         return {borderRight: 0};
@@ -28,7 +32,7 @@ const ButtonGroup = (props) => {
                             key={idx}
                             style={{
                                 ...radius(idx),
-                                backgroundColor: label.id === selected ? "#F8FAFC" : ""
+                                backgroundColor: label.id === selected ? colors[theme].tabHover : ""
                             }}
                             onClick={() => setSelected(label.id)}
                         >

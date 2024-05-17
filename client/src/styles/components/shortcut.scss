@@ -17,6 +17,7 @@
       font-size: 20px;
       font-weight: 500;
       cursor: pointer;
+      color: var(--color-text);
     }
     .tab-bottom-bar{
       position: absolute;
@@ -33,6 +34,7 @@
       font-size: 26px;
       font-weight: 100;
       margin: 0;
+      color: var(--color-text);
     }
     p{
       margin: 10px 0 0 0;
@@ -50,6 +52,7 @@
   width: 100%;
   .keys{
     display: flex;
+    color: var(--color-text);
     .more{
       margin-right: 6px;
     }

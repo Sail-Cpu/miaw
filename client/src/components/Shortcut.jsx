@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Key from "./Key.jsx";
 import PropTypes from "prop-types";
 import {favAction} from "../redux/auth/action.js";
 import {useDispatch, useSelector} from "react-redux";
 import {currentUserSelector} from "../redux/auth/selector.js";
+import {ThemeContext} from "../context/ThemeContext.jsx";
 
 
 export const Keys = (keys) => {
@@ -19,6 +20,8 @@ const Shortcut = (props) => {
 
     const dispatch = useDispatch();
     const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
+
+    const {theme, colors} = useContext(ThemeContext);
 
     const {
         shortcut_id,
@@ -46,10 +49,10 @@ const Shortcut = (props) => {
     return(
         <div className="shortcut-container">
             <div className="shortcut-nav">
-                <div className="tab" onClick={() => setOs("windows")} style={{borderRight: "1px solid #E5E7EB"}}>
+                <div className="tab" onClick={() => setOs("windows")} style={{borderRight: `1px solid ${colors[theme].tabHover}`}}>
                     Windows / Linux
                 </div>
-                <div className="tab" onClick={() => setOs("mac")} style={{borderLeft: "1px solid #E5E7EB"}}>
+                <div className="tab" onClick={() => setOs("mac")} style={{borderLeft: `1px solid ${colors[theme].tabHover}`}}>
                     Mac OS
                 </div>
                 <div className="tab-bottom-bar"

@@ -10,7 +10,7 @@
     margin-bottom: 0;
     font-size: 80px;
     font-weight: 400;
-    color: #2563EB;
+    color: var(--color-primary);
   }
   button{
     margin: 50px 0 80px 0;
@@ -20,7 +20,7 @@
     z-index: -1;
     width: 80%;
     height: 3px;
-    background-color: #2563EB;
+    background-color: var(--color-primary);
     .speed-text-container{
       position: absolute;
       display: flex;
@@ -36,6 +36,7 @@
         height: 50px;
         font-size: 27px;
         transition: 0.5s ease;
+        color: var(--color-text);
       }
     }
   }
@@ -43,11 +44,10 @@
     position: absolute;
     padding: 5px;
     border-radius: 10px;
-    border: 1px solid #E5E7EB;
     left: 0;
     bottom: 50px;
-    background-color: #F8FAFC;
-    color: #DC2626;
+    background-color: var(--color-tab-hover);
+    color: var(--color-error);
     font-weight: 500;
     font-size: 24px;
   }
@@ -68,7 +68,7 @@
   .end-modal{
     padding: 15px;
     box-shadow: 0 0 21px 7px rgba(0,0,0,0.3);
-    background-color: #fff;
+    background-color: var(--color-secondary);
   }
   .end-modal-right{
     display: flex;
@@ -138,5 +138,6 @@
   span{
     z-index: 1;
     font-size: 20px;
+    color: var(--color-text);
   }
 }

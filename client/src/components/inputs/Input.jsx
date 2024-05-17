@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
+import {useContext} from "react";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const Input = (props) => {
     const {name, type, holder, setState, value, wrong} = props;
+
+    const {theme, colors} = useContext(ThemeContext)
 
     return(
         <div className="form-input text-input">
@@ -16,7 +20,7 @@ const Input = (props) => {
                     onBlur={(e) => e.currentTarget.classList.remove("active")}
                     value={value && value}
                     onChange={(e) => e.target.value}
-                    style={{color: wrong ? "red" : "black"}}
+                    style={{color: wrong ? "red" : colors[theme].text}}
                 />
                 :
                 <input

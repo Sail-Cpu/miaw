@@ -7,11 +7,12 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
-import {useEffect, useMemo, useReducer, useState} from "react";
+import {useContext, useEffect, useMemo, useReducer, useState} from "react";
 import PropTypes from "prop-types";
 import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
 import {StatBlock, EndModal} from "./keyboard/SpeedTest.jsx";
+import {ThemeContext} from "../context/ThemeContext.jsx";
 
 const CustomizedTimeline = (props) => {
 

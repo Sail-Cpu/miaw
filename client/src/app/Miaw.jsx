@@ -4,12 +4,15 @@ import {Outlet, useNavigate} from "react-router-dom";
 import HeaderNav from "../components/navigations/HeaderNav.jsx";
 import {useSelector} from "react-redux";
 import {isLoggedInSelector} from "../redux/auth/selector.js";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
+import {ThemeContext} from "../context/ThemeContext.jsx";
 
 const Miaw = () => {
 
     const navigate = useNavigate();
     const isLoggedIn = useSelector(isLoggedInSelector);
+
+    const { toggleDarkTheme } = useContext(ThemeContext);
 
     useEffect(() => {
         !isLoggedIn && navigate('/login')
@@ -17,10 +20,6 @@ const Miaw = () => {
 
     const navParams = {
         tabs: [
-            /*{
-                name: "Settings",
-                link: "#",
-            },*/
             {
                 name: "User",
                 link: "/user",
@@ -34,7 +33,7 @@ const Miaw = () => {
             {
                 name: "Disconnect",
                 background: true,
-                action: () => disconnect()
+                action: () => toggleDarkTheme()
             }
         ],
         search: false

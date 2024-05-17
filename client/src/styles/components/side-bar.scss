@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: -44px 0px 15px 36px var(--color-text-light);
+    box-shadow: -44px 0px 15px 36px #000;
     width: 105px;
     padding: 20px 30px 20px 30px;
     height: 100%;
@@ -24,6 +24,10 @@
     border-radius: 10px;
     cursor: pointer;
     transition: 0.2s ease;
+    svg{
+      color: red;
+    }
+
   }
   .tab-container:hover{
     background-color: var(--color-tab-hover);
@@ -41,7 +45,7 @@
     width: 310px;
     height: 100%;
     background-color: var(--color-secondary);
-    box-shadow: 1px 0 10px -3px var(--color-text-light);
+    box-shadow: 1px 0 10px -3px #000;
     transition: 0.2s;
     z-index: 99;
     h2{
@@ -77,9 +81,11 @@
     width: 100%;
     height: 30px;
     transition: 0.2s ease;
+    color: var(--color-text);
     svg{
       transition: 0.2s ease;
       cursor: pointer;
+      color: var(--color-text);
     }
     .toggle-container{
       display: flex;

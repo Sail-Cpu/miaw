@@ -5,9 +5,10 @@
     border: 2px solid var(--color-tab-hover);;
     background: none;
     cursor: pointer;
+    color: var(--color-text);
   }
   button:hover{
-    background-color: #F8FAFC;
+    background-color: var(--color-tab-hover);
   }
   width: fit-content;
   box-shadow: 0 0 8px -6px rgba(0, 0, 0, 0.7);

@@ -10,10 +10,11 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useDispatch, useSelector} from "react-redux";
-import {useMemo, useState} from "react";
+import {useContext, useMemo, useState} from "react";
 import {Keys} from "./Shortcut.jsx";
 import {currentUserSelector} from "../redux/auth/selector.js";
 import {favAction} from "../redux/auth/action.js";
+import {ThemeContext} from "../context/ThemeContext.jsx";
 
 function stableSort(array) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -55,13 +56,16 @@ const headCells = [
 
 function EnhancedTableHead() {
 
+    const {theme, colors} = useContext(ThemeContext)
+
     return (
-        <TableHead>
+        <TableHead style={{backgroundColor: colors[theme].secondary}}>
             <TableRow>
                 {headCells.map((headCell, idx) => (
                     <TableCell
                         key={headCell.id}
                         align={idx === headCells.length-1 ? "right" : "left"}
+                        style={{color: colors[theme].text}}
                     >
                         {headCell.label}
                     </TableCell>
@@ -74,6 +78,8 @@ function EnhancedTableHead() {
 export default function EnhancedTable(props) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const {theme, colors} = useContext(ThemeContext)
 
     const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
 
@@ -121,7 +127,7 @@ export default function EnhancedTable(props) {
                     <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-
+                        style={{backgroundColor: colors[theme].secondary}}
                     >
                         <EnhancedTableHead />
                         <TableBody>
@@ -138,16 +144,17 @@ export default function EnhancedTable(props) {
                                             id={labelId}
                                             scope="row"
                                             align="left"
+                                            style={{color: colors[theme].text}}
                                         >
                                             {row.shortcut_name}
                                         </TableCell>
-                                        <TableCell  align="left">{row.shortcut_desc}</TableCell>
-                                        <TableCell align="left">
+                                        <TableCell  align="left" style={{color: colors[theme].text}}>{row.shortcut_desc}</TableCell>
+                                        <TableCell align="left" style={{color: colors[theme].text}}>
                                             <div className="all-keys-container">
                                                 {Keys(row.shortcut_keys)}
                                             </div>
                                         </TableCell>
-                                        <TableCell align="left">
+                                        <TableCell align="left" style={{color: colors[theme].text}}>
                                             <div className="all-keys-container">
                                                 {Keys(row.shortcut_mac_keys)}
                                             </div>
@@ -186,6 +193,7 @@ export default function EnhancedTable(props) {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    style={{backgroundColor: colors[theme].secondary, color: colors[theme].text}}
                 />
             </Paper>
         </Box>
