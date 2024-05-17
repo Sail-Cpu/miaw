@@ -1,10 +1,10 @@
-import { createContext, useState } from 'react';
+import {createContext, useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = ({children}) => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const colors = {
         light: {
             primary: '#2563EB',
@@ -20,13 +20,16 @@ const ThemeContextProvider = ({children}) => {
         },
     };
 
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.querySelector("body").setAttribute("data-theme", theme);
+    }, [theme]);
+
     const toggleDarkTheme = () => {
-        document.querySelector("body").setAttribute("data-theme", "dark");
         setTheme("dark");
     };
 
     const toggleLightTheme = () => {
-        document.querySelector("body").setAttribute("data-theme", "light");
         setTheme("light");
     };
 
