@@ -66,8 +66,8 @@ export const EndModal = (props) => {
                     </div>
                 </div>
                 <div className="end-modal-right">
-                    <StatBlock number={error} color="#EF4444" name={label1}/>
-                    <StatBlock number={success} color="#2563EB" name={label2} />
+                    <StatBlock number={error.toFixed(0)} color="#EF4444" name={label1}/>
+                    <StatBlock number={success.toFixed(1)} color="#2563EB" name={label2} />
                 </div>
             </div>
             <div className="end-modal-bottom">
@@ -85,6 +85,7 @@ EndModal.propTypes = {
     success: PropTypes.number.isRequired,
     reset: PropTypes.func.isRequired
 }
+
 
 const initialState = {
     textStep: {
@@ -109,6 +110,8 @@ const actionTypes = {
     SET_END: 'SET_END',
     RESET: 'RESET'
 };
+
+const originalTime = 30;
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -146,7 +149,7 @@ const SpeedTest = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(originalTime);
     const [intervalId, setIntervalId] = useState(null);
 
     const reset = () => {
@@ -178,6 +181,9 @@ const SpeedTest = () => {
                             actualLine: state.textStep.actualLine+1,
                             actualLetter: 0
                         }, position: state.position-50})
+                    if (state.textStep.actualLine === text.length-1){
+                        dispatch({type: actionTypes.SET_END})
+                    }
                 }
             }else{
                 if(state.error.wrong) return;
@@ -231,10 +237,17 @@ const SpeedTest = () => {
             userNumber += text[i].length;
         }
         userNumber += state.textStep.actualLetter;
-        userNumber += 1;
+        console.log(timeLeft)
+        if(userNumber < textLetters){
+            return{
+                percentage: Math.floor((userNumber * 100) / textLetters),
+                persec: (userNumber / originalTime)
+            }
+        }
+        const lastTime = originalTime - timeLeft;
         return{
-            percentage: Math.floor((userNumber * 100) / textLetters),
-            persec: (userNumber / 30)
+            percentage: 100,
+            persec: (userNumber / lastTime)
         }
     }
 

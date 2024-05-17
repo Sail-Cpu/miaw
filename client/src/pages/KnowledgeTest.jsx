@@ -113,7 +113,7 @@ const actionTypes = {
     FINISHED: "Finished"
 }
 
-const number = 2;
+const number = 20;
 
 const reducer = (state, action) => {
     switch (action.type){
