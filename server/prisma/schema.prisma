@@ -59,3 +59,8 @@ model shortcuts {
   applications      applications      @relation(fields: [app_id], references: [app_id])
   users_shortcuts   users_shortcuts[]
 }
+
+model speed_line {
+  line_id Int    @id @default(autoincrement())
+  line    String @unique
+}

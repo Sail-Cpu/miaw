@@ -31,6 +31,7 @@ const Input = (props) => {
                     onFocus={(e) => e.currentTarget.classList.add("active")}
                     onBlur={(e) => e.currentTarget.classList.remove("active")}
                     onChange={(e) => setState(e.target.value)}
+                    style={{color: colors[theme].text}}
                 />
             }
         </div>
