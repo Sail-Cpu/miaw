@@ -18,7 +18,6 @@ export const signUp = (userData) => async (dispatch) => {
 
 export const SignIn = (userData) => async (dispatch) => {
     const response = await login(userData);
-    console.log(response)
     if(response.success){
         dispatch({
             type: actionType.REGISTER_SUCCESS,

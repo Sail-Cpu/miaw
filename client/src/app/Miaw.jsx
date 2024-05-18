@@ -12,8 +12,6 @@ const Miaw = () => {
     const navigate = useNavigate();
     const isLoggedIn = useSelector(isLoggedInSelector);
 
-    const { toggleDarkTheme } = useContext(ThemeContext);
-
     useEffect(() => {
         !isLoggedIn && navigate('/login')
     }, [])
@@ -33,15 +31,15 @@ const Miaw = () => {
             {
                 name: "Disconnect",
                 background: true,
-                action: () => toggleDarkTheme()
+                action: () => disconnect()
             }
         ],
-        theme: true,
+        theme: isLoggedIn,
         search: false
     }
 
     const disconnect = () => {
-        localStorage.clear();
+        localStorage.removeItem("persist:root");
         navigate("/login");
     }
 
