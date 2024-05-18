@@ -6,7 +6,7 @@ export const userExist = async (userData) => {
     const {username, email} = userData;
     try{
         const request = await axios.get(`${BASE_LINK}/user?username=${username}&email=${email}`)
-        return request.data.result;
+        return request.data;
     }catch (error){
         return false;
     }

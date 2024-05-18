@@ -17,6 +17,8 @@ const Register = () => {
 
     const {user} = useContext(AuthContext);
 
+    console.log(user)
+
     const step = () => {
         return user.os.length > 0 ? 3 :
                 user.username.length > 0 ? 2 :

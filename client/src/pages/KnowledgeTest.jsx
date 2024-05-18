@@ -187,7 +187,7 @@ const reducer = (state, action) => {
 
 const KnowledgeTest = () => {
 
-    const [colors, theme] = useContext(ThemeContext);
+    const {colors, theme} = useContext(ThemeContext);
 
     const [state, dispatch] = useReducer(reducer, initialState);
 

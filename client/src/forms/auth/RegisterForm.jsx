@@ -32,7 +32,7 @@ const RegisterForm = () => {
             toast.error('all fields must be completed');
             return;
         }
-        if(await userExist({email: email}) === true){
+        if(await userExist({email: email}).result === true){
             toast.error('email is already in use');
             return;
         }

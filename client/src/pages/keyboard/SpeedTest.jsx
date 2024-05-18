@@ -4,7 +4,7 @@ import { CircularProgress } from '@chakra-ui/react'
 import PropTypes from "prop-types";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
 
-const text = [
+/*const text = [
     "The",
     "It's a little bit funny",
     "This feelin' inside",
@@ -16,7 +16,7 @@ const text = [
     "Or a man who makes potions in a travelin' show, oh",
     "I know it's not much, but it's the best I can do",
     "My gift is my song and this one's for you"
-]
+]*/
 
 const other = [
     "Shift",
@@ -148,7 +148,7 @@ const reducer = (state, action) => {
 
 const SpeedTest = () => {
 
-
+    const [text, setText] = useState([]);
     const {theme, colors} = useContext(ThemeContext);
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -160,6 +160,20 @@ const SpeedTest = () => {
         setIntervalId(null)
         dispatch({type: actionTypes.RESET});
     }
+
+    useEffect(() => {
+        fetch('http://localhost:3000/speed-line').
+        then(res => res.json())
+        .then(data => {
+            let allLine = [];
+            data.result.forEach(line => {
+                allLine.push(line.line);
+            })
+            setText(allLine);
+        });
+    }, [state.end]);
+
+
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -271,7 +285,7 @@ const SpeedTest = () => {
             }
             <div className="speed-line">
                 <div className="speed-text-container" style={{top: state.position+"px"}}>
-                    {
+                    {text &&
                         text.map((line, idx) => {
                             return(
                                 <div key={idx}>

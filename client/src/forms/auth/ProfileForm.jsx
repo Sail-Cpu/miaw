@@ -10,6 +10,7 @@ import Input from "../../components/inputs/Input";
 import Select from "../../components/inputs/Select";
 import Upload from "../../components/inputs/Upload";
 import SubmitButton from "../../components/inputs/SubmitButton.jsx";
+//Requests
 import {userExist} from "../../requests/auth.js";
 
 const ProfileForm = () => {
@@ -29,8 +30,9 @@ const ProfileForm = () => {
             toast.error("all fields must be completed");
             return;
         }
-        if(await userExist({username: username}) === true){
-            toast.error("username already is in use");
+        let newUser = await userExist({username: username});
+        if(newUser.result){
+            toast.error(newUser.message);
             return;
         }
         setUser({

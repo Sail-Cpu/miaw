@@ -20,17 +20,43 @@ const checkPassword = (password) => {
     return password.length >= 8 && /[A-Z]/.test(password) && /\d/.test(password);
 }
 
+const checkPseudo = async (username) => {
+    console.log(username.length < 4 || username.length > 20)
+    if (username.length < 4 || username.length > 20) {
+        return {
+            result: false,
+            message: "The username must contain between 3 and 20 characters."
+        }
+    } else if (!/^[a-zA-Z0-9._-]+$/.test(username)) {
+        return {
+            result: false,
+            message: "The username can only contain letters, numbers, hyphens, periods or underscores."
+        }
+    } else if (await checkIfExists("username", username)) {
+        return {
+            result: false,
+            message: "the username is already taken"
+        }
+    } else {
+        return {
+            result: true,
+            message: "The username is valid."
+        }
+    }
+};
+
 router.get('/user', async (req, res) => {
     const {username, email} = req.query;
     try{
         prisma.$connect()
         if(email && await checkIfExists("email", email)){
-            return res.status(200).send({result: true, message: "The user exist"});
+            return res.status(200).send({result: true, message: "the email is already taken"});
         }
-        if(username && await checkIfExists("username", username)){
-            return res.status(200).send({result: true, message: "The user exist"});
+        let pseudo = await checkPseudo(username);
+        if(username && !pseudo.result){
+            return res.status(200).send({result: true, message: pseudo.message});
         }
-        return res.status(200).send({result: false, message: "The user does not exist"});
+        return res.status(200).send({result: false, message: pseudo.message});
     }catch (error){
         return res.status(500).send({result: false, message: "An internal error has occurred on the server"});
     }finally {
@@ -43,8 +69,10 @@ router.post(`/signup`, async (req, res) => {
 
     if(username && email && password && job && os){
         try{
-            if(await checkIfExists("username", username)) {
-                return res.status(409).send({success: false, message: "Username already exists"})
+            let pseudo = await checkPseudo(username);
+            console.log(username, pseudo)
+            if(!pseudo.result) {
+                return res.status(409).send({success: false, message: pseudo.message})
             }
             if(await checkIfExists("email", email)) {
                 return res.status(409).send({
