@@ -187,6 +187,8 @@ const reducer = (state, action) => {
 
 const KnowledgeTest = () => {
 
+    const [colors, theme] = useContext(ThemeContext);
+
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const allShorcuts = useSelector(appShortcutsSelector())
@@ -306,12 +308,12 @@ const KnowledgeTest = () => {
                             <Button
                                 name={"Start"}
                                 onClick={() => dispatch({type: actionTypes.START})}
-                                color={"#2563EB"} />
+                                color={colors[theme].primary} />
                             :
                             <Button
                                 name={"Stop"}
                                 onClick={() => dispatch({type: actionTypes.STOP})}
-                                color={"#DC2626"} />
+                                color={colors[theme].error} />
                     }
                 </div>
                 <CustomizedTimeline

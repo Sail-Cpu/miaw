@@ -1,13 +1,16 @@
 import Button from "../components/Button.jsx";
 import {Outlet, useNavigate, useParams} from "react-router-dom";
-import { useEffect } from "react";
+import {useContext, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, appShortcutsByChapterSelector } from "../redux/app/selector";
 import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
+import {ThemeContext} from "../context/ThemeContext.jsx";
 
 
 export const AppDetails = () => {
+
+    const {colors, theme} = useContext(ThemeContext);
     const { app_id, app_name, app_description } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
@@ -27,8 +30,8 @@ export const AppDetails = () => {
                         <p>{app_description}</p>
                     </div>
                     <div className="software-hero-banner-bottom">
-                        <Button name="Course" onClick={() => navigate(`/software/${app_id}/course`)} color="#33D3C1" />
-                        <Button name="Knowledge Test" onClick={() => navigate(`/software/${app_id}/test`)} color="#33D3C1" />
+                        <Button name="Course" onClick={() => navigate(`/software/${app_id}/course`)} color={colors[theme].green} />
+                        <Button name="Knowledge Test" onClick={() => navigate(`/software/${app_id}/test`)} color={colors[theme].green} />
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">

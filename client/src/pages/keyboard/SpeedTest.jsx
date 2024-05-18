@@ -1,7 +1,8 @@
 import Button from "../../components/Button.jsx";
-import {useEffect, useReducer, useState} from "react";
+import {useContext, useEffect, useReducer, useState} from "react";
 import { CircularProgress } from '@chakra-ui/react'
 import PropTypes from "prop-types";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const text = [
     "The",
@@ -147,6 +148,8 @@ const reducer = (state, action) => {
 
 const SpeedTest = () => {
 
+
+    const {theme, colors} = useContext(ThemeContext);
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const [timeLeft, setTimeLeft] = useState(originalTime);
@@ -259,12 +262,12 @@ const SpeedTest = () => {
                     <Button
                         name={"Start"}
                         onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: true})}
-                        color={"#2563EB"} />
+                        color={colors[theme].primary} />
                     :
                     <Button
                         name={"Stop"}
                         onClick={() => dispatch({type: actionTypes.CHANGE_START, payload: false})}
-                        color={"#DC2626"} />
+                        color={colors[theme].error} />
             }
             <div className="speed-line">
                 <div className="speed-text-container" style={{top: state.position+"px"}}>
@@ -281,10 +284,10 @@ const SpeedTest = () => {
                                         <div key={idx} className="speed-text-line"
                                              style={{opacity: setOpacity(idx)}}>
                                             <span>
-                                                <span style={{color: "blue"}}>
+                                                <span style={{color: colors[theme].primary}}>
                                                     {line.slice(0, state.textStep.actualLetter)}
                                                 </span>
-                                                <span style={{color: state.error.wrong ? "red" : ""}}>
+                                                <span style={{color: state.error.wrong ? colors[theme].error : ""}}>
                                                     {line[state.textStep.actualLetter]}
                                                 </span>
                                                 {line.slice(state.textStep.actualLetter+1, line.length)}</span>

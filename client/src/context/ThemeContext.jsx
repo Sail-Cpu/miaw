@@ -10,13 +10,17 @@ const ThemeContextProvider = ({children}) => {
             primary: '#2563EB',
             secondary: '#fff',
             text: '#1F2937',
-            tabHover: '#e9eaec'
+            tabHover: '#e9eaec',
+            error: '#EF4444',
+            green: '#33D3C1'
         },
         dark: {
             primary: '#2563EB',
             secondary: '#1b1c21',
             text: '#cccccc',
-            tabHover: '#282a31'
+            tabHover: '#282a31',
+            error: '#EF4444',
+            green: '#33D3C1'
         },
     };
 

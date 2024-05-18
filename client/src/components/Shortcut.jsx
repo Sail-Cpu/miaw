@@ -74,13 +74,13 @@ const Shortcut = (props) => {
                     <div>
                         {alreadyAdded(shortcut_id) ?
                             <span
-                                style={{color: "red", cursor: "pointer"}}
+                                style={{color: colors[theme].error, cursor: "pointer"}}
                                 onClick={() => favorite(shortcut_id, "false")}>
                                 Delete
                             </span>
                             :
                             <span
-                                style={{color: "#2563EB", cursor: "pointer"}}
+                                style={{color: colors[theme].primary, cursor: "pointer"}}
                                 onClick={() => favorite(shortcut_id, "true")}>
                                 Favorite
                             </span>
