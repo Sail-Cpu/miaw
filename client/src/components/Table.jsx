@@ -151,12 +151,12 @@ export default function EnhancedTable(props) {
                                         <TableCell  align="left" style={{color: colors[theme].text}}>{row.shortcut_desc}</TableCell>
                                         <TableCell align="left" style={{color: colors[theme].text}}>
                                             <div className="all-keys-container">
-                                                {Keys(row.shortcut_keys)}
+                                                {Keys(row.shortcuts_keys[0])}
                                             </div>
                                         </TableCell>
                                         <TableCell align="left" style={{color: colors[theme].text}}>
                                             <div className="all-keys-container">
-                                                {Keys(row.shortcut_mac_keys)}
+                                                {Keys(row.shortcuts_keys[1])}
                                             </div>
                                         </TableCell>
                                         <TableCell align="right">

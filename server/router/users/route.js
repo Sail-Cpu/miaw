@@ -21,7 +21,6 @@ const checkPassword = (password) => {
 }
 
 const checkPseudo = async (username) => {
-    console.log(username.length < 4 || username.length > 20)
     if (username.length < 4 || username.length > 20) {
         return {
             result: false,
@@ -70,7 +69,6 @@ router.post(`/signup`, async (req, res) => {
     if(username && email && password && job && os){
         try{
             let pseudo = await checkPseudo(username);
-            console.log(username, pseudo)
             if(!pseudo.result) {
                 return res.status(409).send({success: false, message: pseudo.message})
             }

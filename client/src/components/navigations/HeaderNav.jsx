@@ -34,8 +34,6 @@ const HeaderNav = (props) => {
 
     const {theme, toggleDarkTheme, toggleLightTheme} = useContext(ThemeContext);
 
-    console.log(theme)
-
     return(
         <div className="header-nav-container">
             <div className="header-nav">

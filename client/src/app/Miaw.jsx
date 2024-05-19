@@ -22,10 +22,6 @@ const Miaw = () => {
                 name: "User",
                 link: "/user",
             },
-            {
-                name: "Notification",
-                link: "#",
-            },
         ],
         buttons: [
             {

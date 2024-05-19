@@ -158,20 +158,25 @@ const SpeedTest = () => {
     const reset = () => {
         setTimeLeft(30);
         setIntervalId(null)
+        getData();
         dispatch({type: actionTypes.RESET});
     }
 
-    useEffect(() => {
+    const getData = async () => {
         fetch('http://localhost:3000/speed-line').
         then(res => res.json())
-        .then(data => {
-            let allLine = [];
-            data.result.forEach(line => {
-                allLine.push(line.line);
-            })
-            setText(allLine);
-        });
-    }, [state.end]);
+            .then(data => {
+                let allLine = [];
+                data.result.forEach(line => {
+                    allLine.push(line.line);
+                })
+                setText(allLine);
+            });
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
 
 
 

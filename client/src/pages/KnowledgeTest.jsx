@@ -224,7 +224,7 @@ const KnowledgeTest = () => {
         const handleKeyDown = (e) => {
             e.preventDefault();
             let keyPressed = e.key;
-            console.log(keyPressed);
+
             for(let i = 0; i < convertKey.length; i++){
                 if(convertKey[i].toConvert.toLowerCase() === keyPressed.toLowerCase()){
                     keyPressed = convertKey[i].converted;
@@ -268,7 +268,7 @@ const KnowledgeTest = () => {
 
     const checkIfExact = () => {
         let exist = true;
-        const shorcuts = pickRandomShortcuts[state.actualShortcuts].shortcut_keys;
+        const shorcuts = pickRandomShortcuts[state.actualShortcuts].shortcuts_keys[0];
         if(shorcuts.length !== state.pressed.length) return false;
         for (let i=0; i < state.pressed.length; i++){
             let j = 0
@@ -286,7 +286,7 @@ const KnowledgeTest = () => {
     }
 
     const validate = () => {
-        console.log(pickRandomShortcuts[state.actualShortcuts].shortcut_keys)
+        console.log(pickRandomShortcuts[state.actualShortcuts].shortcuts_keys[0])
         if(checkIfExact()){
             dispatch({type: actionTypes.VALIDATE})
             setTimeLeft(5);

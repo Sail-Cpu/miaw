@@ -48,19 +48,34 @@ model chapters {
 }
 
 model shortcuts {
-  shortcut_id       Int               @id @default(autoincrement())
-  chapter_id        Int
-  app_id            Int
-  shortcut_name     String
-  shortcut_keys     String[]
-  shortcut_mac_keys String[]
-  shortcut_desc     String
-  chapters          chapters          @relation(fields: [chapter_id], references: [chapter_id])
-  applications      applications      @relation(fields: [app_id], references: [app_id])
-  users_shortcuts   users_shortcuts[]
+  shortcut_id     Int               @id @default(autoincrement())
+  chapter_id      Int
+  app_id          Int
+  shortcut_name   String
+  shortcut_desc   String
+  chapters        chapters          @relation(fields: [chapter_id], references: [chapter_id])
+  applications    applications      @relation(fields: [app_id], references: [app_id])
+  users_shortcuts users_shortcuts[]
+  shortcuts_keys  shortcuts_keys[]
 }
 
 model speed_line {
   line_id Int    @id @default(autoincrement())
   line    String @unique
+}
+
+model keys {
+  key_id         Int              @id @default(autoincrement())
+  key_win        String           @unique
+  key_mac        String           @unique
+  shortcuts_keys shortcuts_keys[]
+}
+
+model shortcuts_keys {
+  shortcut_id Int
+  key_id      Int
+  shortcuts   shortcuts @relation(fields: [shortcut_id], references: [shortcut_id])
+  keys        keys      @relation(fields: [key_id], references: [key_id])
+
+  @@id([shortcut_id, key_id])
 }

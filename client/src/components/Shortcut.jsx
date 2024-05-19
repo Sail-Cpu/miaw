@@ -27,8 +27,7 @@ const Shortcut = (props) => {
         shortcut_id,
         shortcut_name,
         shortcut_desc,
-        shortcut_keys,
-        shortcut_mac_keys} = props.data;
+        shortcuts_keys} = props.data;
 
     const favorite = async (shortcutId, add) => {
         await dispatch(favAction({userId: user_id, shortcutId, add}));
@@ -66,9 +65,9 @@ const Shortcut = (props) => {
                     <div className="keys">
                         {
                             os === "windows" ?
-                                Keys(shortcut_keys)
+                                Keys(shortcuts_keys[0])
                                 :
-                                Keys(shortcut_mac_keys)
+                                Keys(shortcuts_keys[1])
                         }
                     </div>
                     <div>
