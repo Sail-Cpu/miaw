@@ -121,8 +121,8 @@ export default function EnhancedTable(props) {
     }
 
     return (
-        <Box sx={{ width: '100%', marginTop: "20px", boxShadow: "0px 0px 15px 4px rgba(0, 0, 0, 0.2)" }}>
-            <Paper sx={{ width: '850px', mb: 2 }}>
+        <Box sx={{ width: '100%', marginTop: "20px", boxShadow: "0px 0px 15px 4px rgba(0, 0, 0, 0.2)"}}>
+            <Paper sx={{ width: '850px', mb: 2, marginBottom: 0 }}>
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}

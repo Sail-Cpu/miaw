@@ -1,26 +1,24 @@
 import VerticalNavTabs from "../components/navigations/UserNav.jsx";
 import {Outlet} from "react-router-dom";
 import allIcons from "../utils/allIcons.js";
-import {ShortcutsExtend} from "../components/navigations/UserNav";
 
 const User = () => {
 
     const tabs = [
         {
-            name: "Profile",
+            name: "Create software",
             icon: allIcons.app,
         },
         {
-            name: "Software",
+            name: "Update Software",
             icon: allIcons.keyboard,
-            extend: <ShortcutsExtend />
         },
     ]
 
     return(
-        <div className="user-page-container">
+        <div className="admin-page-container">
             <VerticalNavTabs tabs={tabs}/>
-            <div className="user-page">
+            <div className="admin-page">
                 <Outlet />
             </div>
         </div>

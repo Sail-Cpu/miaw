@@ -90,7 +90,8 @@ router.post(`/signup`, async (req, res) => {
                         email: email,
                         password: hash,
                         job: job,
-                        os: os
+                        os: os,
+                        role: "user"
                     },
                 });
                 const userShortcuts = await prisma.shortcuts.findMany({

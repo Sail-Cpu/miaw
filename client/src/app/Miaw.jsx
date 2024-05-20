@@ -4,8 +4,7 @@ import {Outlet, useNavigate} from "react-router-dom";
 import HeaderNav from "../components/navigations/HeaderNav.jsx";
 import {useSelector} from "react-redux";
 import {isLoggedInSelector} from "../redux/auth/selector.js";
-import {useContext, useEffect} from "react";
-import {ThemeContext} from "../context/ThemeContext.jsx";
+import {useEffect} from "react";
 
 const Miaw = () => {
 

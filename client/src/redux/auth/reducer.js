@@ -6,6 +6,7 @@ const INITIAL_STATE = {
         user_id: 0,
         email: "",
         job: "",
+        role: "user",
         password: "",
         os: "",
         shortcuts: [],

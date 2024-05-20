@@ -13,6 +13,7 @@ import User from "./pages/User.jsx";
 import UserSoftware from "./pages/user/UserSoftware.jsx";
 import KnowledgeTest from "./pages/KnowledgeTest.jsx";
 import SpeedTest from "./pages/keyboard/SpeedTest.jsx";
+import Admin from "./pages/Admin.jsx";
 
 function App() {
 
@@ -28,9 +29,14 @@ function App() {
             <Route path="/user" element={<User />}>
               <Route path="/user/software/:appId" element={<UserSoftware />} />
             </Route>
+              <Route path="/admin" element={<Admin />}>
+                  <Route path="/admin/software" element={<UserSoftware />} />
+              </Route>
           </Route>
     )
   }
+
+
 
   return (
     <>

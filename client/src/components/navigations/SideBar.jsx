@@ -8,6 +8,7 @@ import allIcons from "../../utils/allIcons.js";
 import PropTypes from "prop-types";
 import {Link, useNavigate} from "react-router-dom";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
+import {currentUserSelector} from "../../redux/auth/selector.js";
 
 const Tab = (props) => {
 
@@ -103,6 +104,7 @@ SideBarExpand.propTypes = {
 
 const SideBar = () => {
 
+    const {role} = useSelector(currentUserSelector)
     const [toggleExpand, setToggleExpand] = useState(false);
     const navigate = useNavigate();
 
@@ -116,6 +118,10 @@ const SideBar = () => {
                 <Icon path={Icons.points} color={colors[theme].text}/>
                 <Tab icon={Icons.app} toggle={() => setToggleExpand(!toggleExpand)}/>
                 <Tab icon={Icons.keyboard} toggle={() => navigate('/speedtest')}/>
+                {
+                    role === "admin" &&
+                        <Tab icon={Icons.pen} toggle={() => navigate('/admin')}/>
+                }
             </div>
             <SideBarExpand toggle={toggleExpand} closeToggle={() => setToggleExpand(false)}/>
         </div>
