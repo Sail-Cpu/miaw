@@ -23,5 +23,4 @@ export const getApp = (appId) => async (dispatch) => {
             type: actionType.GET_APP_FAILED,
         })
     }
-
 }

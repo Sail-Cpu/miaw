@@ -26,3 +26,18 @@ export const allCategories = async () => {
         return error.response.data
     }
 }
+
+export const createApp = async (appData) => {
+    const {name, description, categorie} = appData;
+    console.log(name, description, categorie)
+    try {
+        const request = await axios.post(`${BASE_LINK}/app`, {
+            name,
+            description,
+            categorie
+        })
+        return request.data;
+    } catch (error) {
+        return error.response.data
+    }
+}

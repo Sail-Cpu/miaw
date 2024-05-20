@@ -101,4 +101,22 @@ router.get(`/app/:appId`, async (req, res) => {
     }
 })
 
+router.post(`/app`, async (req, res) => {
+    try{
+        const {name, description, categorie} = req.body;
+        console.log(categorie)
+        const createApp = await prisma.applications.create({
+            data: {
+                app_name: name,
+                app_description: description,
+                categorie_id: parseInt(categorie)
+            },
+        })
+        return res.status(200).send({ success: true, result: createApp });
+    }catch (error){
+        console.log(error)
+        return res.status(500).send({success: false, message: error})
+    }
+})
+
 export default router;
