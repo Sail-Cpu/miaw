@@ -1,0 +1,16 @@
+.admin-page-container{
+  display: flex;
+}
+.admin-page{
+  width: 100%;
+  padding: 0 20px;
+  .image-container{
+    display: flex;
+  }
+  input{
+    width: 400px;
+  }
+  select{
+    width: 400px;
+  }
+}

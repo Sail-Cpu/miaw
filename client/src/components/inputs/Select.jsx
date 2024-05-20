@@ -1,15 +1,8 @@
 import PropTypes from "prop-types";
 
-const jobs = [
-    "developer",
-    "designer",
-    "video maker",
-    "other"
-]
-
 const Select = (props) => {
 
-    const {name} = props;
+    const {name, options} = props;
 
     return (
         <div className="form-input select-input">
@@ -17,10 +10,10 @@ const Select = (props) => {
             <select name={name}
                     onFocus={(e) => e.currentTarget.classList.add("active")}
                     onBlur={(e) => e.currentTarget.classList.remove("active")}>
-                {
-                    jobs.map((job, idx) => {
+                {options &&
+                    options.map((option, idx) => {
                         return(
-                            <option key={idx} value={job}>{job}</option>
+                            <option key={idx} value={option}>{option}</option>
                         )
                     })
                 }
@@ -30,6 +23,7 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired
 };
 export default Select;

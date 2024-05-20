@@ -13,7 +13,8 @@ import User from "./pages/User.jsx";
 import UserSoftware from "./pages/user/UserSoftware.jsx";
 import KnowledgeTest from "./pages/KnowledgeTest.jsx";
 import SpeedTest from "./pages/keyboard/SpeedTest.jsx";
-import Admin from "./pages/Admin.jsx";
+import Admin from "./pages/admin/Admin.jsx";
+import CreateSoftware from "./pages/admin/create/CreateSoftware.jsx";
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
               <Route path="/user/software/:appId" element={<UserSoftware />} />
             </Route>
               <Route path="/admin" element={<Admin />}>
-                  <Route path="/admin/software" element={<UserSoftware />} />
+                  <Route path="/admin/create/software" element={<CreateSoftware />} />
               </Route>
           </Route>
     )

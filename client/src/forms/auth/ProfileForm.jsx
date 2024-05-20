@@ -13,6 +13,13 @@ import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 //Requests
 import {userExist} from "../../requests/auth.js";
 
+const jobs = [
+    "developer",
+    "designer",
+    "video maker",
+    "other"
+]
+
 const ProfileForm = () => {
 
     const navigate = useNavigate();
@@ -50,7 +57,7 @@ const ProfileForm = () => {
             <h1>Profile</h1>
             <div className="sign-page-form">
                 <Input name="username" type="text" holder="walter_white"/>
-                <Select name="jobs" />
+                <Select name="jobs" options={jobs}/>
                 <Upload name="Picture profile" />
             </div>
             <div className="button-container">
