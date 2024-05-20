@@ -1,7 +1,7 @@
 import VerticalNavTabs from "../components/navigations/UserNav.jsx";
 import {Outlet} from "react-router-dom";
 import allIcons from "../utils/allIcons.js";
-import {ShortcutsExtend} from "../components/navigations/UserNav";
+import UserNav, {ShortcutsExtend} from "../components/navigations/UserNav";
 
 const User = () => {
 
@@ -19,7 +19,7 @@ const User = () => {
 
     return(
         <div className="user-page-container">
-            <VerticalNavTabs tabs={tabs}/>
+            <UserNav tabs={tabs}/>
             <div className="user-page">
                 <Outlet />
             </div>

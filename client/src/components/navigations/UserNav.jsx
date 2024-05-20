@@ -8,7 +8,9 @@ import PropTypes from "prop-types";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const Tab = (props) => {
-    const { nb, tab, idx, extend, action, tag } = props;
+    const { tabs, tab, idx, extend, tag } = props;
+
+    const [toggle, setToggle] = useState(false);
 
     const {theme, colors} = useContext(ThemeContext);
 
@@ -20,7 +22,7 @@ const Tab = (props) => {
             borderRight: borderType
         };
 
-        if (idx === 0 || idx === nb - 1) {
+        if (idx === 0 || idx === tabs.length - 1) {
             const cornerRadius = idx === 0 ?
                 ['borderTop', 'borderTopLeftRadius', 'borderTopRightRadius'] :
                 ['borderBottom', 'borderBottomLeftRadius', 'borderBottomRightRadius'];
@@ -43,7 +45,7 @@ const Tab = (props) => {
         return res;
     };
 
-    return  <div className="vertical-nav-tab" style={borderStyle(idx)} onClick={action}>
+    return  <div className="vertical-nav-tab" style={borderStyle(idx)} onClick={() => setToggle(!toggle)}>
         <div className="vertical-nav-tab-content">
             <div>
                 <Icon path={tab.icon} />
@@ -51,53 +53,21 @@ const Tab = (props) => {
             </div>
             { tag > 0 && <div className="tag">{tag}</div> }
         </div>
-        {extend}
+        {toggle && extend}
     </div>
 }
 
 Tab.propTypes = {
-    nb: PropTypes.number,
     tab: PropTypes.object.isRequired,
     idx: PropTypes.number.isRequired,
     extend: PropTypes.element,
     action: PropTypes.func,
-    tag: PropTypes.number
-}
-
-const Extend = (props) => {
-    return props.extend && props.condition ?
-        <Tab nb={props.nb} tab={props.tab} idx={props.idx}  action={() => props.setExtend(false)} tag={props.list.length} extend={
-            <div className="vertical-nav-tab-extends-container">
-                {
-                    props.list.map((app, idx) => {
-                        return(
-                            <div key={idx}>
-                                <Link to={`/user/software/${app.app_id}`}>
-                                    <span>
-                                        {app.app_name}
-                                    </span>
-                                </Link>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        }/> : <Tab nb={props.nb} tab={props.tab} idx={props.idx} action={() => props.setExtend(true)} tag={props.list.length}/>
-}
-
-Extend.propTypes = {
-    extend: PropTypes.bool.isRequired,
-    condition: PropTypes.bool.isRequired,
-    nb: PropTypes.number.isRequired,
-    list: PropTypes.array.isRequired,
-    tab: PropTypes.object.isRequired,
-    idx: PropTypes.number.isRequired,
-    setExtend: PropTypes.func.isRequired
+    tag: PropTypes.number,
+    tabs: PropTypes.array
 }
 
 export const ShortcutsExtend = (props) => {
-    const {tab, idx} = props;
-    const [extend, setExtend] = useState(false);
+    const {tabs, tab, idx} = props;
 
     const allApps = useSelector(allAppsNoCatSelector);
     const {shortcuts} = useSelector(currentUserSelector);
@@ -111,26 +81,66 @@ export const ShortcutsExtend = (props) => {
 
     const allUserApp = useMemo(() => getAllUserApps(), [allApps, shortcuts]);
 
-    return <Extend
-                extend={extend}
-                condition={shortcuts.length > 0}
-                nb={props.nb}
-                idx={idx}
-                setExtend={setExtend}
-                list={allUserApp}
-                tab={tab}
-
-    />
+    return shortcuts.length > 0 ?
+        <Tab tabs={tabs} tab={tab} idx={idx} tag={allUserApp.length} extend={
+            <div className="vertical-nav-tab-extends-container">
+                {
+                    allUserApp.map((app, idx) => {
+                        return(
+                            <div key={idx}>
+                                <Link to={`/user/software/${app.app_id}`}>
+                                    <span>
+                                        {app.app_name}
+                                    </span>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        }/> : <Tab tabs={tabs} tab={tab} idx={idx} tag={allUserApp.length}/>
 }
 
 ShortcutsExtend.propTypes = {
     tab: PropTypes.object,
     idx: PropTypes.number,
-    nb: PropTypes.number
+    tabs: PropTypes.array
 }
 
-const VerticalNavTabs = (props) => {
+export const AdminExtend = (props) => {
 
+    const {tabs, tab, idx} = props
+
+    return props.list.length > 0 ?
+        <Tab tabs={tabs} tab={tab} idx={idx} tag={props.list.length} extend={
+            <div className="vertical-nav-tab-extends-container">
+                {
+                    props.list.map((item, idx) => {
+                        return(
+                            <div key={idx}>
+                                <Link to={`/admin/${item.link}`}>
+                                    <span>
+                                        {item.name}
+                                    </span>
+                                </Link>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        }/> : <Tab tabs={props.tabs} tab={tab} idx={idx} tag={props.list.length}/>
+}
+
+AdminExtend.propTypes = {
+    list: PropTypes.array,
+    tabs: PropTypes.array,
+    tab: PropTypes.object,
+    idx: PropTypes.number
+}
+
+
+
+const UserNav = (props) => {
     return(
         <div className="vertical-nav-container">
             {
@@ -138,18 +148,19 @@ const VerticalNavTabs = (props) => {
                     <React.Fragment key={idx}>
                         {tab?.extend ?
                             <>
-                                {React.cloneElement(tab.extend, {nb: props.tabs.length, tab: tab, idx: idx})}
+                                {React.cloneElement(tab.extend, {tabs: props.tabs, tab: tab, idx: idx, list: props.list})}
                             </>
-                            : <Tab nb={props.tabs.length} tab={tab} idx={idx} />
+                            : <Tab tabs={props.tabs} tab={tab} idx={idx} />
                         }
                     </React.Fragment>
-            ))}
+                ))
+            }
         </div>
     )
 }
 
-VerticalNavTabs.propTypes = {
-    tabs: PropTypes.array,
+UserNav.propTypes = {
+    tabs: PropTypes.array.isRequired
 }
 
-export default VerticalNavTabs;
+export default UserNav;
