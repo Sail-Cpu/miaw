@@ -27,17 +27,38 @@ export const allCategories = async () => {
     }
 }
 
+function getFileExtension(filename) {
+    return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+}
+
 export const createApp = async (appData) => {
-    const {name, description, categorie} = appData;
-    console.log(name, description, categorie)
+    const {name, description, categorie, logo, inter} = appData;
     try {
         const request = await axios.post(`${BASE_LINK}/app`, {
             name,
             description,
             categorie
         })
+        const formData = new FormData();
+        const renamedLogo = new File([logo], `logo_${name}.${getFileExtension(logo.name)}`);
+        const renamedInterface = new File([inter], `interface_${name}.${getFileExtension(inter.name)}`);
+        //const images = [renamedLogo, renamedInterface];
+        formData.append('image', renamedLogo)
+        const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+            headers: {
+                    'Content-Type': 'multipart/form-data'
+            }
+        });
+        formData.delete('image');
+        formData.append('image', renamedInterface)
+        imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
         return request.data;
     } catch (error) {
-        return error.response.data
+        return error
     }
 }

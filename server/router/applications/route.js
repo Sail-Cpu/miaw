@@ -104,7 +104,6 @@ router.get(`/app/:appId`, async (req, res) => {
 router.post(`/app`, async (req, res) => {
     try{
         const {name, description, categorie} = req.body;
-        console.log(categorie)
         const createApp = await prisma.applications.create({
             data: {
                 app_name: name,

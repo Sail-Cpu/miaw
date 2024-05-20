@@ -29,7 +29,6 @@ export const register = async (userData) => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(imageResponse.data)
             const request = await axios.post(`${BASE_LINK}/signup`, {
                 username,
                 email,

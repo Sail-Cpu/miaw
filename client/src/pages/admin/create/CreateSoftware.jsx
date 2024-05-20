@@ -31,7 +31,9 @@ const CreateSoftware = () => {
         const appData = {
             name: formData.get('name'),
             description: formData.get("description"),
-            categorie: formData.get("categorie")
+            categorie: formData.get("categorie"),
+            logo: formData.get("logo"),
+            inter: formData.get("interface")
         }
         createApp(appData).then(response => {
             if (response.success) {
@@ -44,7 +46,7 @@ const CreateSoftware = () => {
         <div className='admin-page create-software-container'>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="image-container">
-                    <Upload name="icon" />
+                    <Upload name="logo" />
                     <Upload name="interface" />
                 </div>
                 <Input name="name" type="text" />
