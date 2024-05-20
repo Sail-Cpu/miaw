@@ -14,10 +14,10 @@ import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 import {userExist} from "../../requests/auth.js";
 
 const jobs = [
-    "developer",
-    "designer",
-    "video maker",
-    "other"
+    {id: 1, name:"developer"},
+    {id: 2, name:"designer"},
+    {id: 3, name:"video maker"},
+    {id: 4, name:"other"}
 ]
 
 const ProfileForm = () => {

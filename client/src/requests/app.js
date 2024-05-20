@@ -18,3 +18,11 @@ export const appById = async (appId) => {
         return error.response.data
     }
 }
+export const allCategories = async () => {
+    try{
+        const request = await axios.get(`${BASE_LINK}/categories`)
+        return request.data;
+    }catch (error) {
+        return error.response.data
+    }
+}

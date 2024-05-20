@@ -36,6 +36,17 @@ router.get('/apps', async (req, res) => {
     }
 })
 
+router.get(`/categories`, async (req, res) => {
+    try{
+        const categoriesWithApps = await prisma.app_categories.findMany();
+        res.status(200).send({success: true, result: categoriesWithApps})
+    }catch (error){
+        res.status(500).send({success: false, message: error})
+    }finally {
+        await prisma.$disconnect();
+    }
+})
+
 router.get(`/app/:appId`, async (req, res) => {
     const { appId } = req.params;
     try{

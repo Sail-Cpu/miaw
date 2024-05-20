@@ -13,4 +13,29 @@
   select{
     width: 400px;
   }
+  .form-input{
+    margin-right: 15px;
+  }
+  textarea{
+    font-size: 17px;
+    background: none;
+    outline: none;
+    border: 1px solid var(--color-tab-hover);
+    border-radius: 10px;
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 120px;
+    max-height: 120px;
+    color: var(--color-text);
+    font-family: Inter, sans-serif;
+    padding: 10px;
+    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.1);
+  }
+  textarea.active{
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.2);
+  }
+  button{
+    margin-top: 20px;
+  }
 }
