@@ -12,10 +12,24 @@ export const userExist = async (userData) => {
     }
 }
 
+function getFileExtension(filename) {
+    return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+}
+
 export const register = async (userData) => {
-    const {username, email, password, os, job} = userData;
+    const {username, email, password, os, job, image} = userData;
     if(username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job.length > 0){
         try{
+            const formData = new FormData();
+            const renamedFile = new File([image], `user_${username}.${getFileExtension(image.name)}`);
+            formData.append('image', renamedFile);
+
+            const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(imageResponse.data)
             const request = await axios.post(`${BASE_LINK}/signup`, {
                 username,
                 email,

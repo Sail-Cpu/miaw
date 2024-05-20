@@ -11,6 +11,7 @@ const AuthContextProvider = ({children}) => {
         password: "",
         username: "",
         job: "",
+        image: "",
         os: "",
     })
 

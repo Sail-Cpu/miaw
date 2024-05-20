@@ -44,6 +44,7 @@ const ConfigForm = () => {
                             email: "",
                             password: "",
                             username: "",
+                            image: "",
                             job: "",
                             os: "",
                         })

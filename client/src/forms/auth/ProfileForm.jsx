@@ -25,6 +25,7 @@ const ProfileForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
+        console.log(formData.get("Picture profile"))
         const username = formData.get("username");
         if(!username.length > 0){
             toast.error("all fields must be completed");
@@ -38,7 +39,8 @@ const ProfileForm = () => {
         setUser({
             ...user,
             username: username,
-            job: formData.get("jobs")
+            job: formData.get("jobs"),
+            image: formData.get("Picture profile")
         })
         navigate("/sign/step3");
     }
