@@ -16,13 +16,18 @@ export const AppDetails = () => {
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
 
-    const [appPathName, setAppPathName] = useState(null);
+    const [logoPathName, setLogoPathName] = useState(null);
+    const [interfacePathName, setInterfacePathName] = useState(null);
 
     useEffect(() => {
         const fetchImage = async () => {
-            const response = await getImage("logo", app_name);
+            let response = await getImage("logo", app_name);
             if(response.success){
-                setAppPathName(app_name.replaceAll(' ', '_').toLowerCase());
+                setLogoPathName(response.result);
+            }
+            response = await getImage("interface", app_name);
+            if(response.success){
+                setInterfacePathName(response.result);
             }
         }
         fetchImage();
@@ -33,7 +38,7 @@ export const AppDetails = () => {
     return(
         <>
             <div className="software-head">
-                <img src={`${BASE_URL}/logo_${appPathName}.png`} alt="logo" />
+                <img src={`${BASE_URL}/logo_${logoPathName}`} alt="logo" />
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -47,7 +52,7 @@ export const AppDetails = () => {
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
-                    <img src={`${BASE_URL}/interface_${appPathName}.png`} alt="vs code" />
+                    <img src={`${BASE_URL}/interface_${interfacePathName}`} alt="vs code" />
                 </div>
             </div>
             <div className="shortcuts-list">

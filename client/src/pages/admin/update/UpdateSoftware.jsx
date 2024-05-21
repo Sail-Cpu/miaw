@@ -1,5 +1,5 @@
 import Select from "../../../components/inputs/Select.jsx";
-import {useContext, useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {allApps, createShortcut, getAllKeys} from "../../../requests/app.js";
 import Input from "../../../components/inputs/Input.jsx";
 import Button from "../../../components/Button.jsx";
@@ -7,8 +7,9 @@ import {ThemeContext} from "../../../context/ThemeContext.jsx";
 import SubmitButton from "../../../components/inputs/SubmitButton.jsx";
 import {getApp} from "../../../redux/app/action.js";
 import {useDispatch, useSelector} from "react-redux";
-import {appShortcutsSelector} from "../../../redux/app/selector.js";
+import {appSelector, appShortcutsSelector} from "../../../redux/app/selector.js";
 import Table from "../../../components/Table.jsx";
+import {toast} from "sonner";
 
 export const chapters = [
     {
@@ -39,11 +40,14 @@ const UpdateSoftware = () => {
 
     const dispatch = useDispatch();
 
+    const formRef = useRef(null);
+
     const [initialAllKeys, setInitialAllKeys] = useState([]);
     const [allKeys, setAllKeys] = useState([]);
     const [allSoftware, setAllSoftware] = useState([]);
     const [selectedKey, setSelectedKey] = useState([]);
     const allShortcuts = useSelector(appShortcutsSelector())
+    const {app_id} = useSelector(appSelector)
 
     useEffect(() => {
         getAllKeys().then(response => {
@@ -103,24 +107,40 @@ const UpdateSoftware = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const actualApp = formatApps.filter(app => app.id === parseInt(formData.get("software")))
+        //const actualApp = formatApps.filter(app => app.id === parseInt(formData.get("software")))
         const softwareData = {
             name: formData.get("name"),
             description: formData.get("description"),
             chapter_id: formData.get("chapter"),
-            app_id: actualApp[0].id,
+            app_id: app_id,
             keys: selectedKey,
         }
         createShortcut(softwareData).then(response => {
             if (response.success) {
-                console.log(response)
+                toast.success("The form has been sent successfully");
+                handleReset(e)
+                const fetchData = async () => {
+                    await dispatch(getApp(app_id));
+                }
+                fetchData();
             }
         })
     }
 
+    const handleReset = (e) => {
+        e.preventDefault();
+        if (formRef.current) {
+            formRef.current.reset();
+            setAllKeys(initialAllKeys);
+            setSelectedKey([]);
+        }
+    };
+
+
+
     return(
         <div className="admin-page update-software-container">
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
                 <Select change={(e) => changeApp(e)} name="software" options={formatApps} />
                 <Input name="name" type="text" />
                 <Select name="chapter" options={chapters} />
