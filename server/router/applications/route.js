@@ -118,4 +118,30 @@ router.post(`/app`, async (req, res) => {
     }
 })
 
+router.post("/shortcut", async (req, res) => {
+    try{
+        const {name, description, chapter_id, app_id, keys} = req.body;
+        const createShortcut = await prisma.shortcuts.create({
+            data: {
+                shortcut_name: name,
+                shortcut_desc: description,
+                chapter_id: parseInt(chapter_id),
+                app_id: parseInt(app_id),
+            }
+        });
+        await Promise.all(keys.map(async (key) => {
+            const createShortcut_key = await prisma.shortcuts_keys.create({
+                data: {
+                    shortcut_id: createShortcut.shortcut_id,
+                    key_id: key
+                }
+            });
+        }));
+        return res.status(200).send({ success: true, result: createShortcut });
+    }catch (error){
+        console.log(error)
+        return res.status(500).send({success: false, message: error})
+    }
+})
+
 export default router;

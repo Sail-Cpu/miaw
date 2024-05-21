@@ -1,7 +1,7 @@
 import Upload from "../../../components/inputs/Upload.jsx";
 import Input from "../../../components/inputs/Input.jsx";
 import Select from "../../../components/inputs/Select.jsx";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {allCategories, createApp} from "../../../requests/app.js";
 import SubmitButton from "../../../components/inputs/SubmitButton.jsx";
 import {toast} from "sonner";
@@ -9,21 +9,17 @@ import {toast} from "sonner";
 const CreateSoftware = () => {
 
     const [categories, setCategories] = useState([])
-    const hasFetchedCategories = useRef(false);
 
     useEffect(() => {
-        if (!hasFetchedCategories.current) {
-            allCategories().then(response => {
-                if (response.success) {
-                    response.result.forEach(res => {
-                        setCategories(prevState =>
-                            [...prevState, {id: res.categorie_id, name: res.categorie_name}]
-                        );
-                    });
-                }
+        allCategories().then(response => {
+            if (response.success) {
+                const cat = response.result.map(res => ({
+                    id: parseInt(res.categorie_id),
+                    name: res.categorie_name
+                }));
+                setCategories(cat);
+            }
             });
-            hasFetchedCategories.current = true;
-        }
     }, []);
 
     const handleSubmit = (e) => {

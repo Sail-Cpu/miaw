@@ -1,10 +1,8 @@
 import ButtonGroup from "../components/navigations/ButtonGroup";
 import Table from "../components/Table";
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getApp} from "../redux/app/action.js";
-import {appSelector, appShortcutsByChapterSelector} from "../redux/app/selector.js";
+import {useState} from "react";
+import {useSelector} from "react-redux";
+import {appShortcutsByChapterSelector} from "../redux/app/selector.js";
 
 export const labels = [
     {

@@ -34,6 +34,7 @@ function getFileExtension(filename) {
 export const createApp = async (appData) => {
     const {name, description, categorie, logo, inter} = appData;
     try {
+        if(!name || !description || !categorie || !logo || !inter) throw new Error('All fields are required');
         const request = await axios.post(`${BASE_LINK}/app`, {
             name,
             description,
@@ -61,9 +62,35 @@ export const createApp = async (appData) => {
     }
 }
 
+export const createShortcut= async (softwareData) => {
+    const {name, description, chapter_id, app_id, keys, categorie_id} = softwareData;
+    try{
+        if(!name || !description || !chapter_id || !app_id || !keys) throw new Error('All fields are required');
+        const addShortcut = await axios.post(`${BASE_LINK}/shortcut`, {
+            name,
+            description,
+            chapter_id,
+            app_id,
+            keys,
+        })
+        return addShortcut.data;
+    }catch (error) {
+        return error
+    }
+}
+
 export const getImage = async (imageType, imageName) => {
     try {
         const request = await axios.get(`${BASE_LINK}/image/${imageType}/${imageName}`)
+        return request.data;
+    } catch (error) {
+        return error
+    }
+}
+
+export const getAllKeys = async () => {
+    try {
+        const request = await axios.get(`${BASE_LINK}/keys`);
         return request.data;
     } catch (error) {
         return error
