@@ -5,7 +5,7 @@ import path from "path"
 import { fileURLToPath } from 'url'; // Importez la fonction fileURLToPath pour convertir une URL en chemin de fichier
 
 const __filename = fileURLToPath(import.meta.url); // Obtenez le chemin du fichier actuel
-const __dirname = path.dirname(__filename);
+export const __dirname = path.dirname(__filename);
 //router
 import userRouter from "./router/users/route.js";
 import appRouter from "./router/applications/route.js";

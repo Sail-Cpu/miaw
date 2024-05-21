@@ -40,9 +40,8 @@ export const createApp = async (appData) => {
             categorie
         })
         const formData = new FormData();
-        const renamedLogo = new File([logo], `logo_${name}.${getFileExtension(logo.name)}`);
-        const renamedInterface = new File([inter], `interface_${name}.${getFileExtension(inter.name)}`);
-        //const images = [renamedLogo, renamedInterface];
+        const renamedLogo = new File([logo], `logo_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(logo.name)}`);
+        const renamedInterface = new File([inter], `interface_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(inter.name)}`);
         formData.append('image', renamedLogo)
         const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
@@ -56,7 +55,15 @@ export const createApp = async (appData) => {
                 'Content-Type': 'multipart/form-data'
             }
         });
+        return request.data;
+    } catch (error) {
+        return error
+    }
+}
 
+export const getImage = async (imageType, imageName) => {
+    try {
+        const request = await axios.get(`${BASE_LINK}/image/${imageType}/${imageName}`)
         return request.data;
     } catch (error) {
         return error

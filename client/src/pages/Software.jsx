@@ -1,11 +1,12 @@
 import Button from "../components/Button.jsx";
 import {Outlet, useNavigate, useParams} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { appSelector, appShortcutsByChapterSelector } from "../redux/app/selector";
 import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 import {ThemeContext} from "../context/ThemeContext.jsx";
+import {getImage} from "../requests/app.js";
 
 
 export const AppDetails = () => {
@@ -15,13 +16,24 @@ export const AppDetails = () => {
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
 
-    const logoPath = "/images/app/logo";
-    const interfacePath = "/images/app/interface";
+    const [appPathName, setAppPathName] = useState(null);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const response = await getImage("logo", app_name);
+            if(response.success){
+                setAppPathName(app_name.replaceAll(' ', '_').toLowerCase());
+            }
+        }
+        fetchImage();
+    }, [app_name]);
+
+    const BASE_URL = "http://localhost:3000/uploads";
 
     return(
         <>
             <div className="software-head">
-                <img src={`${logoPath}/${app_id}.png`} alt="logo" />
+                <img src={`${BASE_URL}/logo_${appPathName}.png`} alt="logo" />
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -35,7 +47,7 @@ export const AppDetails = () => {
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
-                    <img src={`${interfacePath}/${app_id}.png`} alt="vs code" />
+                    <img src={`${BASE_URL}/interface_${appPathName}.png`} alt="vs code" />
                 </div>
             </div>
             <div className="shortcuts-list">

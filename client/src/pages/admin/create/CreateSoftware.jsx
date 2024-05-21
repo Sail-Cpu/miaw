@@ -4,6 +4,7 @@ import Select from "../../../components/inputs/Select.jsx";
 import {useEffect, useRef, useState} from "react";
 import {allCategories, createApp} from "../../../requests/app.js";
 import SubmitButton from "../../../components/inputs/SubmitButton.jsx";
+import {toast} from "sonner";
 
 const CreateSoftware = () => {
 
@@ -37,7 +38,8 @@ const CreateSoftware = () => {
         }
         createApp(appData).then(response => {
             if (response.success) {
-                console.log(response)
+                console.log("ok")
+                toast.success("Software created successfully");
             }
         })
     }

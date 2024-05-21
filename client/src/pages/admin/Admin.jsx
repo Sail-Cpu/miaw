@@ -5,6 +5,7 @@ import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import {currentUserSelector} from "../../redux/auth/selector.js";
+import {Toaster} from "sonner";
 
 const create = [
     {
@@ -44,6 +45,7 @@ const Admin = () => {
 
     return(
         <div className="admin-page-container">
+            <Toaster position="top-right" richColors closeButton />
             <UserNav tabs={tabs} list={create}/>
             <div className="admin-page">
                 <Outlet />
