@@ -17,7 +17,7 @@ const create = [
 const update = [
     {
         link: "update/software",
-        name: "software"
+        name: "Software"
     },
 ]
 
@@ -34,19 +34,19 @@ const Admin = () => {
         {
             name: "Create",
             icon: allIcons.app,
-            extend: <AdminExtend tabs={create} />
+            extend: <AdminExtend list={create} />
         },
         {
             name: "Update",
             icon: allIcons.keyboard,
-            extend: <AdminExtend tabs={update} />
+            extend: <AdminExtend list={update} />
         },
     ]
 
     return(
         <div className="admin-page-container">
             <Toaster position="top-right" richColors closeButton />
-            <UserNav tabs={tabs} list={create}/>
+            <UserNav tabs={tabs} />
             <div className="admin-page">
                 <Outlet />
             </div>

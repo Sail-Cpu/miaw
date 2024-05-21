@@ -128,7 +128,7 @@ export const AdminExtend = (props) => {
                     })
                 }
             </div>
-        }/> : <Tab tabs={props.tabs} tab={tab} idx={idx} tag={props.list.length}/>
+        }/> : <Tab tabs={props.tabs} tab={tab} idx={idx} tag={props.tabs.length}/>
 }
 
 AdminExtend.propTypes = {
@@ -148,7 +148,7 @@ const UserNav = (props) => {
                     <React.Fragment key={idx}>
                         {tab?.extend ?
                             <>
-                                {React.cloneElement(tab.extend, {tabs: props.tabs, tab: tab, idx: idx, list: props.list})}
+                                {React.cloneElement(tab.extend, {tabs: props.tabs, tab: tab, idx: idx})}
                             </>
                             : <Tab tabs={props.tabs} tab={tab} idx={idx} />
                         }

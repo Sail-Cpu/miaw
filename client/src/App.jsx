@@ -15,6 +15,7 @@ import KnowledgeTest from "./pages/KnowledgeTest.jsx";
 import SpeedTest from "./pages/keyboard/SpeedTest.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import CreateSoftware from "./pages/admin/create/CreateSoftware.jsx";
+import UpdateSoftware from "./pages/admin/update/UpdateSoftware.jsx";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             </Route>
               <Route path="/admin" element={<Admin />}>
                   <Route path="/admin/create/software" element={<CreateSoftware />} />
+                  <Route path="/admin/update/software" element={<UpdateSoftware />} />
               </Route>
           </Route>
     )
