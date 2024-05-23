@@ -16,12 +16,14 @@ import SpeedTest from "./pages/keyboard/SpeedTest.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import CreateSoftware from "./pages/admin/create/CreateSoftware.jsx";
 import UpdateSoftware from "./pages/admin/update/UpdateSoftware.jsx";
+import Home from "./pages/Home.jsx";
 
 function App() {
 
   const protectedRoute = () => {
     return(
           <Route path="/" element={<Miaw />}>
+            <Route path="/" element={<Home />} />
             <Route path="/software/:appId" element={<Software />} >
                 <Route path="/software/:appId/" element={<AppDetails />} />
                 <Route path="/software/:appId/course" element={<Course />} />

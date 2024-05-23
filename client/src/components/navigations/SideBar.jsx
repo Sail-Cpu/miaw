@@ -114,7 +114,7 @@ const SideBar = () => {
         <div className="side-bar-container">
             <div className="small-side-bar">
                 <img className="side-bar-logo" src={Logo} alt="logo" />
-                <Tab icon={Icons.home} />
+                <Tab icon={Icons.home} toggle={() => navigate('/')}/>
                 <Icon path={Icons.points} color={colors[theme].text}/>
                 <Tab icon={Icons.app} toggle={() => setToggleExpand(!toggleExpand)}/>
                 <Tab icon={Icons.keyboard} toggle={() => navigate('/speedtest')}/>

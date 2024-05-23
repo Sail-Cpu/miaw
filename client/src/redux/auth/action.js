@@ -3,7 +3,7 @@ import * as actionType from "./type"
 import {login, register, favRequest} from "../../requests/auth.js";
 export const signUp = (userData) => async (dispatch) => {
     const response = await register(userData);
-    if(response.success){
+    if(response?.success){
         dispatch({
             type: actionType.REGISTER_SUCCESS,
             payload: response.result

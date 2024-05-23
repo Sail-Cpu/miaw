@@ -18,17 +18,13 @@ function getFileExtension(filename) {
 
 export const register = async (userData) => {
     const {username, email, password, os, job, image} = userData;
-    if(username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job.length > 0){
+
+    if(image && username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job.length > 0){
+
         try{
             const formData = new FormData();
-            const renamedFile = new File([image], `user_${username}.${getFileExtension(image.name)}`);
+            const renamedFile = new File([image], `user_${username.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(image.name)}`);
             formData.append('image', renamedFile);
-
-            const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
             const request = await axios.post(`${BASE_LINK}/signup`, {
                 username,
                 email,
@@ -36,12 +32,17 @@ export const register = async (userData) => {
                 os,
                 job
             })
+            const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             return request.data;
         }catch (error){
             return error?.response?.data
         }
     }else{
-        return {message: "all fields must be completed"}
+        return {success: false, message: "all fields must be completed"}
     }
 }
 

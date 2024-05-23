@@ -6,6 +6,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
+import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const steps = [
     {title: "Register", info: "Set you email and password"},
@@ -17,7 +18,7 @@ const Register = () => {
 
     const {user} = useContext(AuthContext);
 
-    console.log(user)
+    const {theme, colors} = useContext(ThemeContext)
 
     const step = () => {
         return user.os.length > 0 ? 3 :
@@ -34,7 +35,7 @@ const Register = () => {
                     {
                         steps.map((step, idx) => (
                             <Step style={{textAlign: "center"}} key={idx}>
-                                <StepLabel style={{color: "#1F2937"}}>{step.title}</StepLabel>
+                                <StepLabel><span className="step-title" style={{color: colors[theme].text}}>{step.title}</span></StepLabel>
                                 <p>{step.info}</p>
                             </Step>
                         )

@@ -204,7 +204,7 @@ const KnowledgeTest = () => {
 
 
     const pickRandomShortcuts = useMemo(() =>{
-        if(number > allShorcuts.length-10) return;
+        if(number > allShorcuts.length-5) return [];
         const res = [];
         for(let i = 0; i < number; i++){
             let end = false;

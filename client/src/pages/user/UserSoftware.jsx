@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {appSelector, appShortcutsSelector} from "../../redux/app/selector.js";
 import Table from "../../components/Table";
 import {getApp} from "../../redux/app/action.js";
 import {currentUserSelector} from "../../redux/auth/selector.js";
+import {getImage} from "../../requests/app.js";
 
 
 const UserSoftware = () => {
@@ -16,6 +17,20 @@ const UserSoftware = () => {
     const {app_name} = useSelector(appSelector);
     const shortcuts = useSelector(appShortcutsSelector());
     const { shortcuts: userShortcuts } = useSelector(currentUserSelector);
+
+    const [logoPathName, setLogoPathName] = useState("")
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            let response = await getImage("logo", app_name);
+            if(response.success){
+                setLogoPathName(response.result);
+            }
+        }
+        fetchImage();
+    }, [app_name]);
+
+    const BASE_URL = "http://localhost:3000/uploads";
 
     useEffect(() => {
         if(app_id !== appId){
@@ -38,14 +53,12 @@ const UserSoftware = () => {
         return res;
     }, [app_id])
 
-    const logoPath = "/images/app/logo";
-
     return(
         <div className="course-page-container">
             {visibleShortcuts.length > 0 ?
                 <>
                     <div className="user-course-page-header">
-                        <img src={`${logoPath}/${app_id}.png`} />
+                        <img src={`${BASE_URL}/logo_${logoPathName}`} />
                         <h1>{app_name}</h1>
                     </div>
                     <Table data={visibleShortcuts} />

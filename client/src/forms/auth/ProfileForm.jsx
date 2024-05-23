@@ -32,9 +32,11 @@ const ProfileForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
-        console.log(formData.get("Picture profile"))
+        const job = parseInt(formData.get("jobs"));
         const username = formData.get("username");
-        if(!username.length > 0){
+        const image = formData.get("Picture profile");
+        console.log(job, username, image.name)
+        if(!username.length > 0 || job === 0 || !image.name.length > 0){
             toast.error("all fields must be completed");
             return;
         }
@@ -46,8 +48,8 @@ const ProfileForm = () => {
         setUser({
             ...user,
             username: username,
-            job: formData.get("jobs"),
-            image: formData.get("Picture profile")
+            job: jobs.find(actualJob => actualJob.id === job).name,
+            image: image
         })
         navigate("/sign/step3");
     }

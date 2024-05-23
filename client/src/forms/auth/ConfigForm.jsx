@@ -37,7 +37,8 @@ const ConfigForm = () => {
         if(user.os){
             setDone(true);
             fetchData().then(response => {
-                if(response.success){
+                console.log(response)
+                if(response?.success){
                     toast.success("the user has been created successfully");
                     setTimeout(() => {
                         setUser({
