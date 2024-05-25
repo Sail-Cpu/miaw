@@ -32,8 +32,9 @@ const RegisterForm = () => {
             toast.error('all fields must be completed');
             return;
         }
-        if(await userExist({email: email}).result === true){
-            toast.error('email is already in use');
+        let newUser = await userExist({email: email});
+        if(newUser.result){
+            toast.error(newUser.message);
             return;
         }
         if(passwordStrength === 5){
