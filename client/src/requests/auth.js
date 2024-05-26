@@ -74,3 +74,15 @@ export const favRequest = async (userId, shortcutId, add) => {
         return error.response.data
     }
 }
+
+export const appRequest = async (userId, appId, add) => {
+    try{
+        const request = await axios.post(`${BASE_LINK}/addAppToCollection/${add}`, {
+            user_id: userId,
+            app_id: appId
+        })
+        return request.data
+    }catch (error){
+        return error.response.data
+    }
+}

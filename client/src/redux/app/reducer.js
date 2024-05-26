@@ -34,18 +34,6 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 actualApp: action.payload
             };
-        case actionType.ADD_APP_TO_COLLECTION:
-            return {
-                ...state,
-                userApps: state.userApps.some(app => app.app_id === action.payload.app_id)
-                    ? state.userApps
-                    : [...state.userApps, action.payload]
-            };
-        case actionType.REMOVE_APP_TO_COLLECTION:
-            return {
-                ...state,
-                userApps: state.userApps.filter(app => app.app_id !== action.payload.app_id)
-            };
         case actionType.GET_APP_FAILED:
             return{
                 ...state,

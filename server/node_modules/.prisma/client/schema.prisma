@@ -16,6 +16,7 @@ model users {
   os              String
   role            String
   users_shortcuts users_shortcuts[]
+  user_app        user_app[]
 }
 
 model applications {
@@ -25,6 +26,7 @@ model applications {
   categorie_id    Int
   app_categories  app_categories @relation(fields: [categorie_id], references: [categorie_id])
   shortcuts       shortcuts[]
+  user_app        user_app[]
 }
 
 model app_categories {
@@ -38,6 +40,13 @@ model users_shortcuts {
   shortcut_id Int
   users       users     @relation(fields: [user_id], references: [user_id])
   shortcuts   shortcuts @relation(fields: [shortcut_id], references: [shortcut_id])
+}
+
+model user_app {
+  user_id      Int          @id
+  app_id       Int
+  users        users        @relation(fields: [user_id], references: [user_id])
+  applications applications @relation(fields: [app_id], references: [app_id])
 }
 
 model chapters {

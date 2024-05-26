@@ -103,9 +103,18 @@ router.post(`/signup`, async (req, res) => {
                         }
                     }
                 });
+                const userApps = await prisma.applications.findMany({
+                    where: {
+                        user_app: {
+                            some: {
+                                user_id: newUser.user_id
+                            }
+                        }
+                    }
+                });
                 res.status(201).send({
                     success: true,
-                    result: {...newUser, shortcuts: userShortcuts},
+                    result: {...newUser, shortcuts: userShortcuts, apps: userApps},
                     message: "the user is successfully logged in"
                 })
             });
@@ -123,7 +132,6 @@ router.post(`/signup`, async (req, res) => {
 
 router.post(`/signin`, async (req, res) => {
     const { nameEmail, password } = req.body;
-
     if(nameEmail && password){
         try{
             const userExist = await prisma.users.findMany({
@@ -149,11 +157,20 @@ router.post(`/signin`, async (req, res) => {
                     }
                 }
             });
+            const userApps = await prisma.applications.findMany({
+                where: {
+                    user_app: {
+                        some: {
+                            user_id: userExist[0].user_id
+                        }
+                    }
+                }
+            });
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
                 if(isTheSame) return res.status(200).send({
                     success: true,
-                    result: {...userExist[0], shortcuts: userShortcuts},
+                    result: {...userExist[0], shortcuts: userShortcuts, apps: userApps},
                     message: "the user is successfully logged in"}
                 );
                 return res.status(400).send({success: false, message: "the password is incorrect" });
@@ -219,5 +236,52 @@ router.post(`/favorite/:add`, async (req, res) => {
             });
     }
 })
+
+router.post(`/addAppToCollection/:add`, async (req, res) => {
+    const{user_id, app_id} = req.body;
+    console.log(app_id)
+    const {add} = req.params;
+    if(user_id && app_id){
+        try {
+            if(add === "true"){
+                await prisma.user_app.create({
+                    data: {
+                        user_id: user_id,
+                        app_id: app_id
+                    }
+                })
+            }else{
+                const drop = await prisma.user_app.delete({
+                    where: {
+                        user_id: user_id,
+                        app_id: app_id
+                    }
+                });
+            }
+            const userApp = await prisma.applications.findMany({
+                where: {
+                    user_app: {
+                        some: {
+                            user_id: user_id,
+                        }
+                    }
+                }
+            });
+            res.status(201).send({
+                success: true,
+                result: userApp
+            })
+        }catch (error){
+            console.log(error)
+            return res.status(500).send({success: false, message: "An internal error has occurred on the server"});
+        }finally {
+            await prisma.$disconnect();
+        }
+    }else{
+        return res.status(400).send(
+            {success: false, message: "The server was unable to satisfy the request, information is missing"
+            });
+    }
+});
 
 export default router;

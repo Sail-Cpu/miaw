@@ -1,26 +1,36 @@
-import {useContext, useState} from "react";
+import {useContext, useMemo, useState} from "react";
 import {ThemeContext} from "../context/ThemeContext.jsx";
 import Icon from "../components/Icon.jsx";
 import allIcons from "../utils/allIcons.js";
 import {useDispatch, useSelector} from "react-redux";
-import {allAppsNoCatSelector, userAppsSelector} from "../redux/app/selector.js";
+import {allAppsNoCatSelector} from "../redux/app/selector.js";
 import PropTypes from "prop-types";
-import {addAppToCollection, removeAppFromCollection} from "../redux/app/action.js";
+import {currentUserSelector} from "../redux/auth/selector.js";
+import {addAppToCollection} from "../redux/auth/action.js";
 
 const App = ({app}) => {
 
     const {theme, colors} = useContext(ThemeContext);
     const dispatch = useDispatch();
-    const userApps = useSelector(userAppsSelector);
+    const {user_id, apps} = useSelector(currentUserSelector);
     const selectApp = (app) => {
-        dispatch(addAppToCollection(app));
+        dispatch(addAppToCollection({
+            userId: user_id,
+            appId: app.app_id,
+            add: true
+        }));
     }
 
     const removeApp = (app) => {
-        dispatch(removeAppFromCollection(app));
+        console.log("ok");
+        dispatch(addAppToCollection({
+            userId: user_id,
+            appId: app.app_id,
+            add: false
+        }));
     }
 
-    const isAppInUserApps = userApps.some(userApp => userApp.app_id === app.app_id);
+    const isAppInUserApps = useMemo(() => apps.some(userApp => userApp.app_id === app.app_id), [apps]);
 
     return(
         <>
@@ -49,7 +59,7 @@ const Modal = ({close}) => {
 
     const {theme, colors} = useContext(ThemeContext);
 
-    const allApp = useSelector(allAppsNoCatSelector);
+    const  allApps = useSelector(allAppsNoCatSelector);
 
     return(
         <div className="app-modal-container">
@@ -61,7 +71,7 @@ const Modal = ({close}) => {
                 </div>
                 <div className="modal-content-all-app">
                     {
-                        allApp.map((app, idx) => {
+                        allApps.map((app, idx) => {
                             return(
                                 <App key={idx} app={app}/>
                             )
