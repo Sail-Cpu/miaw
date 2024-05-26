@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Icon = ({ path, width, height, color }) => {
+const Icon = ({ path, width, color }) => {
 
     return (
         <svg
@@ -8,8 +8,7 @@ const Icon = ({ path, width, height, color }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            width={width}
-            height={height}
+            style={{ width: width ? width : "24px"}}
             strokeWidth={1.5}
             stroke={color}
         >
@@ -23,11 +22,6 @@ Icon.propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
     color: PropTypes.string,
-};
-
-Icon.defaultProps = {
-    width: '24',
-    height: '24',
 };
 
 export default Icon;

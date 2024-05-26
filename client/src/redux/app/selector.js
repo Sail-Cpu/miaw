@@ -4,6 +4,7 @@ const appSelect = (state) => state.app;
 export const appSelector = createSelector([appSelect], (app) => app.actualApp.data);
 export const appChaptersSelector = createSelector([appSelect], (app) => app.actualApp.chapters)
 export const allAppsSelector = createSelector([appSelect], (app) => app.allApps);
+export const userAppsSelector = createSelector([appSelect], (app) => app.userApps);
 export const allAppsNoCatSelector = createSelector([appSelect], (app) => {
     let res = [];
     for(let i = 0; i < app.allApps.length; i++){

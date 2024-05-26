@@ -24,3 +24,17 @@ export const getApp = (appId) => async (dispatch) => {
         })
     }
 }
+
+export const addAppToCollection = (app) => async (dispatch) => {
+    dispatch({
+        type: actionType.ADD_APP_TO_COLLECTION,
+        payload: app
+    })
+}
+
+export const removeAppFromCollection = (app) => async (dispatch) => {
+    dispatch({
+        type: actionType.REMOVE_APP_TO_COLLECTION,
+        payload: app
+    })
+}

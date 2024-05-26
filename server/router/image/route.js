@@ -42,7 +42,6 @@ router.get('/image/:imageType/:imageName', async (req, res) => {
 
         for (let ext of extensions) {
             let tempPath = path.join(__dirname, `public/uploads/${imageType}_${imageName.replaceAll(' ', '_')}.${ext}`);
-            console.log(tempPath);
             if (fs.existsSync(tempPath)) {
                 imagePath = tempPath;
                 break;
