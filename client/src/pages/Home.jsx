@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import {ThemeContext} from "../context/ThemeContext.jsx";
 import Icon from "../components/Icon.jsx";
 import allIcons from "../utils/allIcons.js";
@@ -7,12 +7,58 @@ import {allAppsNoCatSelector} from "../redux/app/selector.js";
 import PropTypes from "prop-types";
 import {currentUserSelector} from "../redux/auth/selector.js";
 import {addAppToCollection} from "../redux/auth/action.js";
+import Button from "../components/Button.jsx";
+import {getImage} from "../requests/app.js";
+import {useNavigate} from "react-router-dom";
 
-const App = ({app}) => {
+const AppCard = ({app}) => {
+
+    const {theme, colors} = useContext(ThemeContext);
+    const [logoPathName, setLogoPathName] = useState(null);
+
+    const navigate = useNavigate();
+
+    const BASE_URL = "http://localhost:3000/uploads";
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            let response = await getImage("logo", app.app_name);
+            if(response.success){
+                setLogoPathName(`${BASE_URL}/logo_${response.result}`);
+            }
+        }
+        fetchImage();
+    }, [app]);
+
+        return(
+            <div className="app-card-container" style={{backgroundColor: colors[theme].background}}>
+                <div className="app-card-header">
+                    <h1>{app.app_name}</h1>
+                </div>
+                <div className="app-card-footer">
+                    <div className="app-card-footer-left">
+                        <img src={logoPathName} alt="logo" />
+                        <span>{app.app_name}</span>
+                    </div>
+                    <div className="app-card-footer-right">
+                        <Button name="View" onClick={() => navigate(`/software/${app.app_id}`)} color={colors[theme].primary} />
+                    </div>
+                </div>
+            </div>
+        )
+
+}
+
+AppCard.propTypes = {
+    app: PropTypes.object.isRequired
+}
+
+const AppTab = ({app}) => {
 
     const {theme, colors} = useContext(ThemeContext);
     const dispatch = useDispatch();
     const {user_id, apps} = useSelector(currentUserSelector);
+
     const selectApp = (app) => {
         dispatch(addAppToCollection({
             userId: user_id,
@@ -22,7 +68,6 @@ const App = ({app}) => {
     }
 
     const removeApp = (app) => {
-        console.log("ok");
         dispatch(addAppToCollection({
             userId: user_id,
             appId: app.app_id,
@@ -35,14 +80,14 @@ const App = ({app}) => {
     return(
         <>
             {isAppInUserApps ?
-                <div className="app-card"
+                <div className="app-tab"
                      onClick={() => removeApp(app)}
                      style={{backgroundColor: colors[theme].tabHover}}>
                     <Icon path={allIcons.less} color={colors[theme].text} width="20px"/>
                     <span>{app.app_name}</span>
                 </div>
                 :
-                <div className="app-card" onClick={() => selectApp(app)}>
+                <div className="app-tab" onClick={() => selectApp(app)}>
                     <Icon path={allIcons.more} color={colors[theme].text} width="20px"/>
                     <span>{app.app_name}</span>
                 </div>
@@ -51,7 +96,7 @@ const App = ({app}) => {
     )
 }
 
-App.propTypes = {
+AppTab.propTypes = {
     app: PropTypes.object.isRequired
 };
 
@@ -73,7 +118,7 @@ const Modal = ({close}) => {
                     {
                         allApps.map((app, idx) => {
                             return(
-                                <App key={idx} app={app}/>
+                                <AppTab key={idx} app={app}/>
                             )
                         })
                     }
@@ -93,12 +138,21 @@ const Home = () => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const {apps} = useSelector(currentUserSelector);
+
     return(
         <div className="home-container">
             <div className="home-content">
                 <div className="add-to-fav-container" onClick={() => setShowModal(true)}>
                     <Icon path={allIcons.more}  color={colors[theme].primary} width="70px"/>
                 </div>
+                {
+                    apps.map((app, idx) => {
+                        return(
+                            <AppCard key={idx} app={app}/>
+                        )
+                    })
+                }
                 {showModal && <Modal close={() => setShowModal(false)}/>}
             </div>
         </div>

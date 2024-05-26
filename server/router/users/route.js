@@ -239,7 +239,6 @@ router.post(`/favorite/:add`, async (req, res) => {
 
 router.post(`/addAppToCollection/:add`, async (req, res) => {
     const{user_id, app_id} = req.body;
-    console.log(app_id)
     const {add} = req.params;
     if(user_id && app_id){
         try {
