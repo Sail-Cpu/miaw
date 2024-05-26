@@ -1,5 +1,6 @@
 .software-page-container{
   width: 100%;
+  animation: openSoftware 0.5s;
   .software-head{
     display: flex;
     align-items: center;
@@ -53,5 +54,14 @@
       margin-bottom: 10px;
       color: var(--color-text);
     }
+  }
+}
+
+@keyframes openSoftware {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

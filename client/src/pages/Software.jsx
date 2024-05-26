@@ -71,16 +71,22 @@ const Software = () => {
     const { appId } = useParams();
     const { app_id } = useSelector(appSelector);
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             await dispatch(getApp(appId));
+            setLoading(false);
         }
         fetchData();
     }, [dispatch, appId]);
 
    if(app_id === 0){
        return <div>error</div>
+   }
+
+   if(loading){
+       return <div></div>
    }
 
     return (

@@ -33,6 +33,9 @@
     .vertical-nav-tab-extends-container{
       padding: 10px 10px 0 10px;
       max-height: 200px;
+      div{
+        margin-bottom: 5px;
+      }
       span{
         color: var(--color-text);
         transition: 0.1s ease;
