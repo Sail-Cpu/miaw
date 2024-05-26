@@ -32,9 +32,6 @@ const AppCard = ({app}) => {
 
         return(
             <div className="app-card-container" style={{backgroundColor: colors[theme].background}}>
-                <div className="app-card-header">
-                    <h1>{app.app_name}</h1>
-                </div>
                 <div className="app-card-footer">
                     <div className="app-card-footer-left">
                         <img src={logoPathName} alt="logo" />
@@ -144,7 +141,7 @@ const Home = () => {
         <div className="home-container">
             <div className="home-content">
                 <div className="add-to-fav-container" onClick={() => setShowModal(true)}>
-                    <Icon path={allIcons.more}  color={colors[theme].primary} width="70px"/>
+                    <Icon path={allIcons.more}  color={colors[theme].primary} width="40px"/>
                 </div>
                 {
                     apps.map((app, idx) => {
