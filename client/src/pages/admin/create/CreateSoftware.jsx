@@ -1,7 +1,7 @@
 import Upload from "../../../components/inputs/Upload.jsx";
 import Input from "../../../components/inputs/Input.jsx";
 import Select from "../../../components/inputs/Select.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {allCategories, createApp} from "../../../requests/app.js";
 import SubmitButton from "../../../components/inputs/SubmitButton.jsx";
 import {toast} from "sonner";
@@ -9,6 +9,8 @@ import {toast} from "sonner";
 const CreateSoftware = () => {
 
     const [categories, setCategories] = useState([])
+
+    const formRef = useRef(null);
 
     useEffect(() => {
         allCategories().then(response => {
@@ -19,7 +21,7 @@ const CreateSoftware = () => {
                 }));
                 setCategories(cat);
             }
-            });
+        });
     }, []);
 
     const handleSubmit = (e) => {
@@ -33,16 +35,24 @@ const CreateSoftware = () => {
             inter: formData.get("interface")
         }
         createApp(appData).then(response => {
+            console.log(response)
             if (response.success) {
-                console.log("ok")
                 toast.success("Software created successfully");
+                handleReset(e)
             }
         })
     }
 
+    const handleReset = (e) => {
+        e.preventDefault();
+        if (formRef.current) {
+            formRef.current.reset();
+        }
+    };
+
     return(
         <div className='admin-page create-software-container'>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
                 <div className="image-container">
                     <Upload name="logo" />
                     <Upload name="interface" />

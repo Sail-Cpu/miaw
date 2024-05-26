@@ -44,7 +44,7 @@ export const createApp = async (appData) => {
         const renamedLogo = new File([logo], `logo_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(logo.name)}`);
         const renamedInterface = new File([inter], `interface_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(inter.name)}`);
         formData.append('image', renamedLogo)
-        const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+        let imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
                     'Content-Type': 'multipart/form-data'
             }
