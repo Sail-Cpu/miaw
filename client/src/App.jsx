@@ -1,5 +1,4 @@
-import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 //Pages
 import Register from "./pages/auth/Register.jsx";
 import RegisterForm from "./forms/auth/RegisterForm.jsx";
@@ -17,6 +16,7 @@ import Admin from "./pages/admin/Admin.jsx";
 import CreateSoftware from "./pages/admin/create/CreateSoftware.jsx";
 import UpdateSoftware from "./pages/admin/update/UpdateSoftware.jsx";
 import Home from "./pages/Home.jsx";
+import UserProfile from "./pages/user/UserProfile.jsx";
 
 function App() {
 
@@ -31,6 +31,7 @@ function App() {
             </Route>
             <Route path="/speedtest" element={<SpeedTest />} />
             <Route path="/user" element={<User />}>
+              <Route path="/user/profile" element={<UserProfile />} />
               <Route path="/user/software/:appId" element={<UserSoftware />} />
             </Route>
               <Route path="/admin" element={<Admin />}>

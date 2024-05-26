@@ -1,4 +1,3 @@
-import VerticalNavTabs from "../components/navigations/UserNav.jsx";
 import {Outlet} from "react-router-dom";
 import allIcons from "../utils/allIcons.js";
 import UserNav, {ShortcutsExtend} from "../components/navigations/UserNav";

@@ -3,12 +3,14 @@ import Icon from "../Icon.jsx";
 import {useSelector} from "react-redux";
 import {currentUserSelector} from "../../redux/auth/selector.js";
 import {allAppsNoCatSelector} from "../../redux/app/selector.js";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
 
 const Tab = (props) => {
     const { tabs, tab, idx, extend, tag } = props;
+
+    const navigate = useNavigate();
 
     const [toggle, setToggle] = useState(false);
 
@@ -45,7 +47,9 @@ const Tab = (props) => {
         return res;
     };
 
-    return  <div className="vertical-nav-tab" style={borderStyle(idx)} onClick={() => setToggle(!toggle)}>
+    return  <div className="vertical-nav-tab"
+                 style={borderStyle(idx)}
+                 onClick={() => tab.extend ? setToggle(!toggle) : navigate(`/user/${tab.name}`)}>
         <div className="vertical-nav-tab-content">
             <div>
                 <Icon path={tab.icon} />

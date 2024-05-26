@@ -1,0 +1,29 @@
+.user-profile-page{
+  width: 100%;
+  .user-profile-header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .picture-profile{
+    width: 250px;
+    height: 250px;
+    background-size: cover;
+    border-radius: 50px;
+  }
+  .user-profile-header-right{
+    padding: 20px;
+    h1{
+      font-size: 80px;
+      color: var(--color-primary);
+    }
+  }
+  .user-profile-content{
+    width: 100%;
+    color: var(--color-text);
+    h3{
+      font-size: 25px;
+      font-weight: 100;
+    }
+  }
+}
