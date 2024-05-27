@@ -42,8 +42,6 @@ function App() {
     )
   }
 
-
-
   return (
     <>
       <BrowserRouter>

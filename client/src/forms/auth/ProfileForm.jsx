@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //ui
@@ -12,18 +12,26 @@ import Upload from "../../components/inputs/Upload";
 import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 //Requests
 import {userExist} from "../../requests/auth.js";
-
-const jobs = [
-    {id: 1, name:"developer"},
-    {id: 2, name:"designer"},
-    {id: 3, name:"video maker"},
-    {id: 4, name:"other"}
-]
+import {allCategories} from "../../requests/app.js";
 
 const ProfileForm = () => {
 
     const navigate = useNavigate();
     const {user, setUser} = useContext(AuthContext);
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        allCategories().then(response => {
+            if (response.success) {
+                const cat = response.result.map(res => ({
+                    id: parseInt(res.categorie_id),
+                    name: res.categorie_name
+                }));
+                setCategories(cat);
+            }
+        });
+    }, []);
 
     useEffect(() => {
         if(user.email.length === 0) navigate("/sign")
@@ -59,7 +67,7 @@ const ProfileForm = () => {
             <h1>Profile</h1>
             <div className="sign-page-form">
                 <Input name="username" type="text" holder="walter_white"/>
-                <Select name="jobs" options={jobs}/>
+                <Select name="jobs" options={categories}/>
                 <Upload name="Picture profile" />
             </div>
             <div className="button-container">
