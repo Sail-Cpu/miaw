@@ -103,6 +103,19 @@ router.post(`/signup`, async (req, res) => {
                         }
                     }
                 });
+                const jobApps = await prisma.applications.findMany({
+                    where: {
+                        categorie_id: job
+                    }
+                });
+                for (const app of jobApps) {
+                    await prisma.user_app.create({
+                        data: {
+                            user_id: newUser.user_id,
+                            app_id: app.app_id
+                        }
+                    });
+                }
                 const userApps = await prisma.applications.findMany({
                     where: {
                         user_app: {
@@ -112,9 +125,15 @@ router.post(`/signup`, async (req, res) => {
                         }
                     }
                 });
+
+                const jobs = await prisma.app_categories.findFirst({
+                    where: {
+                        categorie_id: job
+                    }
+                })
                 res.status(201).send({
                     success: true,
-                    result: {...newUser, shortcuts: userShortcuts, apps: userApps},
+                    result: {...newUser, shortcuts: userShortcuts, apps: userApps, job: jobs.name_user},
                     message: "the user is successfully logged in"
                 })
             });
@@ -166,11 +185,16 @@ router.post(`/signin`, async (req, res) => {
                     }
                 }
             });
+            const job = await prisma.app_categories.findFirst({
+                where: {
+                    categorie_id: userExist[0].job
+                }
+            })
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
                 if(isTheSame) return res.status(200).send({
                     success: true,
-                    result: {...userExist[0], shortcuts: userShortcuts, apps: userApps},
+                    result: {...userExist[0], shortcuts: userShortcuts, apps: userApps, job: job.name_user},
                     message: "the user is successfully logged in"}
                 );
                 return res.status(400).send({success: false, message: "the password is incorrect" });

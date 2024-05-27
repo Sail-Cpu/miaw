@@ -12,9 +12,10 @@ model users {
   username        String            @unique
   email           String            @unique
   password        String
-  job             String
+  job             Int
   os              String
   role            String
+  app_categories  app_categories    @relation(fields: [job], references: [categorie_id])
   users_shortcuts users_shortcuts[]
   user_app        user_app[]
 }
@@ -32,7 +33,9 @@ model applications {
 model app_categories {
   categorie_id   Int            @id @default(autoincrement())
   categorie_name String         @unique
+  name_user      String
   applications   applications[]
+  users          users[]
 }
 
 model users_shortcuts {

@@ -19,7 +19,7 @@ export const Keys = (keys) => {
 const Shortcut = (props) => {
 
     const dispatch = useDispatch();
-    const { user_id, shortcuts: userShortcuts } = useSelector(currentUserSelector);
+    const { user_id, shortcuts: userShortcuts, os: userOs } = useSelector(currentUserSelector);
 
     const {theme, colors} = useContext(ThemeContext);
 
@@ -43,7 +43,7 @@ const Shortcut = (props) => {
         return res;
     }
 
-    const [os , setOs] = useState("windows");
+    const [os , setOs] = useState(userOs);
 
     return(
         <div className="shortcut-container">

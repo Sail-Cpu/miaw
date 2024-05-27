@@ -19,7 +19,7 @@ function getFileExtension(filename) {
 export const register = async (userData) => {
     const {username, email, password, os, job, image} = userData;
 
-    if(image && username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job.length > 0){
+    if(image && username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job !== 0){
 
         try{
             const formData = new FormData();

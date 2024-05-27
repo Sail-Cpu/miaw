@@ -26,7 +26,7 @@ const ProfileForm = () => {
             if (response.success) {
                 const cat = response.result.map(res => ({
                     id: parseInt(res.categorie_id),
-                    name: res.categorie_name
+                    name: res.name_user
                 }));
                 setCategories(cat);
             }
@@ -43,7 +43,6 @@ const ProfileForm = () => {
         const job = parseInt(formData.get("jobs"));
         const username = formData.get("username");
         const image = formData.get("Picture profile");
-        console.log(job, username, image.name)
         if(!username.length > 0 || job === 0 || !image.name.length > 0){
             toast.error("all fields must be completed");
             return;
@@ -56,7 +55,7 @@ const ProfileForm = () => {
         setUser({
             ...user,
             username: username,
-            job: jobs.find(actualJob => actualJob.id === job).name,
+            job: job,
             image: image
         })
         navigate("/sign/step3");
