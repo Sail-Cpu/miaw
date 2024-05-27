@@ -42,9 +42,12 @@
     flex-direction: column;
     justify-content: space-between;
     width: 50%;
-    img{
-      height: 350px;
+    .software-interface{
+      width: 100%;
+      height: 100%;
       box-shadow: 0 4px 20px 8px rgba(0, 0, 0, 0.4);
+      background-size: cover;
+      background-position: center;
     }
   }
   .shortcuts-list{
@@ -53,6 +56,24 @@
       font-size: 40px;
       margin-bottom: 10px;
       color: var(--color-text);
+    }
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .software-page-container{
+    .software-hero-banner{
+      flex-direction: column;
+      align-items: center;
+    }
+    .software-hero-banner-content{
+      padding: 0;
+      width: 100%;
+      .software-interface{
+        width: 100%;
+        height: 350px;
+        margin-top: 30px;
+      }
     }
   }
 }

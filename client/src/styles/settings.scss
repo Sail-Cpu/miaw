@@ -47,3 +47,23 @@ a{
     max-width: 1400px;
   }
 }
+
+/* Largeur de la barre de défilement */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Couleur de fond de la barre de défilement */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Couleur de la poignée */
+::-webkit-scrollbar-thumb {
+  background: var(--color-tab-hover);
+}
+
+/* Rond sur la poignée */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-tab-hover);
+}

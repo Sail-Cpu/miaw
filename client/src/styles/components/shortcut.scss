@@ -18,6 +18,7 @@
       font-weight: 500;
       cursor: pointer;
       color: var(--color-text);
+      text-align: center;
     }
     .tab-bottom-bar{
       position: absolute;
@@ -44,9 +45,16 @@
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .shortcut-container{
+    width: 100%;
+  }
+}
+
 .all-keys-container{
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;

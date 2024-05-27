@@ -52,7 +52,10 @@ export const AppDetails = () => {
                     </div>
                 </div>
                 <div className="software-hero-banner-content software-hero-banner-right">
-                    <img src={`${BASE_URL}/interface_${interfacePathName}`} alt="vs code" />
+                    <div
+                        className="software-interface"
+                        style={{backgroundImage: `url(${BASE_URL}/interface_${interfacePathName})`}}>
+                    </div>
                 </div>
             </div>
             <div className="shortcuts-list">
