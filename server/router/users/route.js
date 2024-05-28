@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import {PrismaClient} from "@prisma/client";
+import authMiddleware, {createKey} from "../auth.js";
 
 const router = express.Router();
 
@@ -192,11 +193,17 @@ router.post(`/signin`, async (req, res) => {
             })
             bcrypt.compare(password, userExist[0].password, (err, isTheSame) => {
                 if(err) throw err;
-                if(isTheSame) return res.status(200).send({
-                    success: true,
-                    result: {...userExist[0], shortcuts: userShortcuts, apps: userApps, job: job.name_user},
-                    message: "the user is successfully logged in"}
-                );
+                if(isTheSame) {
+                    let token = "";
+                    if(userExist[0].role === "admin") {
+                        token = createKey(userExist[0].user_id, userExist[0].username)
+                    }
+                    return res.status(200).send({
+                        success: true,
+                        result: {...userExist[0], shortcuts: userShortcuts, apps: userApps, job: job.name_user, token: token},
+                        message: "the user is successfully logged in"}
+                    );
+                }
                 return res.status(400).send({success: false, message: "the password is incorrect" });
             })
         }catch (error){

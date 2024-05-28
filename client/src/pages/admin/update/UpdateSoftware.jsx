@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {appSelector, appShortcutsSelector} from "../../../redux/app/selector.js";
 import Table from "../../../components/Table.jsx";
 import {toast} from "sonner";
+import {currentUserSelector} from "../../../redux/auth/selector.js";
 
 export const chapters = [
     {
@@ -48,6 +49,7 @@ const UpdateSoftware = () => {
     const [selectedKey, setSelectedKey] = useState([]);
     const allShortcuts = useSelector(appShortcutsSelector())
     const {app_id} = useSelector(appSelector)
+    const {token} = useSelector(currentUserSelector)
 
     useEffect(() => {
         getAllKeys().then(response => {
@@ -114,6 +116,7 @@ const UpdateSoftware = () => {
             chapter_id: formData.get("chapter"),
             app_id: app_id,
             keys: selectedKey,
+            token: token
         }
         createShortcut(softwareData).then(response => {
             if (response.success) {

@@ -11,7 +11,8 @@ const INITIAL_STATE = {
         os: "",
         shortcuts: [],
         username: "",
-        apps: []
+        apps: [],
+        token: ""
     }
 }
 

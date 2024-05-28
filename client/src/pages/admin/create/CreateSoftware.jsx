@@ -5,10 +5,13 @@ import {useEffect, useRef, useState} from "react";
 import {allCategories, createApp} from "../../../requests/app.js";
 import SubmitButton from "../../../components/inputs/SubmitButton.jsx";
 import {toast} from "sonner";
+import {useSelector} from "react-redux";
+import {currentUserSelector} from "../../../redux/auth/selector.js";
 
 const CreateSoftware = () => {
 
     const [categories, setCategories] = useState([])
+    const {token} = useSelector(currentUserSelector);
 
     const formRef = useRef(null);
 
@@ -32,7 +35,8 @@ const CreateSoftware = () => {
             description: formData.get("description"),
             categorie: formData.get("categorie"),
             logo: formData.get("logo"),
-            inter: formData.get("interface")
+            inter: formData.get("interface"),
+            token: token
         }
         createApp(appData).then(response => {
             console.log(response)

@@ -6,6 +6,7 @@ import multer from "multer";
 import sharp from "sharp";
 import * as fs from "fs";
 import { __dirname } from "../../index.js";
+import authMiddleware from "../auth.js";
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('image'), async (req, res) => {
+router.post('/upload', authMiddleware, upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).send('Aucun fichier téléchargé.');

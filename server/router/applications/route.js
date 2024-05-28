@@ -1,5 +1,6 @@
 import express from "express";
 import {PrismaClient} from "@prisma/client";
+import authMiddleware from "../auth.js";
 
 const router = express.Router();
 
@@ -101,7 +102,7 @@ router.get(`/app/:appId`, async (req, res) => {
     }
 })
 
-router.post(`/app`, async (req, res) => {
+router.post(`/app`, authMiddleware, async (req, res) => {
     try{
         const {name, description, categorie} = req.body;
         const createApp = await prisma.applications.create({
@@ -118,7 +119,7 @@ router.post(`/app`, async (req, res) => {
     }
 })
 
-router.post("/shortcut", async (req, res) => {
+router.post("/shortcut", authMiddleware, async (req, res) => {
     try{
         const {name, description, chapter_id, app_id, keys} = req.body;
         const createShortcut = await prisma.shortcuts.create({
@@ -128,7 +129,8 @@ router.post("/shortcut", async (req, res) => {
                 chapter_id: parseInt(chapter_id),
                 app_id: parseInt(app_id),
             }
-        });
+        }
+        );
         await Promise.all(keys.map(async (key) => {
             const createShortcut_key = await prisma.shortcuts_keys.create({
                 data: {

@@ -32,13 +32,17 @@ function getFileExtension(filename) {
 }
 
 export const createApp = async (appData) => {
-    const {name, description, categorie, logo, inter} = appData;
+    const {name, description, categorie, logo, inter, token} = appData;
     try {
-        if(!name || !description || !categorie || !logo || !inter) throw new Error('All fields are required');
+        if(!name || !description || !categorie || !logo || !inter || !token) throw new Error('All fields are required');
         const request = await axios.post(`${BASE_LINK}/app`, {
             name,
             description,
             categorie
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         })
         const formData = new FormData();
         const renamedLogo = new File([logo], `logo_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(logo.name)}`);
@@ -46,14 +50,16 @@ export const createApp = async (appData) => {
         formData.append('image', renamedLogo)
         let imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
             }
         });
         formData.delete('image');
         formData.append('image', renamedInterface)
         imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
             }
         });
         return request.data;
@@ -63,16 +69,21 @@ export const createApp = async (appData) => {
 }
 
 export const createShortcut= async (softwareData) => {
-    const {name, description, chapter_id, app_id, keys, categorie_id} = softwareData;
+    const {name, description, chapter_id, app_id, keys, token} = softwareData;
     try{
-        if(!name || !description || !chapter_id || !app_id || !keys) throw new Error('All fields are required');
+        if(!name || !description || !chapter_id || !app_id || !keys || !token) throw new Error('All fields are required');
         const addShortcut = await axios.post(`${BASE_LINK}/shortcut`, {
             name,
             description,
             chapter_id,
             app_id,
             keys,
-        })
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        )
         return addShortcut.data;
     }catch (error) {
         return error
