@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_LINK = `http://localhost:3000`;
+const BASE_LINK = import.meta.env.VITE_APP_API_URL;
 export const allApps = async () => {
     try{
         const request = await axios.get(`${BASE_LINK}/apps`)

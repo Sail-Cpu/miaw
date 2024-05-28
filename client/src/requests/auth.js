@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_LINK = `http://localhost:3000`;
+const BASE_LINK = import.meta.env.VITE_APP_API_URL;
 
 export const userExist = async (userData) => {
     const {username, email} = userData;

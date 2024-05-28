@@ -18,7 +18,7 @@ const AppCard = ({app}) => {
 
     const navigate = useNavigate();
 
-    const BASE_URL = "http://localhost:3000/uploads";
+    const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
     useEffect(() => {
         const fetchImage = async () => {

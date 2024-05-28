@@ -15,7 +15,7 @@
     margin: 0 auto;
     width: 45%;
     height: 75%;
-    min-width: 500px;
+    min-width: 200px;
     max-width: 550px;
     padding: 0 10px;
     animation: showForm 0.3s ease;
@@ -72,6 +72,17 @@
     p{
         margin: 10px 0 0 0;
         color: var(--color-text-light);
+    }
+  }
+  @media screen and (max-width: 650px){
+    .sign-step-container{
+      display: none;
+    }
+    form{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
     }
   }
 }

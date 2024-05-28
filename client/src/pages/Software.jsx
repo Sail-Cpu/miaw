@@ -33,7 +33,7 @@ export const AppDetails = () => {
         fetchImage();
     }, [app_name]);
 
-    const BASE_URL = "http://localhost:3000/uploads";
+    const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
     return(
         <>

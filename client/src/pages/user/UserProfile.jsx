@@ -9,7 +9,7 @@ const UserProfile = () => {
 
     const {username, email, job, os} = useSelector(currentUserSelector);
 
-    const BASE_URL = "http://localhost:3000/uploads";
+    const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
     useEffect(() => {
         const fetchImage = async () => {

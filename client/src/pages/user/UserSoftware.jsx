@@ -30,7 +30,7 @@ const UserSoftware = () => {
         fetchImage();
     }, [app_name]);
 
-    const BASE_URL = "http://localhost:3000/uploads";
+    const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
     useEffect(() => {
         if(app_id !== appId){
