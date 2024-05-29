@@ -90,6 +90,14 @@ const convertKey = [
         toConvert: "ArrowDown",
         converted: "up / down"
     },
+    {
+        toConvert: "Escape",
+        converted: "esc"
+    },
+    {
+        toConvert: " ",
+        converted: "space"
+    },
 ]
 
 const initialState = {
@@ -304,16 +312,11 @@ const KnowledgeTest = () => {
             <div className="knowledge-test-left">
                 <div className="knowledge-test-start-container">
                     {
-                        !state.start ?
+                        !state.start &&
                             <Button
                                 name={"Start"}
                                 onClick={() => dispatch({type: actionTypes.START})}
                                 color={colors[theme].primary} />
-                            :
-                            <Button
-                                name={"Stop"}
-                                onClick={() => dispatch({type: actionTypes.STOP})}
-                                color={colors[theme].error} />
                     }
                 </div>
                 <CustomizedTimeline
