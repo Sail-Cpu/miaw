@@ -1,15 +1,20 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import Input from "../../components/inputs/Input.jsx";
 import SubmitButton from "../../components/inputs/SubmitButton.jsx";
 import {SignIn} from "../../redux/auth/action.js";
 import {toast, Toaster} from "sonner";
 import {Link, useNavigate} from "react-router-dom";
+import Nav from "../../app/Nav.jsx";
+import {isLoggedInSelector} from "../../redux/auth/selector.js";
 
 const Login = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const isLoggedIn = useSelector(isLoggedInSelector);
+
     let done = false;
 
     const handleSubmit = async (e) => {
@@ -34,6 +39,7 @@ const Login = () => {
 
     return(
         <div className="sign-page login-page">
+            <Nav isLoggedIn={isLoggedIn} />
             <Toaster position="top-right" richColors closeButton />
             <form onSubmit={(e) => handleSubmit(e)}>
                 <h1>Login</h1>

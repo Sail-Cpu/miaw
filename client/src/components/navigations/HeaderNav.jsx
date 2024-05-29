@@ -9,11 +9,13 @@ import {useContext} from "react";
 const Button = (props) => {
     const {data} = props;
 
+    const {theme, colors} = useContext(ThemeContext);
+
     const style = () => {
         if(data?.background){
             return {
                 border: "none",
-                background: "#2563EB",
+                background: colors[theme].primary,
                 color: "#fff",
             }
         }

@@ -7,6 +7,9 @@ import StepLabel from '@mui/material/StepLabel';
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
+import {useSelector} from "react-redux";
+import {isLoggedInSelector} from "../../redux/auth/selector.js";
+import Nav from "../../app/Nav.jsx";
 
 const steps = [
     {title: "Register", info: "Set you email and password"},
@@ -20,6 +23,8 @@ const Register = () => {
 
     const {theme, colors} = useContext(ThemeContext)
 
+    const isLoggedIn = useSelector(isLoggedInSelector);
+
     const step = () => {
         return user.os.length > 0 ? 3 :
                 user.username.length > 0 ? 2 :
@@ -28,6 +33,7 @@ const Register = () => {
 
     return(
         <div className="sign-page register-page">
+            <Nav isLoggedIn={isLoggedIn}/>
             <Toaster position="top-right" richColors closeButton />
             {<Outlet />}
             <div className="sign-step-container">

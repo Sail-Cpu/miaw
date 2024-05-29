@@ -1,3 +1,4 @@
 export const REGISTER_FAILED = "REGISTER_FAILED";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const UPDATE_USER = "UPDATE_USER";
+export const DISCONNECT = "DISCONNECT";

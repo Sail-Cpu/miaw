@@ -55,3 +55,9 @@ export const addAppToCollection = (data) => async (dispatch) => {
         })
     }
 }
+
+export const disconnectAction = () => async (dispatch) => {
+    dispatch({
+        type: actionType.DISCONNECT
+    })
+}

@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   right: 0;
+  top: 0;
   height: 70px;
   width: 100%;
   padding: 0 0 0 105px;
@@ -34,7 +35,7 @@
         font-size: 16px;
         outline: none;
         border-radius: 7px;
-        border: 2px solid var(--color-secondary);
+        border: 2px solid var(--color-text-light);
         font-weight: 500;
         margin-left: 10px;
         color: var(--color-text);
@@ -45,7 +46,7 @@
       }
     }
     .btn-no-back:hover{
-      background-color: var(--color-primary);
+      background-color: var(--color-text-light);
       color: var(--color-secondary);
     }
   }

@@ -34,6 +34,8 @@ const reducer = (state = INITIAL_STATE, action) => {
             };
         case actionType.REGISTER_FAILED:
             return state;
+        case actionType.DISCONNECT:
+                return INITIAL_STATE;
         default:
             return state;
     }

@@ -1,8 +1,18 @@
 
 .home-container{
+  animation: openHome 1s;
   .home-content{
     display: flex;
     flex-wrap: wrap;
+  }
+}
+
+@keyframes openHome{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
   }
 }
 

@@ -17,6 +17,7 @@ import CreateSoftware from "./pages/admin/create/CreateSoftware.jsx";
 import UpdateSoftware from "./pages/admin/update/UpdateSoftware.jsx";
 import Home from "./pages/Home.jsx";
 import UserProfile from "./pages/user/UserProfile.jsx";
+import Landing from "./app/Landing.jsx";
 
 function App() {
 
@@ -42,6 +43,14 @@ function App() {
     )
   }
 
+  const noProtectedRoute = () => {
+      return(
+          <Route path="/landing" element={<Landing />}>
+
+          </Route>
+      )
+  }
+
   return (
     <>
       <BrowserRouter>
@@ -49,10 +58,11 @@ function App() {
           <Route path="/sign" element={<Register />}>
             <Route path="/sign" element={<RegisterForm />} />
             <Route path="/sign/step2" element={<ProfileForm />} />
-            <Route path="/sign/step3" element={<ConfigForm />} /> 
+            <Route path="/sign/step3" element={<ConfigForm />} />
           </Route>
           <Route path="login" element={<Login />} />
           {protectedRoute()}
+          {noProtectedRoute()}
         </Routes>
       </BrowserRouter>
     </>

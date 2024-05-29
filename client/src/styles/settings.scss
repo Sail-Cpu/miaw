@@ -1,7 +1,7 @@
 :root {
     --color-primary: #2563EB;
     --color-secondary: #fff;
-    --header-nav-color: rgba(255, 255, 255, 0.75);
+    --header-nav-color: rgba(255, 255, 255, 0.5);
     --color-text: #1F2937;
     --color-text-light: #6B7280;
     --color-error: #EF4444;
@@ -12,7 +12,7 @@
 [data-theme="dark"] {
     --color-primary: #2563EB;
     --color-secondary: #1b1c21;
-    --header-nav-color: #1b1c21;
+    --header-nav-color: rgba(27, 28, 33, 0.5);
     --color-text: #dcdcdc;
     --color-text-light: #adb6c2;
     --color-error: #EF4444;
