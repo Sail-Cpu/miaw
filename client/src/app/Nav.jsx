@@ -69,7 +69,7 @@ const Nav = ({isLoggedIn}) => {
     return <HeaderNav params={isLoggedIn ? nav.connected : nav.disconnected}/>
 }
 
-Nav.PropTypes = {
+Nav.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
 }
 

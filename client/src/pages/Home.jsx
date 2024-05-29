@@ -137,6 +137,8 @@ const Home = () => {
 
     const {apps} = useSelector(currentUserSelector);
 
+    console.log(apps)
+
     return(
         <div className="home-container">
             <div className="home-content">

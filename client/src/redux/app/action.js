@@ -3,6 +3,7 @@ import {allApps, appById} from "../../requests/app.js";
 
 export const list = () => async (dispatch) => {
     const response = await allApps();
+    console.log(response)
     if(response.success){
         dispatch({
             type: actionType.FETCH_DATAS,

@@ -9,7 +9,7 @@ const INITIAL_STATE = {
             app_name: "",
             app_description: "",
             app_logo: "",
-            app_images: [],
+            app_interface: "",
             categorie_id: 0
         },
         chapters: [

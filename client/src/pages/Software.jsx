@@ -6,39 +6,21 @@ import { appSelector, appShortcutsByChapterSelector } from "../redux/app/selecto
 import { getApp } from "../redux/app/action.js";
 import Shortcut from "../components/Shortcut.jsx";
 import {ThemeContext} from "../context/ThemeContext.jsx";
-import {getImage} from "../requests/app.js";
 
 
 export const AppDetails = () => {
 
     const {colors, theme} = useContext(ThemeContext);
-    const { app_id, app_name, app_description } = useSelector(appSelector);
+    const { app_id, app_name, app_description, app_logo, app_interface } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
-
-    const [logoPathName, setLogoPathName] = useState(null);
-    const [interfacePathName, setInterfacePathName] = useState(null);
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            let response = await getImage("logo", app_name);
-            if(response.success){
-                setLogoPathName(response.result);
-            }
-            response = await getImage("interface", app_name);
-            if(response.success){
-                setInterfacePathName(response.result);
-            }
-        }
-        fetchImage();
-    }, [app_name]);
 
     const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
     return(
         <>
             <div className="software-head">
-                <img src={`${BASE_URL}/logo_${logoPathName}`} alt="logo" />
+                <img src={`${BASE_URL}/logo_${app_logo}`} alt="logo" />
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -54,7 +36,7 @@ export const AppDetails = () => {
                 <div className="software-hero-banner-content software-hero-banner-right">
                     <div
                         className="software-interface"
-                        style={{backgroundImage: `url(${BASE_URL}/interface_${interfacePathName})`}}>
+                        style={{backgroundImage: `url(${BASE_URL}/interface_${app_interface})`}}>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import express from "express";
 import {PrismaClient} from "@prisma/client";
 import authMiddleware from "../auth.js";
+import axios from "axios";
 
 const router = express.Router();
 
@@ -14,20 +15,26 @@ router.get('/apps', async (req, res) => {
             }
         });
 
-        const formattedData = categoriesWithApps.map(category => {
+        const formattedData = await Promise.all(categoriesWithApps.map(async category => {
+            const apps = await Promise.all(category.applications.map(async app => {
+                const logo = await axios.get(`http://localhost:3000/image/logo/${app.app_name}`)
+                const inter = await axios.get(`http://localhost:3000/image/interface/${app.app_name}`)
+                return {
+                    app_id: app.app_id,
+                    app_name: app.app_name,
+                    app_logo: logo.data.result,
+                    app_interface: inter.data.result
+                };
+            }));
+
             return {
                 category: {
                     id: category.categorie_id,
                     name: category.categorie_name
                 },
-                apps: category.applications.map(app => {
-                    return {
-                        app_id: app.app_id,
-                        app_name: app.app_name
-                    };
-                })
+                apps
             };
-        });
+        }));
 
         return res.status(200).send({success: true, result: formattedData});
     }catch (error){
@@ -56,6 +63,9 @@ router.get(`/app/:appId`, async (req, res) => {
                 app_id: parseInt(appId)
             }
         });
+
+        const logo = await axios.get(`http://localhost:3000/image/logo/${appById[0].app_name}`)
+        const inter = await axios.get(`http://localhost:3000/image/interface/${appById[0].app_name}`)
 
         if(appById.length > 0){
             const chapters = await prisma.chapters.findMany({
@@ -90,7 +100,7 @@ router.get(`/app/:appId`, async (req, res) => {
                     })
                 };
             });
-            return res.status(200).send({ success: true, result: { data: appById[0], chapters: formattedChapters }});
+            return res.status(200).send({ success: true, result: { data: {...appById[0], app_logo: logo.data.result , app_interface: inter.data.result }, chapters: formattedChapters }});
         }else{
             return res.status(400).send({success: false, message: "the software could not be found"})
         }
