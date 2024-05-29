@@ -42,7 +42,7 @@ const Nav = ({isLoggedIn}) => {
             ],
             theme: true,
             search: false,
-            logo: false
+            logo: true
         },
         disconnected: {
             tabs: [
