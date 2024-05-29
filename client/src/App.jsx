@@ -18,6 +18,7 @@ import UpdateSoftware from "./pages/admin/update/UpdateSoftware.jsx";
 import Home from "./pages/Home.jsx";
 import UserProfile from "./pages/user/UserProfile.jsx";
 import Landing from "./app/Landing.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 
 function App() {
 
@@ -46,7 +47,7 @@ function App() {
   const noProtectedRoute = () => {
       return(
           <Route path="/landing" element={<Landing />}>
-
+              <Route path="/landing" element={<LandingPage />} />
           </Route>
       )
   }

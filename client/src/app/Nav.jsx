@@ -3,6 +3,7 @@ import HeaderNav from "../components/navigations/HeaderNav.jsx";
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
 import {disconnectAction} from "../redux/auth/action.js";
+import allIcons from "../utils/allIcons.js";
 
 
 const Nav = ({isLoggedIn}) => {
@@ -40,7 +41,8 @@ const Nav = ({isLoggedIn}) => {
                 }
             ],
             theme: true,
-            search: false
+            search: false,
+            logo: false
         },
         disconnected: {
             tabs: [
@@ -51,6 +53,7 @@ const Nav = ({isLoggedIn}) => {
             ],
             buttons: [
                 {
+                    icon: allIcons.user,
                     name: "Login",
                     background: false,
                     action: () => navigate("/login")
@@ -62,7 +65,8 @@ const Nav = ({isLoggedIn}) => {
                 }
             ],
             theme: true,
-            search: false
+            search: false,
+            logo: true
         }
     }
 

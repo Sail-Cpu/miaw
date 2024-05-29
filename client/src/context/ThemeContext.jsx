@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export const ThemeContext = createContext();
 
 const ThemeContextProvider = ({children}) => {
-    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
     const colors = {
         light: {
             primary: '#2563EB',

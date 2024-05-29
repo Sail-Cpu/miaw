@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import SwitchMode from "../SwitchMode.jsx";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
 import {useContext} from "react";
+import Logo from "../../assets/logo.png";
 
 const Button = (props) => {
     const {data} = props;
@@ -23,8 +24,9 @@ const Button = (props) => {
     }
 
     return <button style={style()} onClick={data.action} className={`header-nav-button ${!data?.background && 'btn-no-back'}`}>
-            {data.name}
-        </button>
+            {data.icon && <Icon path={data.icon} color={colors[theme].text} width="18px"/>}
+        <span>{data.name}</span>
+    </button>
 }
 
 Button.propTypes = {
@@ -38,6 +40,7 @@ const HeaderNav = (props) => {
 
     return(
         <div className="header-nav-container">
+            {params?.logo && <img className="header-nav-logo" src={Logo} alt="logo"/>}
             <div className="header-nav">
                 {
                     params?.theme &&
