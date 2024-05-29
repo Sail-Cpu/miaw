@@ -17,7 +17,7 @@ const Footer = () => {
     return(
         <div className="footer-container">
             <div className="footer-content">
-                <Link to={"http://portfolio.sofianelasoa.fr/"}>
+                <Link to={"http://portfolio.sofianelasoa.fr/"} target="_blank" rel="noopener noreferrer">
                     <span>Designed & Built by Sofiane Lasoa</span>
                 </Link>
             </div>
