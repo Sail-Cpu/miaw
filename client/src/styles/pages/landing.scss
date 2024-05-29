@@ -1,3 +1,110 @@
 .landing{
-  padding: 70px 30px;
+  padding: 70px 40px 0 40px;
+}
+
+.landing-page{
+  padding-top: 20px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  .landing-page-head{
+    width: 100%;
+  }
+  .badge-container{
+    width: 100%;
+    display: flex;
+  }
+  .badge{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid var(--color-tab-hover);
+    width: fit-content;
+    border-radius: 12px;
+    margin-left: 20vw;
+    img{
+      width: 40px;
+    }
+    span{
+      font-size: 20px;
+      font-weight: 600;
+      margin-left: 30px;
+      color: var(--color-primary);
+    }
+  }
+  .title-container{
+    text-align: center;
+    padding: 0 150px;
+    h1{
+      margin-top: 0;
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 15px;
+    }
+    span{
+      font-size: 18px;
+      color: var(--color-text-light);
+    }
+  }
+  .app-interface-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    img{
+      width: 100%;
+      margin-top: -20px;
+      z-index: -1;
+      border-radius: 15px;
+    }
+    button{
+      background-color: var(--color-secondary);
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+.landing-page{
+    .badge-container{
+      flex-direction: column;
+      align-items: center;
+      .badge{
+        margin-left: 0;
+        margin-bottom: 20px;
+      }
+    }
+    .title-container{
+      padding: 0;
+      h1{
+        font-size: 30px;
+      }
+    }
+    .app-interface-container{
+      img{
+        width: 100%;
+      }
+    }
+    .app-interface-container{
+      button{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.footer-container{
+  text-align: center;
+  width: 100%;
+  padding: 30px;
+  a{
+    font-size: 13px;
+    transition: 0.2s ease;
+    color: var(--color-text-light);
+    text-decoration: none;
+  }
+  a:hover{
+    color: var(--color-primary);
+  }
 }
