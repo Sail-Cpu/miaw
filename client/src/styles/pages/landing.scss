@@ -1,5 +1,6 @@
 .landing{
   padding: 70px 40px 0 40px;
+  min-height: 100vh;
 }
 
 .landing-page{
@@ -65,35 +66,6 @@
   }
 }
 
-@media screen and (max-width: 950px) {
-.landing-page{
-    .badge-container{
-      flex-direction: column;
-      align-items: center;
-      .badge{
-        margin-left: 0;
-        margin-bottom: 20px;
-      }
-    }
-    .title-container{
-      padding: 0;
-      h1{
-        font-size: 30px;
-      }
-    }
-    .app-interface-container{
-      img{
-        width: 100%;
-      }
-    }
-    .app-interface-container{
-      button{
-        font-size: 12px;
-      }
-    }
-  }
-}
-
 .footer-container{
   text-align: center;
   width: 100%;
@@ -112,5 +84,59 @@
   }
   a:visited:hover{
     color: var(--color-primary);
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .landing{
+    display: flex;
+    align-items: center;
+  }
+  .landing-page{
+    .badge-container{
+      flex-direction: column;
+      align-items: center;
+      .badge{
+        margin-left: 0;
+        margin-bottom: 20px;
+      }
+    }
+    .title-container{
+      padding: 0;
+      h1{
+        font-size: 30px;
+      }
+      span{
+        font-size: 15px;
+      }
+    }
+    .app-interface-container{
+      img{
+        width: 100%;
+      }
+    }
+    .app-interface-container{
+      button{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .landing-page{
+    .title-container{
+      h1{
+        font-size: 20px;
+      }
+      span{
+        font-size: 13px;
+      }
+    }
+    .app-interface-container{
+      button{
+        font-size: 10px;
+      }
+    }
   }
 }
