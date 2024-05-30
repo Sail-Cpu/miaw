@@ -64,8 +64,8 @@ router.get(`/app/:appId`, async (req, res) => {
             }
         });
 
-        const logo = await axios.get(`http://localhost:3000/image/logo/${appById[0].app_name}`)
-        const inter = await axios.get(`http://localhost:3000/image/interface/${appById[0].app_name}`)
+        const logo = await axios.get(`${process.env.API_URL}/image/logo/${appById[0].app_name}`)
+        const inter = await axios.get(`${process.env.API_URL}/image/interface/${appById[0].app_name}`)
 
         if(appById.length > 0){
             const chapters = await prisma.chapters.findMany({

@@ -1,16 +1,10 @@
 import express from "express";
-import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
-import path, { dirname } from "path";
+import path from "path";
 import multer from "multer";
-import sharp from "sharp";
 import * as fs from "fs";
 import { __dirname } from "../../index.js";
-import authMiddleware from "../auth.js";
 
 const router = express.Router();
-
-const prisma = new PrismaClient();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
