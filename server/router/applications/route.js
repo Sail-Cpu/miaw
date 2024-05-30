@@ -17,12 +17,12 @@ router.get('/apps', apiKeyMiddleware, async (req, res) => {
 
         const formattedData = await Promise.all(categoriesWithApps.map(async category => {
             const apps = await Promise.all(category.applications.map(async app => {
-                const logo = await axios.get(`http://localhost:3000/image/logo/${app.app_name}`, {
+                const logo = await axios.get(`${process.env.API_URL}/image/logo/${app.app_name}`, {
                     headers: {
                         "x-api-key": process.env.API_KEY
                     }
                 })
-                const inter = await axios.get(`http://localhost:3000/image/interface/${app.app_name}`, {
+                const inter = await axios.get(`${process.env.API_URL}/image/interface/${app.app_name}`, {
                     headers: {
                         "x-api-key": process.env.API_KEY
                     }
