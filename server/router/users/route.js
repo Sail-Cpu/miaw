@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import {PrismaClient} from "@prisma/client";
-import {createKey} from "../auth.js";
+import {apiKeyMiddleware, createKey} from "../auth.js";
 
 const router = express.Router();
 
@@ -45,7 +45,7 @@ const checkPseudo = async (username) => {
     }
 };
 
-router.get('/user', async (req, res) => {
+router.get('/user', apiKeyMiddleware, async (req, res) => {
     const {username, email} = req.query;
     try{
         prisma.$connect()
@@ -64,7 +64,7 @@ router.get('/user', async (req, res) => {
     }
 })
 
-router.post(`/signup`, async (req, res) => {
+router.post(`/signup`, apiKeyMiddleware, async (req, res) => {
     const { username, email, password, job, os } = req.body;
 
     if(username && email && password && job && os){
@@ -150,7 +150,7 @@ router.post(`/signup`, async (req, res) => {
     }
 })
 
-router.post(`/signin`, async (req, res) => {
+router.post(`/signin`,apiKeyMiddleware, async (req, res) => {
     const { nameEmail, password } = req.body;
     if(nameEmail && password){
         try{
@@ -222,7 +222,7 @@ router.post(`/signin`, async (req, res) => {
     }
 })
 
-router.post(`/favorite/:add`, async (req, res) => {
+router.post(`/favorite/:add`, apiKeyMiddleware, async (req, res) => {
     const{user_id, shortcut_id} = req.body;
     const {add} = req.params;
     if(user_id && shortcut_id){
@@ -268,7 +268,7 @@ router.post(`/favorite/:add`, async (req, res) => {
     }
 })
 
-router.post(`/addAppToCollection/:add`, async (req, res) => {
+router.post(`/addAppToCollection/:add`, apiKeyMiddleware, async (req, res) => {
     const{user_id, app_id} = req.body;
     const {add} = req.params;
     if(user_id && app_id){

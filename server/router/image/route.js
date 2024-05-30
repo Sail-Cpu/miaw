@@ -3,6 +3,7 @@ import path from "path";
 import multer from "multer";
 import * as fs from "fs";
 import { __dirname } from "../../index.js";
+import {apiKeyMiddleware} from "../auth.js";
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('image'), async (req, res) => {
+router.post('/upload', apiKeyMiddleware,  upload.single('image'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).send('Aucun fichier téléchargé.');
@@ -29,7 +30,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     }
 });
 
-router.get('/image/:imageType/:imageName', async (req, res) => {
+router.get('/image/:imageType/:imageName', apiKeyMiddleware, async (req, res) => {
     try {
         const { imageType, imageName } = req.params;
         const extensions = ['png', 'jpg', 'jpeg', 'gif'];

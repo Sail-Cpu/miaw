@@ -16,6 +16,15 @@ export const createKey = (userId, username) => {
     return token;
 }
 
+export const  apiKeyMiddleware = (req, res, next) => {
+    const apiKey = req.headers['x-api-key'];
+    if (apiKey && apiKey === process.env.API_KEY) {
+        next();
+    } else {
+        res.status(401).json({ message: 'Invalid API Key' });
+    }
+}
+
 const  authMiddleware = (req, res, next) => {
     const bearerHeader = req.headers['authorization'];
     if (typeof bearerHeader !== 'undefined') {

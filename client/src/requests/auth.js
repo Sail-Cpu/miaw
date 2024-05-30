@@ -5,7 +5,11 @@ const BASE_LINK = import.meta.env.VITE_APP_API_URL;
 export const userExist = async (userData) => {
     const {username, email} = userData;
     try{
-        const request = await axios.get(`${BASE_LINK}/user?username=${username}&email=${email}`)
+        const request = await axios.get(`${BASE_LINK}/user?username=${username}&email=${email}`, {
+            headers: {
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        })
         return request.data;
     }catch (error){
         return false;
@@ -31,10 +35,15 @@ export const register = async (userData) => {
                 password,
                 os,
                 job
+            }, {
+                headers: {
+                    "x-api-key": import.meta.env.VITE_APP_API_KEY
+                }
             })
             const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    "x-api-key": import.meta.env.VITE_APP_API_KEY
                 }
             });
             return request.data;
@@ -53,6 +62,10 @@ export const login = async (userData) => {
             const request = await axios.post(`${BASE_LINK}/signin`, {
                 nameEmail: username,
                 password: password
+            }, {
+                headers: {
+                    "x-api-key": import.meta.env.VITE_APP_API_KEY
+                }
             })
             return request.data
         }catch (error){
@@ -68,6 +81,10 @@ export const favRequest = async (userId, shortcutId, add) => {
         const request = await axios.post(`${BASE_LINK}/favorite/${add}`, {
             user_id: userId,
             shortcut_id: shortcutId
+        }, {
+            headers: {
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
         })
         return request.data
     }catch (error){
@@ -80,6 +97,10 @@ export const appRequest = async (userId, appId, add) => {
         const request = await axios.post(`${BASE_LINK}/addAppToCollection/${add}`, {
             user_id: userId,
             app_id: appId
+        }, {
+            headers: {
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
         })
         return request.data
     }catch (error){

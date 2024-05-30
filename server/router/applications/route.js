@@ -1,13 +1,13 @@
 import express from "express";
 import {PrismaClient} from "@prisma/client";
-import authMiddleware from "../auth.js";
+import authMiddleware, {apiKeyMiddleware} from "../auth.js";
 import axios from "axios";
 
 const router = express.Router();
 
 const prisma = new PrismaClient();
 
-router.get('/apps', async (req, res) => {
+router.get('/apps', apiKeyMiddleware, async (req, res) => {
     try{
         const categoriesWithApps = await prisma.app_categories.findMany({
             include: {
@@ -44,7 +44,7 @@ router.get('/apps', async (req, res) => {
     }
 })
 
-router.get(`/categories`, async (req, res) => {
+router.get(`/categories`, apiKeyMiddleware,async (req, res) => {
     try{
         const categoriesWithApps = await prisma.app_categories.findMany();
         res.status(200).send({success: true, result: categoriesWithApps})
@@ -55,7 +55,7 @@ router.get(`/categories`, async (req, res) => {
     }
 })
 
-router.get(`/app/:appId`, async (req, res) => {
+router.get(`/app/:appId`, apiKeyMiddleware,async (req, res) => {
     const { appId } = req.params;
     try{
         const appById = await prisma.applications.findMany({
@@ -64,8 +64,16 @@ router.get(`/app/:appId`, async (req, res) => {
             }
         });
 
-        const logo = await axios.get(`${process.env.API_URL}/image/logo/${appById[0].app_name}`)
-        const inter = await axios.get(`${process.env.API_URL}/image/interface/${appById[0].app_name}`)
+        const logo = await axios.get(`${process.env.API_URL}/image/logo/${appById[0].app_name}`, {
+            headers: {
+                "x-api-key": process.env.API_KEY
+            }
+        })
+        const inter = await axios.get(`${process.env.API_URL}/image/interface/${appById[0].app_name}`, {
+            headers: {
+                "x-api-key": process.env.API_KEY
+            }
+        })
 
         if(appById.length > 0){
             const chapters = await prisma.chapters.findMany({

@@ -3,7 +3,11 @@ import axios from "axios";
 const BASE_LINK = import.meta.env.VITE_APP_API_URL;
 export const allApps = async () => {
     try{
-        const request = await axios.get(`${BASE_LINK}/apps`)
+        const request = await axios.get(`${BASE_LINK}/apps`, {
+            headers:{
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        })
         return request.data;
     }catch (error) {
         return error.response.data
@@ -12,7 +16,11 @@ export const allApps = async () => {
 
 export const appById = async (appId) => {
     try{
-        const request = await axios.get(`${BASE_LINK}/app/${appId}`)
+        const request = await axios.get(`${BASE_LINK}/app/${appId}`, {
+            headers:{
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        })
         return request.data;
     }catch (error) {
         return error.response.data
@@ -20,7 +28,11 @@ export const appById = async (appId) => {
 }
 export const allCategories = async () => {
     try{
-        const request = await axios.get(`${BASE_LINK}/categories`)
+        const request = await axios.get(`${BASE_LINK}/categories`, {
+            headers:{
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        })
         return request.data;
     }catch (error) {
         return error.response.data
@@ -92,7 +104,11 @@ export const createShortcut= async (softwareData) => {
 
 export const getImage = async (imageType, imageName) => {
     try {
-        const request = await axios.get(`${BASE_LINK}/image/${imageType}/${imageName}`)
+        const request = await axios.get(`${BASE_LINK}/image/${imageType}/${imageName}`, {
+            headers:{
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        })
         return request.data;
     } catch (error) {
         return error
@@ -101,7 +117,11 @@ export const getImage = async (imageType, imageName) => {
 
 export const getAllKeys = async () => {
     try {
-        const request = await axios.get(`${BASE_LINK}/keys`);
+        const request = await axios.get(`${BASE_LINK}/keys`, {
+            headers:{
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        });
         return request.data;
     } catch (error) {
         return error

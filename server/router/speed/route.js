@@ -1,12 +1,13 @@
 import express from "express";
 import {PrismaClient} from "@prisma/client";
 import _ from 'lodash';
+import {apiKeyMiddleware} from "../auth.js";
 
 const router = express.Router();
 
 const prisma = new PrismaClient();
 
-router.get('/speed-line', async (req, res) => {
+router.get('/speed-line', apiKeyMiddleware, async (req, res) => {
     try{
         await prisma.$connect();
 
