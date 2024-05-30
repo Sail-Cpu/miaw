@@ -15,6 +15,7 @@ model users {
   job             Int
   os              String
   role            String
+  picture         String
   app_categories  app_categories    @relation(fields: [job], references: [categorie_id])
   users_shortcuts users_shortcuts[]
   user_app        user_app[]
@@ -25,6 +26,8 @@ model applications {
   app_name        String         @unique
   app_description String
   categorie_id    Int
+  logo            String
+  interface       String
   app_categories  app_categories @relation(fields: [categorie_id], references: [categorie_id])
   shortcuts       shortcuts[]
   user_app        user_app[]

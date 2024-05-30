@@ -72,17 +72,6 @@ router.get(`/app/:appId`, apiKeyMiddleware,async (req, res) => {
             }
         });
 
-        const logo = await axios.get(`${process.env.API_URL}/image/logo/${appById[0].app_name}`, {
-            headers: {
-                "x-api-key": process.env.API_KEY
-            }
-        })
-        const inter = await axios.get(`${process.env.API_URL}/image/interface/${appById[0].app_name}`, {
-            headers: {
-                "x-api-key": process.env.API_KEY
-            }
-        })
-
         if(appById.length > 0){
             const chapters = await prisma.chapters.findMany({
                 include: {
@@ -116,7 +105,7 @@ router.get(`/app/:appId`, apiKeyMiddleware,async (req, res) => {
                     })
                 };
             });
-            return res.status(200).send({ success: true, result: { data: {...appById[0], app_logo: logo.data.result , app_interface: inter.data.result }, chapters: formattedChapters }});
+            return res.status(200).send({ success: true, result: { data: appById[0], chapters: formattedChapters }});
         }else{
             return res.status(400).send({success: false, message: "the software could not be found"})
         }
@@ -130,12 +119,14 @@ router.get(`/app/:appId`, apiKeyMiddleware,async (req, res) => {
 
 router.post(`/app`, authMiddleware, async (req, res) => {
     try{
-        const {name, description, categorie} = req.body;
+        const {name, description, categorie, logo, inter} = req.body;
         const createApp = await prisma.applications.create({
             data: {
                 app_name: name,
                 app_description: description,
-                categorie_id: parseInt(categorie)
+                categorie_id: parseInt(categorie),
+                logo: logo,
+                interface: inter
             },
         })
         return res.status(200).send({ success: true, result: createApp });

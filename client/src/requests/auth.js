@@ -29,23 +29,24 @@ export const register = async (userData) => {
             const formData = new FormData();
             const renamedFile = new File([image], `user_${username.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(image.name)}`);
             formData.append('image', renamedFile);
-            const request = await axios.post(`${BASE_LINK}/signup`, {
-                username,
-                email,
-                password,
-                os,
-                job
-            }, {
-                headers: {
-                    "x-api-key": import.meta.env.VITE_APP_API_KEY
-                }
-            })
             const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     "x-api-key": import.meta.env.VITE_APP_API_KEY
                 }
             });
+            const request = await axios.post(`${BASE_LINK}/signup`, {
+                username,
+                email,
+                password,
+                os,
+                job,
+                picture: renamedFile.name
+            }, {
+                headers: {
+                    "x-api-key": import.meta.env.VITE_APP_API_KEY
+                }
+            })
             return request.data;
         }catch (error){
             return error?.response?.data

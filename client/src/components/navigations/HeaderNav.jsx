@@ -96,8 +96,6 @@ const HeaderNav = (props) => {
     const {theme, toggleDarkTheme, toggleLightTheme} = useContext(ThemeContext);
     const [toggleNav, setToggleNav] = useState(false);
 
-    console.log(toggleNav)
-
     return(
         <div className="header-nav-container">
             {params?.logo && <img className="header-nav-logo" src={Logo} alt="logo"/>}

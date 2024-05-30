@@ -65,9 +65,9 @@ router.get('/user', apiKeyMiddleware, async (req, res) => {
 })
 
 router.post(`/signup`, apiKeyMiddleware, async (req, res) => {
-    const { username, email, password, job, os } = req.body;
+    const { username, email, password, job, os, picture } = req.body;
 
-    if(username && email && password && job && os){
+    if(username && email && password && job && os && picture){
         try{
             let pseudo = await checkPseudo(username);
             if(!pseudo.result) {
@@ -92,7 +92,8 @@ router.post(`/signup`, apiKeyMiddleware, async (req, res) => {
                         password: hash,
                         job: job,
                         os: os,
-                        role: "user"
+                        role: "user",
+                        picture: picture
                     },
                 });
                 const userShortcuts = await prisma.shortcuts.findMany({

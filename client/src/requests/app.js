@@ -47,23 +47,15 @@ export const createApp = async (appData) => {
     const {name, description, categorie, logo, inter, token} = appData;
     try {
         if(!name || !description || !categorie || !logo || !inter || !token) throw new Error('All fields are required');
-        const request = await axios.post(`${BASE_LINK}/app`, {
-            name,
-            description,
-            categorie
-        }, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+
         const formData = new FormData();
         const renamedLogo = new File([logo], `logo_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(logo.name)}`);
         const renamedInterface = new File([inter], `interface_${name.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(inter.name)}`);
         formData.append('image', renamedLogo)
         let imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
+                'Content-Type': 'multipart/form-data',
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
             }
         });
         formData.delete('image');
@@ -71,9 +63,20 @@ export const createApp = async (appData) => {
         imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${token}`
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
             }
         });
+        const request = await axios.post(`${BASE_LINK}/app`, {
+            name,
+            description,
+            categorie,
+            logo: renamedLogo.name,
+            inter: renamedInterface.name
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return request.data;
     } catch (error) {
         return error
@@ -98,19 +101,6 @@ export const createShortcut= async (softwareData) => {
         )
         return addShortcut.data;
     }catch (error) {
-        return error
-    }
-}
-
-export const getImage = async (imageType, imageName) => {
-    try {
-        const request = await axios.get(`${BASE_LINK}/image/${imageType}/${imageName}`, {
-            headers:{
-                "x-api-key": import.meta.env.VITE_APP_API_KEY
-            }
-        })
-        return request.data;
-    } catch (error) {
         return error
     }
 }

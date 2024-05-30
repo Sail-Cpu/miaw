@@ -1,6 +1,6 @@
 import Select from "../../../components/inputs/Select.jsx";
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
-import {allApps, createShortcut, getAllKeys, getImage} from "../../../requests/app.js";
+import {allApps, createShortcut, getAllKeys} from "../../../requests/app.js";
 import Input from "../../../components/inputs/Input.jsx";
 import Button from "../../../components/Button.jsx";
 import {ThemeContext} from "../../../context/ThemeContext.jsx";

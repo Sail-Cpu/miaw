@@ -1,11 +1,10 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {appSelector, appShortcutsSelector} from "../../redux/app/selector.js";
 import Table from "../../components/Table";
 import {getApp} from "../../redux/app/action.js";
 import {currentUserSelector} from "../../redux/auth/selector.js";
-import {getImage} from "../../requests/app.js";
 
 
 const UserSoftware = () => {
@@ -14,21 +13,9 @@ const UserSoftware = () => {
     const dispatch = useDispatch();
 
     const { app_id } = useSelector(appSelector);
-    const {app_name} = useSelector(appSelector);
+    const {app_name, logo} = useSelector(appSelector);
     const shortcuts = useSelector(appShortcutsSelector());
     const { shortcuts: userShortcuts } = useSelector(currentUserSelector);
-
-    const [logoPathName, setLogoPathName] = useState("")
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            let response = await getImage("logo", app_name);
-            if(response.success){
-                setLogoPathName(response.result);
-            }
-        }
-        fetchImage();
-    }, [app_name]);
 
     const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
@@ -58,7 +45,7 @@ const UserSoftware = () => {
             {visibleShortcuts.length > 0 ?
                 <>
                     <div className="user-course-page-header">
-                        <img src={`${BASE_URL}/logo_${logoPathName}`} />
+                        <img src={`${BASE_URL}/${logo}`} />
                         <h1>{app_name}</h1>
                     </div>
                     <Table data={visibleShortcuts} />

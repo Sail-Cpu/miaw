@@ -11,7 +11,7 @@ import {ThemeContext} from "../context/ThemeContext.jsx";
 export const AppDetails = () => {
 
     const {colors, theme} = useContext(ThemeContext);
-    const { app_id, app_name, app_description, app_logo, app_interface } = useSelector(appSelector);
+    const { app_id, app_name, app_description, logo, interface: inter } = useSelector(appSelector);
     const { shortcuts } = useSelector(appShortcutsByChapterSelector(1));
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const AppDetails = () => {
     return(
         <>
             <div className="software-head">
-                <img src={`${BASE_URL}/logo_${app_logo}`} alt="logo" />
+                <img src={`${BASE_URL}/${logo}`} alt="logo" />
             </div>
             <div className="software-hero-banner">
                 <div className="software-hero-banner-content software-hero-banner-left">
@@ -36,7 +36,7 @@ export const AppDetails = () => {
                 <div className="software-hero-banner-content software-hero-banner-right">
                     <div
                         className="software-interface"
-                        style={{backgroundImage: `url(${BASE_URL}/interface_${app_interface})`}}>
+                        style={{backgroundImage: `url(${BASE_URL}/${inter})`}}>
                     </div>
                 </div>
             </div>

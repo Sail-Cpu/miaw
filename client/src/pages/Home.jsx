@@ -8,33 +8,21 @@ import PropTypes from "prop-types";
 import {currentUserSelector} from "../redux/auth/selector.js";
 import {addAppToCollection} from "../redux/auth/action.js";
 import Button from "../components/Button.jsx";
-import {getImage} from "../requests/app.js";
 import {useNavigate} from "react-router-dom";
 
 const AppCard = ({app}) => {
 
     const {theme, colors} = useContext(ThemeContext);
-    const [logoPathName, setLogoPathName] = useState(null);
 
     const navigate = useNavigate();
 
     const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            let response = await getImage("logo", app.app_name);
-            if(response.success){
-                setLogoPathName(`${BASE_URL}/logo_${response.result}`);
-            }
-        }
-        fetchImage();
-    }, [app]);
-
         return(
             <div className="app-card-container" style={{backgroundColor: colors[theme].background}}>
                 <div className="app-card-footer">
                     <div className="app-card-footer-left">
-                        <img src={logoPathName} alt="logo" />
+                        <img src={`${BASE_URL}/${app.logo}`} alt="logo" />
                         <span>{app.app_name}</span>
                     </div>
                     <div className="app-card-footer-right">

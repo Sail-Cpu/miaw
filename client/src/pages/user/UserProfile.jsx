@@ -1,31 +1,17 @@
-import {useEffect, useState} from "react";
-import {getImage} from "../../requests/app.js";
 import {useSelector} from "react-redux";
 import {currentUserSelector} from "../../redux/auth/selector.js";
 
 const UserProfile = () => {
 
-    const [pictureProfile, setPictureProfile] = useState(null);
-
-    const {username, email, job, os} = useSelector(currentUserSelector);
+    const {username, email, job, os, picture} = useSelector(currentUserSelector);
 
     const BASE_URL = `${import.meta.env.VITE_APP_API_URL}/uploads`;
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            let response = await getImage("user", username);
-            if(response.success){
-                setPictureProfile(`${BASE_URL}/${response.result}`);
-            }
-        }
-        fetchImage();
-    }, []);
 
     return (
         <div className="user-profile-page">
             <div className="user-profile-header">
                 <div className="user-profile-header-left">
-                    <div className="picture-profile" style={{backgroundImage: `url(${pictureProfile})`}}></div>
+                    <div className="picture-profile" style={{backgroundImage: `url(${BASE_URL}/${picture})`}}></div>
                 </div>
                 <div className="user-profile-header-right">
                     <h1>{username}</h1>
