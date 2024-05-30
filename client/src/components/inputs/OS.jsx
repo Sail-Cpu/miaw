@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 //Icon
-import linuxWindows from "../../assets/linux_windows.svg";
-import mac from "../../assets/mac.svg";
-import {useContext} from "react";
-import {ThemeContext} from "../../context/ThemeContext.jsx";
+import linuxWindows from "../../assets/linux_windows.png";
+import mac from "../../assets/mac.png";
 
 const OS = (props) => {
 

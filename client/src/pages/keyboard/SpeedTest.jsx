@@ -163,7 +163,11 @@ const SpeedTest = () => {
     }
 
     const getData = async () => {
-        fetch(`${import.meta.env.VITE_APP_API_URL}/speed-line`).
+        fetch(`${import.meta.env.VITE_APP_API_URL}/speed-line`, {
+            headers: {
+                "x-api-key": import.meta.env.VITE_APP_API_KEY
+            }
+        }).
         then(res => res.json())
             .then(data => {
                 let allLine = [];
