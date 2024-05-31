@@ -1,7 +1,6 @@
 //Components
 import SideBar from "../components/navigations/SideBar.jsx";
 import {Outlet, useNavigate} from "react-router-dom";
-import HeaderNav from "../components/navigations/HeaderNav.jsx";
 import {useSelector} from "react-redux";
 import {isLoggedInSelector} from "../redux/auth/selector.js";
 import {useEffect} from "react";
@@ -13,13 +12,8 @@ const Miaw = () => {
     const isLoggedIn = useSelector(isLoggedInSelector);
 
     useEffect(() => {
-        !isLoggedIn && navigate('/login')
+        !isLoggedIn && navigate('/landing')
     }, [])
-
-    const disconnect = () => {
-        localStorage.removeItem("persist:root");
-        navigate("/login");
-    }
 
     return(
         <div className="miaw">

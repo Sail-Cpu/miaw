@@ -6,13 +6,13 @@
     width: 100%;
   }
   .picture-profile{
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     background-size: cover;
     border-radius: 50px;
+    margin-right: 10px;
   }
   .user-profile-header-right{
-    padding: 20px;
     h1{
       font-size: 80px;
       color: var(--color-primary);
@@ -24,6 +24,27 @@
     h3{
       font-size: 25px;
       font-weight: 100;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .user-profile-page{
+    .user-profile-header{
+      flex-direction: column;
+    }
+    .user-profile-header-right{
+      h1{
+        font-size: 60px;
+        margin: 10px 0;
+      }
+    }
+    .user-profile-content{
+      text-align: center;
+      h3{
+        font-size: 18px;
+        font-weight: 100;
+      }
     }
   }
 }

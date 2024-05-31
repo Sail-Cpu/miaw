@@ -114,7 +114,6 @@
     flex-wrap: wrap
   }
 }
-
 .app-tab{
   display: flex;
   align-items: center;
@@ -131,6 +130,24 @@
     margin-right: 5px;
   }
 }
+
+@media screen and (max-width: 800px) {
+  .app-modal-container{
+    .modal-content-all-app{
+      justify-content: center;
+    }
+  }
+  .app-tab{
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .app-modal-container{
+    padding-left: 0;
+  }
+}
+
 
 .app-tab:hover{
   background-color: var(--color-tab-hover);
