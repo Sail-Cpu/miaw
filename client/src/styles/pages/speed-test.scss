@@ -41,10 +41,18 @@
       }
     }
   }
+  .unavailable-page{
+    display: none;
+  }
   @media screen and (max-width: 1050px){
-      .speed-line{
-        width: 100%;
-      }
+    .speed-line{
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 800px){
+    .unavailable-page{
+      display: flex;
+    }
   }
   .error-block{
     position: absolute;

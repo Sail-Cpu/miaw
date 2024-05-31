@@ -13,6 +13,7 @@ import Input from "../components/inputs/Input.jsx";
 import Button from "../components/Button.jsx";
 import {StatBlock, EndModal} from "./keyboard/SpeedTest.jsx";
 import {ThemeContext} from "../context/ThemeContext.jsx";
+import Unavailable from "./Unavailable.jsx";
 
 const CustomizedTimeline = (props) => {
 
@@ -361,6 +362,7 @@ const KnowledgeTest = () => {
                     />
                 </div>
             }
+            <Unavailable text="This page is not available on mobile" />
         </div>
     )
 }

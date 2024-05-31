@@ -3,6 +3,7 @@ import {useContext, useEffect, useReducer, useState} from "react";
 import { CircularProgress } from '@chakra-ui/react'
 import PropTypes from "prop-types";
 import {ThemeContext} from "../../context/ThemeContext.jsx";
+import Unavailable from "../Unavailable.jsx";
 
 /*const text = [
     "The",
@@ -338,6 +339,7 @@ const SpeedTest = () => {
                             />
                     </div>
             }
+            <Unavailable text="This page is not available on mobile"/>
         </div>
     )
 }

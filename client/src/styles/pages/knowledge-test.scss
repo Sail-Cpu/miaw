@@ -69,4 +69,25 @@
       margin-top: 30px;
     }
   }
+  .unavailable-page{
+    left: 0;
+    display: none;
+  }
+  @media screen and (max-width: 800px) {
+    .unavailable-page{
+      padding-left: 105px;
+      display: flex;
+    }
+    .knowledge-test-left{
+      display: none;
+    }
+    .knowledge-test-right{
+      display: none;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .unavailable-page{
+      padding-left: 0;
+    }
+  }
 }
