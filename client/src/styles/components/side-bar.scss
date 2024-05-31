@@ -129,3 +129,9 @@
     }
   }
 }
+
+@media screen and (max-width: 550px){
+  .side-bar-container{
+    display: none;
+  }
+}

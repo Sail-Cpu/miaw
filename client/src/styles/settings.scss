@@ -47,6 +47,12 @@ a{
   }
 }
 
+@media screen and (max-width: 550px){
+  .miaw-page{
+    padding-left: 0;
+  }
+}
+
 /* Largeur de la barre de défilement */
 ::-webkit-scrollbar {
   width: 5px;

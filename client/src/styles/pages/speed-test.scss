@@ -41,6 +41,11 @@
       }
     }
   }
+  @media screen and (max-width: 1050px){
+      .speed-line{
+        width: 100%;
+      }
+  }
   .error-block{
     position: absolute;
     padding: 5px;
