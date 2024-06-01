@@ -24,4 +24,3 @@ dist-ssr
 *.sln
 *.sw?
 /server/public/uploads/
-/client/.env
