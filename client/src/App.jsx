@@ -22,6 +22,8 @@ import LandingPage from "./pages/LandingPage.jsx";
 
 function App() {
 
+    console.log(import.meta.env.MODE)
+
   const protectedRoute = () => {
     return(
           <Route path="/" element={<Miaw />}>

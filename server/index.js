@@ -27,6 +27,8 @@ app.use(speedRouter);
 app.use(imageRouter);
 app.use(keys);
 
-app.listen(3005, () => {
-    console.log("The server is running on port 3005.");
+const Port = process.env.PORT || 3005;
+
+app.listen(Port, () => {
+    console.log(`The server is running on port ${Port}`);
 })
