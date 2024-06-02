@@ -22,26 +22,30 @@ function getFileExtension(filename) {
 
 export const register = async (userData) => {
     const {username, email, password, os, job, image} = userData;
-
     if(image && username.length > 0 && email.length > 0 && password.length > 0 && os.length > 0 && job !== 0){
 
         try{
             const formData = new FormData();
             const renamedFile = new File([image], `user_${username.replaceAll(' ', '_').toLowerCase()}.${getFileExtension(image.name)}`);
             formData.append('image', renamedFile);
-            const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    "x-api-key": import.meta.env.VITE_APP_API_KEY
-                }
-            });
+            let fileName = renamedFile.name;
+            try{
+                const imageResponse = await axios.post(`${BASE_LINK}/upload`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        "x-api-key": import.meta.env.VITE_APP_API_KEY
+                    }
+                });
+            }catch(error){
+                fileName = "no_exist.jpg";
+            }
             const request = await axios.post(`${BASE_LINK}/signup`, {
                 username,
                 email,
                 password,
                 os,
                 job,
-                picture: renamedFile.name
+                picture: fileName
             }, {
                 headers: {
                     "x-api-key": import.meta.env.VITE_APP_API_KEY
@@ -49,7 +53,7 @@ export const register = async (userData) => {
             })
             return request.data;
         }catch (error){
-            return error?.response?.data
+            return {success: false, message: error?.response?.data}
         }
     }else{
         return {success: false, message: "all fields must be completed"}
