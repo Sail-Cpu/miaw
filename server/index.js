@@ -2,9 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path"
-import { fileURLToPath } from 'url'; // Importez la fonction fileURLToPath pour convertir une URL en chemin de fichier
+import { fileURLToPath } from 'url'; 
 
-const __filename = fileURLToPath(import.meta.url); // Obtenez le chemin du fichier actuel
+const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 //router
 import userRouter from "./router/users/route.js";
