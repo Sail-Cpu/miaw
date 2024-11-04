@@ -9,6 +9,8 @@ services:
       - "5173:5173"
     env_file:
       - ./client/.env
+    volumes:
+      - ./client/public/uploads:/usr/share/nginx/html/uploads
     image: ${DOCKER_USERNAME}/miaw-front:latest
   db:
     image: postgres:latest
