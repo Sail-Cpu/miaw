@@ -1,0 +1,44 @@
+name: Deploy 🚀
+
+on:
+  push:
+    branches:
+      - deploy
+  pull_request: 
+    branches:
+      - deploy
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      # Step 4: Create .env file from secrets (if needed)
+      - name: Create .env file from secrets
+        run: |
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env
+          echo "API_SECRET_KEY=${{ secrets.API_SECRET_KEY }}" >> ./server/.env
+          echo "API_URL=${{ secrets.API_URL }}" >> ./server/env
+          echo "PORT=${{ secrets.PORT }}" >> ./server/.env
+          echo "API_KEY=${{ secrets.API_KEY }}" >> ./server/.env
+          echo "VITE_APP_API_URL=${{ secrets.VITE_APP_API_URL }}" >> ./client/.env
+          echo "VITE_APP_API_KEY=${{ secrets.VITE_APP_API_KEY }}" >> ./client/.env
+
+      # Step 5: Build and Push each service defined in docker-compose.yml
+      - name: Build and Push Docker Compose services
+        run: |
+          docker compose -f docker-compose.prod.yml build
+          docker compose -f docker-compose.prod.yml push
