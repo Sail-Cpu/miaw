@@ -9,6 +9,7 @@ services:
       - "5173:5173"
     env_file:
       - ./client/.env
+    image: ${DOCKER_USERNAME}/miaw-front:latest
   db:
     image: postgres:latest
     environment:
@@ -29,3 +30,4 @@ services:
       - ./server/.env
     depends_on:
       - db
+    image: ${DOCKER_USERNAME}/miaw-back:latest
