@@ -40,5 +40,5 @@ jobs:
       # Step 5: Build and Push each service defined in docker-compose.yml
       - name: Build and Push Docker Compose services
         run: |
-          docker compose -f docker-compose.yml build
-          docker compose -f docker-compose.yml push
+          docker compose -f docker-compose.prod.yml build
+          docker compose -f docker-compose.prod.yml push
