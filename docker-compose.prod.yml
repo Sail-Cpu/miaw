@@ -6,7 +6,7 @@ services:
       context: ./client
       dockerfile: Dockerfile.prod
     ports:
-      - "8100:5173"
+      - "5173:5173"
     env_file:
       - ./client/.env
     volumes:
