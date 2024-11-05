@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - "8100:80"
-    env_file:
-      - ./client/.env
     volumes:
       - ./client/public/uploads:/usr/share/nginx/html/uploads
     image: ${DOCKER_USERNAME}/miaw-front:latest
@@ -28,8 +26,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3005:3005"
-    env_file:
-      - ./server/.env
     depends_on:
       - db
     image: ${DOCKER_USERNAME}/miaw-back:latest
