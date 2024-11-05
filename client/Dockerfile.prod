@@ -8,9 +8,6 @@ RUN npm install
 
 COPY . .
 
-ENV VITE_APP_API_URL=${VITE_APP_API_URL}
-ENV VITE_APP_API_KEY=${VITE_APP_API_KEY}
-
 RUN npm run build
 
 FROM nginx:alpine
