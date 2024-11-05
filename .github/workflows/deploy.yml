@@ -26,6 +26,11 @@ jobs:
       # Step 4: Create .env file from secrets (if needed)
       - name: Create .env file from secrets
         run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+          echo "VITE_APP_API_KEY=${{ secrets.VITE_APP_API_KEY }}" >> ./client/.env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env
           echo "API_SECRET_KEY=${{ secrets.API_SECRET_KEY }}" >> ./server/.env
           echo "API_URL=${{ secrets.API_URL }}" >> ./server/env
