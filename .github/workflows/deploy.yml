@@ -37,7 +37,7 @@ jobs:
           echo "VITE_APP_API_URL=http://backend:3005" >> ./client/.env
           echo "VITE_APP_API_KEY=${{ secrets.VITE_APP_API_KEY }}" >> ./client/.env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "DOCKER_TEST=kolomuani" >> .env
+          echo "DOCKER_TEST=kolomuani" >> ./client/.env
 
       # Step 5: Build and Push each service defined in docker-compose.yml
       - name: Build and Push Docker Compose services
