@@ -1,7 +1,6 @@
 import express from "express";
 import {PrismaClient} from "@prisma/client";
 import authMiddleware, {apiKeyMiddleware} from "../auth.js";
-import axios from "axios";
 
 const router = express.Router();
 

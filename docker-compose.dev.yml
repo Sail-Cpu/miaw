@@ -26,6 +26,6 @@ services:
     ports:
       - "3005:3005"
     env_file:
-      - ./server/.env
+      - ./server/.env.development
     depends_on:
       - db

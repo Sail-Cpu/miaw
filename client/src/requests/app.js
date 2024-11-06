@@ -6,7 +6,7 @@ export const allApps = async () => {
         const request = await axios.get(`${BASE_LINK}/apps`, {
             headers:{
                 "x-api-key": import.meta.env.VITE_APP_API_KEY
-            }
+            } 
         })
         return request.data;
     }catch (error) {

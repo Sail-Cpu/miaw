@@ -24,3 +24,9 @@ dist-ssr
 *.sln
 *.sw?
 /server/public/uploads/
+
+/server/.env.development
+/server/.env.production
+
+/client/.env.development
+/client/.env.production
