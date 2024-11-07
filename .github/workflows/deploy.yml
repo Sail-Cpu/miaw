@@ -58,9 +58,9 @@ jobs:
             echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
             
             export "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
-            export "POSTGRES_USER=${{ secrets.POSTGRES_USER }}"
-            export "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}"
-            export "POSTGRES_DB=${{ secrets.POSTGRES_DB }}"
+            export "POSTGRES_USER=sofiane"
+            export "POSTGRES_PASSWORD=moi"
+            export "POSTGRES_DB=thecat"
             
             cd /var/www/miaw
             docker compose -f docker-compose.prod.yml pull 
