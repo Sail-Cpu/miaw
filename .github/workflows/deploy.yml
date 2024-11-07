@@ -27,9 +27,9 @@ jobs:
       - name: Create .env file from secrets
         run: |
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "POSTGRES_USER=sofiane" >> .env
-          echo "POSTGRES_PASSWORD=moi" >> .env
-          echo "POSTGRES_DB=thecat" >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
           echo "VITE_APP_API_URL=${{ secrets.VITE_APP_API_URL }}" >> ./client/.env.production
           echo "VITE_APP_API_KEY=${{ secrets.VITE_APP_API_KEY }}" >> ./client/.env.production
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env.production
@@ -57,9 +57,9 @@ jobs:
             echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
             
             export "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
-            export "POSTGRES_USER=sofiane"
-            export "POSTGRES_PASSWORD=moi"
-            export "POSTGRES_DB=thecat"
+            export "POSTGRES_USER=${{ secrets.POSTGRES_USER }}"
+            export "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}"
+            export "POSTGRES_DB=${{ secrets.POSTGRES_DB }}"
             
             cd /var/www/miaw
             docker compose -f docker-compose.prod.yml pull 
