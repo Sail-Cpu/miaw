@@ -34,7 +34,6 @@ jobs:
           echo "VITE_APP_API_KEY=${{ secrets.VITE_APP_API_KEY }}" >> ./client/.env.production
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> ./server/.env.production
           echo "API_SECRET_KEY=${{ secrets.API_SECRET_KEY }}" >> ./server/.env.production
-          echo "API_SECRET_KEY=${{ secrets.API_SECRET_KEY }}" >> ./server/.env.production
           echo "API_URL=${{ secrets.API_URL }}" >> ./server/.env.production
           echo "PORT=${{ secrets.PORT }}" >> ./server/.env.production
           echo "API_KEY=${{ secrets.API_KEY }}" >> ./server/.env.production
