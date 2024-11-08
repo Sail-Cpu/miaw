@@ -30,6 +30,8 @@ services:
       - "3005:3005"
     env_file:
       - ./server/.env.production
+    volumes:
+      - ./server/uploads:/usr/share/nginx/html/uploads
     depends_on:
       - db
     image: ${DOCKER_USERNAME}/miaw-back:latest
